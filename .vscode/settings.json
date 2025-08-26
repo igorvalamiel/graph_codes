@@ -1,6 +1,7 @@
 {
     "C_Cpp.default.compilerPath": "C:/MinGW/bin/g++.exe",
     "files.associations": {
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "iostream": "cpp"
     }
 }
