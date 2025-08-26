@@ -10,7 +10,7 @@ struct graph {
     /*graph's info*/
     int n = 0; //number of vectors
     int m = graph_edges.size(); //number of edges
-    int G_min = n, G_max = 0, G_med = 0, Med_g = 0; //maximum, minimum, medium and median of the degrees
+    int G_min = 0, G_max = 0, G_med = 0, Med_g = 0; //maximum, minimum, medium and median of the degrees
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
 
     /*Setting type of structure*/
@@ -58,20 +58,14 @@ struct graph {
     }
 
     void getinfo() {
-
-        cout << '\n';
-        for (auto v : G_list){
-            cout << v << ' ';
-        }
-        cout << '\n';
-
+        G_min = n; //seting G_min for the max value (the biggest degree a vertex can have is n-1, that's why I settle it n)
         for (int i=1; i<=n; i++){
             int value = G_list[i];
-            if (value < G_min) G_min = value;
-            if (value > G_max) G_max = value;
-            Med_g += value;
+            if (value < G_min) G_min = value; //getting lowest degree
+            if (value > G_max) G_max = value; //getting highest degree
+            G_med += value;
         }
-        Med_g /= n;
+        G_med = G_med / n; //getting medium degree
     }
 
     /*Creating output grafics*/
