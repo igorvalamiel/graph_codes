@@ -10,7 +10,7 @@ struct graph {
     /*graph's info*/
     int n = 0; //number of vectors
     int m = graph_edges.size(); //number of edges
-    int G_min = 0, G_max = 0, G_med = 0, Med_g = 0; //maximum, minimum, medium and median of the degrees
+    int G_min = 0, G_max = 0, G_med = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
 
     /*Setting type of structure*/
@@ -56,7 +56,18 @@ struct graph {
             if (value > G_max) G_max = value; //getting highest degree
             G_med += value;
         }
+        
         G_med = G_med / n; //getting medium degree
+        
+        //creating a copy of G_list to find the median
+        vector <int> Copy_G_list; 
+        for (int i=1; i<=n; i++) {Copy_G_list.push_back(G_list[i]);}
+
+        sort(Copy_G_list.begin(), Copy_G_list.end()); //sorting the copy list
+        
+        //getting the median
+        if (n % 2 == 1) {Medi_g = Copy_G_list[(n/2)+1];} //if the number of vertexes are even
+        else {Medi_g = (Copy_G_list[(n/2)-1] + Copy_G_list[n/2]) / 2;} //if the number of vertexes are odd
     }
 
     /*Creating output grafics*/
@@ -110,11 +121,13 @@ int main() {
     test.graph_edges = edges;
     test.n = biggest;
 
+    
     test.start();
     test.getinfo();
     test.print();
-    cout << "\n" << test.dt << " ms\n";
-    cout << test.G_max << ' ' << test.G_min << ' ' << test.G_med << "\n";
+    cout << "\nExecution Time: " << test.dt << " ms\n";
+    cout << "Max G: " << test.G_max << "\nMin G: " << test.G_min << "\n";
+    cout << "Medium G: " << test.G_med << "\nMedian G: " << test.Medi_g << "\n"; 
 
     return 0;
 }
