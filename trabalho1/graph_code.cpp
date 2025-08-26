@@ -10,8 +10,8 @@ struct graph {
     /*graph's info*/
     int n = 0; //number of vectors
     int m = graph_edges.size(); //number of edges
-    int G_min, G_max, G_med, Med_g; //maximum, minimum, medium and mediana of the degrees
-    int dt; //execution time to create the structure
+    int G_min, G_max, G_med, Med_g; //maximum, minimum, medium and median of the degrees
+    double dt = 0; //execution time to create the structure. Only not 0 when start() executed
 
     /*Setting type of structure*/
     int ListOrMat = 0;
@@ -20,30 +20,50 @@ struct graph {
     vector <vector <int>> matrix; // matrix
     vector<int> linklist; //linked list
 
+    //Support structures and variables
+    vector <int> G_list;
+
     void start() {
         /*matrix estructure*/ 
         if (ListOrMat){
+            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
             /*creating marix nxn with 0's*/
-
-            //OBS VER COM PROFESSOR SE É MELHOR COMEÇAR NO 0 OU NO 1
             for (int i=0; i<=n; i++){
                 vector <int> support;
                 for (int j=0; j<=n; j++){support.push_back(0);}
                 matrix.push_back(support);
+                G_list.push_back(0);
             }
 
             /*Placing edges*/
             for (auto item : graph_edges){
                 matrix[item[0]][item[1]] = 1;
                 matrix[item[1]][item[0]] = 1;
+                G_list[item[0]] += 1;
+                G_list[item[1]] += 1;
             }
+            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+            chrono::duration<double,std::milli> duration = end_time - start_time;
+            dt = duration.count(); //em ms
         }
 
         /*Linked list estructure*/
         else {
+            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
             int nada;
+            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+            chrono::duration<double,std::milli> duration = end_time - start_time;
+            dt = duration.count(); //em ms
         }
-        
+    }
+
+    void getinfo() {
+        for (auto value : G_list){
+            if (value < G_min) G_min = value;
+            if (value > G_max) G_max = value;
+            Med_g += value;
+        }
+        Med_g /= n;
     }
 
     /*Creating output grafics*/
@@ -61,7 +81,9 @@ struct graph {
     }
 };
 
+//-------------------------------------------------------------------------------------------------------------------------
 
+//-------------------------------------------------------------------------------------------------------------------------
 int main() {
 
     /*getting the number of lines*/
@@ -95,6 +117,7 @@ int main() {
 
     test.start();
     test.print();
+    cout << "\n" << test.dt << " ms\n";
 
 
 /*
