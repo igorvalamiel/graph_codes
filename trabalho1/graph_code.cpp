@@ -21,12 +21,14 @@ struct graph {
     vector<int> linklist; //linked list
 
     void start() {
-        /*matrix estructure*/
+        /*matrix estructure*/ 
         if (ListOrMat){
             /*creating marix nxn with 0's*/
-            for (int i=0; i<n; i++){
+
+            //OBS VER COM PROFESSOR SE É MELHOR COMEÇAR NO 0 OU NO 1
+            for (int i=0; i<=n; i++){
                 vector <int> support;
-                for (int j=0; j<n; j++){support.push_back(0);}
+                for (int j=0; j<=n; j++){support.push_back(0);}
                 matrix.push_back(support);
             }
 
@@ -49,11 +51,11 @@ struct graph {
         // if is a matrix
         if (ListOrMat){
             for (auto line : matrix){
-                cout << '|  ';
+                cout << "|  ";
                 for (auto item : line) {
-                    cout << item << '   ';
+                    cout << item << "   ";
                 }
-                cout << '|\n';
+                cout << "|\n";
             }
         }
     }
@@ -91,15 +93,18 @@ int main() {
     test.graph_edges = edges;
     test.n = biggest;
 
+    test.start();
     test.print();
 
 
-
-    /*printing the lines*/
+/*
+    //printing the lines
     cout << '\n';
     for (int i=0; i<nlines; i++){
         cout << edges[i][0] << "~>" << edges[i][1] << '\n';
     }
 
     return 0;
+*/
+
 }
