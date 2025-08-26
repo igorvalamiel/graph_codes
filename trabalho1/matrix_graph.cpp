@@ -46,15 +46,6 @@ struct graph {
             chrono::duration<double,std::milli> duration = end_time - start_time;
             dt = duration.count(); //em ms
         }
-
-        /*Linked list estructure*/
-        else {
-            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
-            int nada;
-            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
-            chrono::duration<double,std::milli> duration = end_time - start_time;
-            dt = duration.count(); //em ms
-        }
     }
 
     void getinfo() {
@@ -124,14 +115,6 @@ int main() {
     test.print();
     cout << "\n" << test.dt << " ms\n";
     cout << test.G_max << ' ' << test.G_min << ' ' << test.G_med << "\n";
-
-/*
-    //printing the lines
-    cout << '\n';
-    for (int i=0; i<nlines; i++){
-        cout << edges[i][0] << "~>" << edges[i][1] << '\n';
-    }
-*/
 
     return 0;
 }
