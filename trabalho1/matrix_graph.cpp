@@ -13,9 +13,6 @@ struct graph {
     int G_min = 0, G_max = 0, G_med = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
 
-    /*Setting type of structure*/
-    int ListOrMat = 0;
-
     /*Creating the basics structures*/
     vector <vector <int>> matrix; // matrix
     vector<int> linklist; //linked list
@@ -25,27 +22,25 @@ struct graph {
 
     void start() {
         /*matrix estructure*/ 
-        if (ListOrMat){
-            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
-            /*creating marix nxn with 0's*/
-            for (int i=0; i<=n; i++){
-                vector <int> support;
-                for (int j=0; j<=n; j++){support.push_back(0);}
-                matrix.push_back(support);
-                G_list.push_back(0);
-            }
-
-            /*Placing edges*/
-            for (auto item : graph_edges){
-                matrix[item[0]][item[1]] = 1;
-                matrix[item[1]][item[0]] = 1;
-                G_list[item[0]] += 1;
-                G_list[item[1]] += 1;
-            }
-            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
-            chrono::duration<double,std::milli> duration = end_time - start_time;
-            dt = duration.count(); //em ms
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+        /*creating marix nxn with 0's*/
+        for (int i=0; i<=n; i++){
+            vector <int> support;
+            for (int j=0; j<=n; j++){support.push_back(0);}
+            matrix.push_back(support);
+            G_list.push_back(0);
         }
+
+        /*Placing edges*/
+        for (auto item : graph_edges){
+            matrix[item[0]][item[1]] = 1;
+            matrix[item[1]][item[0]] = 1;
+            G_list[item[0]] += 1;
+            G_list[item[1]] += 1;
+        }
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
     }
 
     void getinfo() {
@@ -70,17 +65,20 @@ struct graph {
         else {Medi_g = (Copy_G_list[(n/2)-1] + Copy_G_list[n/2]) / 2;} //if the number of vertexes are odd
     }
 
+    //Implementing BFS
+    void BFS(int s){
+        queue <int> unvisited;
+    }
+    //representation of the tree: [(parent, level), (parent, level), ...]
+
     /*Creating output grafics*/
     void print(){
-        // if is a matrix
-        if (ListOrMat){
-            for (auto line : matrix){
-                cout << "|  ";
-                for (auto item : line) {
-                    cout << item << "   ";
-                }
-                cout << "|\n";
+        for (auto line : matrix){
+            cout << "|  ";
+            for (auto item : line) {
+                cout << item << "   ";
             }
+            cout << "|\n";
         }
     }
 
@@ -110,14 +108,8 @@ int main() {
         if (b > biggest) biggest = b;
     }
 
-    /*
-    TO CREATE A GRAPH USING A MATRIX DATA STRUCTURE, YOU SHOULD CALL:
-        graph.ListOrMat = 1;
-    */
-
 
     graph test;
-    test.ListOrMat = 1;
     test.graph_edges = edges;
     test.n = biggest;
 
