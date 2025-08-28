@@ -66,11 +66,11 @@ struct graph {
 
     //Implementing BFS
     void BFS(int s){
-        vector <int> visit_stats(n, 0); //creating a vector to mark if the vertex was already visited
+        vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         queue <int> Q; //creating the queue for getting the next item to be visited
 
-        vector <int> parent(n, 0); //vector to register the parent of each vertex
-        vector <int> level(n, 0); //vector to register the level of each vertex
+        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+        vector <int> level(n+1, 0); //vector to register the level of each vertex
 
         visit_stats[s] = 1; //marking s as visited
         Q.push(s); //placing s in the queue
@@ -80,8 +80,7 @@ struct graph {
             Q.pop(); //deleting the head
 
             for (int i=1; i<=n; i++){ //the matrix representation uses matrix[v][i] to say if i is a neighbor of v
-                int w = matrix[v][i]; //verifying the neighborhood
-                if (w != 0){ //if they are neighbors
+                if (matrix[v][i] != 0){ //if they are neighbors
                     if (visit_stats[i] == 0){ //if not visited yet
                         visit_stats[i] = 1; //mark as visited
                         parent[i] = v; //getting parent
@@ -90,6 +89,11 @@ struct graph {
                     }
                 }
             }
+        }
+
+        cout << '\n';
+        for (int i=1; i<=n; i++){
+            cout << "vertex:" << i << "(level " << level[i] << ") ~> " << parent[i] << '\n';
         }
     }
     //representation of the tree: [(parent, level), (parent, level), ...]
@@ -143,6 +147,11 @@ int main() {
     cout << "\nExecution Time: " << test.dt << " ms\n";
     cout << "Max G: " << test.G_max << "\nMin G: " << test.G_min << "\n";
     cout << "Medium G: " << test.G_med << "\nMedian G: " << test.Medi_g << "\n"; 
+    for (int i=1; i<=5; i++){
+        test.BFS(i);
+        cout << "-----------------------------\n";
+    }
+    
 
     return 0;
 }
