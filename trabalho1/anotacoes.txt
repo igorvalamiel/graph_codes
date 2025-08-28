@@ -1,0 +1,42 @@
+DUVIDAS
+    - grau médio tem que ser float?
+    - é pra marcar a matriz/lista começando no 0 ou no 1?
+    - o tempo de execução conta os "atalhos" para calcular as coisas?
+    - pra achar a media eu preciso necessariamente ordenar uma lista? (mas se eu ordenar eu perco a lista)
+    - posso usar o próprio sort do c++ ou preciso fazer o meu?
+
+CHECK-LIST
+    - Entrada:
+        - Leitura de arquivo de entrada
+        @- Processamento de entrada
+    - Saída:
+        @- MATRIZ:
+            @- Numero de vertices
+            @- Numero de arestas
+            @- Grau maximo
+            @- Grau minimo
+            @- Grau medio
+            @- Mediana de Grau
+        - LISTA
+            - Numero de vertices
+            - Numero de arestas
+            - Grau maximo
+            - Grau minimo
+            - Grau medio
+            - Mediana de Grau
+    - Representacao
+        @- MATRIZ
+        - LISTA
+    - Busca em Grafos
+        @- MATRIZ
+            @- BFS
+            @- DFS
+        - LISTA
+            - BFS
+            - DFS
+    - Distancias e Diametro
+        - MATRIZ
+        - LISTA
+    - Componentes Conexas
+        - MATRIZ
+        - LISTA
