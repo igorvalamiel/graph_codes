@@ -141,8 +141,21 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting the distance between the vertex a & b (obs: the distance between two vertex )*/
     int dist(int a, int b){
-        vector <vector <int>> bfs_res = BFS(a);
+        vector <vector <int>> bfs_res = BFS(a); //creating a vector to receive the BFS values
         return bfs_res[b][1];
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Getting the diameter of the graph*/
+    int diameter(){
+        int max = 0; //setting auxiliar variable to find the maximum (minimun) distances
+        for (int i=1; i<=n; i++){ //running a BFS for each vertex
+            vector <vector <int>> bfs_res = BFS(i);
+            for (vector <int> v : bfs_res){ //finding the longest path in the BFS
+                if (v[1] > max) max = v[1];
+            }
+        }
+        return max;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -204,7 +217,12 @@ int main() {
     }
     */
 
-    cout << test.dist(1,5) << '\n';
+    for (int i=1; i<=5; i++){
+        cout << test.dist(1,i) << ' ';
+    }
+    cout << '\n';
+
+    cout << test.diameter() << '\n';
 
     return 0;
 }

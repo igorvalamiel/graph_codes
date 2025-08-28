@@ -4,6 +4,7 @@ DUVIDAS
     - o tempo de execução conta os "atalhos" para calcular as coisas?
     - pra achar a media eu preciso necessariamente ordenar uma lista? (mas se eu ordenar eu perco a lista)
     - posso usar o próprio sort do c++ ou preciso fazer o meu?
+    - Diametro tem que ser o mais otimizado possível?
 
 CHECK-LIST
     - Entrada:
@@ -35,7 +36,7 @@ CHECK-LIST
             - BFS
             - DFS
     - Distancias e Diametro
-        - MATRIZ
+        @- MATRIZ
         - LISTA
     - Componentes Conexas
         - MATRIZ
