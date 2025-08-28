@@ -15,6 +15,9 @@ struct graph {
 
     /*Creating the basics structures*/
     vector <vector <int>> matrix; // matrix
+    vector <vector <int>> CC; // conected components
+    vector <int> sizesCC; //sizes of each CC 
+    int quantCC = CC.size(); // quantity of CC
 
     //Support structures and variables
     vector <int> G_list;
@@ -156,6 +159,15 @@ struct graph {
             }
         }
         return max;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Getting all conected components*/
+    void ConctComp(){
+        vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+        stack <int> P; //creating the stack for getting the next item to be visited
+
+        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
