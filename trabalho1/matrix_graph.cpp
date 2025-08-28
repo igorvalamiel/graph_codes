@@ -68,7 +68,7 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     //Implementing BFS
-    void BFS(int s){
+    vector <vector <int>> BFS(int s){
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         queue <int> Q; //creating the queue for getting the next item to be visited
 
@@ -94,15 +94,17 @@ struct graph {
             }
         }
 
-        cout << '\n';
-        for (int i=1; i<=n; i++){
-            cout << "vertex:" << i << "(level " << level[i] << ") ~> " << parent[i] << '\n';
+        vector <vector <int>> ret;
+        for (int i=0; i<=n; i++){
+            vector <int> aux = {parent[i], level[i]};
+            ret.push_back(aux);
         }
+        return ret;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
     //implemneting DFS
-    void DFS(int s){
+    vector <vector <int>> DFS(int s){
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         stack <int> P; //creating the stack for getting the next item to be visited
 
@@ -128,10 +130,19 @@ struct graph {
             }
         }
 
-        cout << '\n';
-        for (int i=1; i<=n; i++){
-            cout << "vertex:" << i << "(level " << level[i] << ") ~> " << parent[i] << '\n';
+        vector <vector <int>> ret;
+        for (int i=0; i<=n; i++){
+            vector <int> aux = {parent[i], level[i]};
+            ret.push_back(aux);
         }
+        return ret;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Getting the distance between the vertex a & b (obs: the distance between two vertex )*/
+    int dist(int a, int b){
+        vector <vector <int>> bfs_res = BFS(a);
+        return bfs_res[b][1];
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -182,11 +193,18 @@ int main() {
     cout << "\nExecution Time: " << test.dt << " ms\n";
     cout << "Max G: " << test.G_max << "\nMin G: " << test.G_min << "\n";
     cout << "Medium G: " << test.G_med << "\nMedian G: " << test.Medi_g << "\n"; 
+    /*
     for (int i=1; i<=5; i++){
-        test.DFS(i);
+        vector <vector <int>> dfs = test.BFS(i);
+        cout << '\n';
+        for (int i=1; i<=5; i++){
+            cout << "vertex:" << i << "(level " << dfs[i][1] << ") ~> " << dfs[i][0] << '\n';
+        }
         cout << "-----------------------------\n";
     }
-    
+    */
+
+    cout << test.dist(1,5) << '\n';
 
     return 0;
 }
