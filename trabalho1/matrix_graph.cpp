@@ -19,6 +19,7 @@ struct graph {
     //Support structures and variables
     vector <int> G_list;
 
+    //-----------------------------------------------------------------------------------------------------------------------
     void start() {
         /*matrix estructure*/ 
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
@@ -42,6 +43,7 @@ struct graph {
         dt = duration.count(); //em ms
     }
 
+    //-----------------------------------------------------------------------------------------------------------------------
     void getinfo() {
         G_min = n; //seting G_min for the max value (the biggest degree a vertex can have is n-1, that's why I settle it n)
         for (int i=1; i<=n; i++){
@@ -64,6 +66,7 @@ struct graph {
         else {Medi_g = (Copy_G_list[(n/2)-1] + Copy_G_list[n/2]) / 2;} //if the number of vertexes are odd
     }
 
+    //-----------------------------------------------------------------------------------------------------------------------
     //Implementing BFS
     void BFS(int s){
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
@@ -96,8 +99,40 @@ struct graph {
             cout << "vertex:" << i << "(level " << level[i] << ") ~> " << parent[i] << '\n';
         }
     }
-    //representation of the tree: [(parent, level), (parent, level), ...]
 
+    //-----------------------------------------------------------------------------------------------------------------------
+    //implemneting DFS
+    void DFS(int s){
+        vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+        stack <int> P; //creating the stack for getting the next item to be visited
+
+        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+        vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+        P.push(s); //adding s to the stack
+
+        while (!P.empty()){
+            int u = P.top(); //getting the highest element
+            P.pop(); //removing the highest element
+            if (visit_stats[u] == 0){
+                visit_stats[u] = 1;
+                for (int j=1; j<=n; j++){
+                    if (matrix[u][j] != 0){
+                        parent[j] = u;
+                        level[j] = level[u] + 1;
+                        P.push(j);
+                    }
+                }
+            }
+        }
+
+        cout << '\n';
+        for (int i=1; i<=n; i++){
+            cout << "vertex:" << i << "(level " << level[i] << ") ~> " << parent[i] << '\n';
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
     /*Creating output grafics*/
     void print(){
         for (auto line : matrix){
@@ -108,8 +143,6 @@ struct graph {
             cout << "|\n";
         }
     }
-
-    //calling comands
 };
 
 //-------------------------------------------------------------------------------------------------------------------------
