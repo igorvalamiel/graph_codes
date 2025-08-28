@@ -114,13 +114,15 @@ struct graph {
         while (!P.empty()){
             int u = P.top(); //getting the highest element
             P.pop(); //removing the highest element
-            if (visit_stats[u] == 0){
-                visit_stats[u] = 1;
-                for (int j=1; j<=n; j++){
+            if (visit_stats[u] == 0){ //verifying if u was already visited
+                visit_stats[u] = 1; //marking u as visited
+                for (int j=n; j>=1; j--){ //looking for the next neighbor
                     if (matrix[u][j] != 0){
-                        parent[j] = u;
-                        level[j] = level[u] + 1;
-                        P.push(j);
+                        if (visit_stats[j] == 0){ //if the neighbor wasn't visited
+                            parent[j] = u; //setting parent
+                            level[j] = level[u] + 1; //setting level
+                            P.push(j); //putting neighbor in the stack
+                        }
                     }
                 }
             }
@@ -181,7 +183,7 @@ int main() {
     cout << "Max G: " << test.G_max << "\nMin G: " << test.G_min << "\n";
     cout << "Medium G: " << test.G_med << "\nMedian G: " << test.Medi_g << "\n"; 
     for (int i=1; i<=5; i++){
-        test.BFS(i);
+        test.DFS(i);
         cout << "-----------------------------\n";
     }
     

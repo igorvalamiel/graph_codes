@@ -28,9 +28,9 @@ CHECK-LIST
         @- MATRIZ
         - LISTA
     - Busca em Grafos
-        - MATRIZ
+        @- MATRIZ
             @- BFS
-            - DFS
+            @- DFS
         - LISTA
             - BFS
             - DFS
