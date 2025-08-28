@@ -15,7 +15,6 @@ struct graph {
 
     /*Creating the basics structures*/
     vector <vector <int>> matrix; // matrix
-    vector<int> linklist; //linked list
 
     //Support structures and variables
     vector <int> G_list;
@@ -67,7 +66,31 @@ struct graph {
 
     //Implementing BFS
     void BFS(int s){
-        queue <int> unvisited;
+        vector <int> visit_stats(n, 0); //creating a vector to mark if the vertex was already visited
+        queue <int> Q; //creating the queue for getting the next item to be visited
+
+        vector <int> parent(n, 0); //vector to register the parent of each vertex
+        vector <int> level(n, 0); //vector to register the level of each vertex
+
+        visit_stats[s] = 1; //marking s as visited
+        Q.push(s); //placing s in the queue
+
+        while (Q.size() > 0){ //while there is any item on the queue
+            int v = Q.front(); //getting the head
+            Q.pop(); //deleting the head
+
+            for (int i=1; i<=n; i++){ //the matrix representation uses matrix[v][i] to say if i is a neighbor of v
+                int w = matrix[v][i]; //verifying the neighborhood
+                if (w != 0){ //if they are neighbors
+                    if (visit_stats[i] == 0){ //if not visited yet
+                        visit_stats[i] = 1; //mark as visited
+                        parent[i] = v; //getting parent
+                        level[i] = level[v] + 1; //setting level
+                        Q.push(i); //placing the neighbor in the queue
+                    }
+                }
+            }
+        }
     }
     //representation of the tree: [(parent, level), (parent, level), ...]
 
