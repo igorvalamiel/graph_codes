@@ -270,15 +270,10 @@ int main() {
 
     cout << test.diameter() << "\n\n";
 
-    vector <vector <int>> CC; // conected components
-    vector <int> sizesCC; //sizes of each CC
-    int quantCC = CC.size(); // quantity of CC
-
-
     cout << test.quantCC << '\n';
     for (int i=1; i<=test.quantCC; i++){
-        cout << "CC " << i << " ~> Size: " << sizesCC[i] << '\n';
-        for (auto item : CC[i]){
+        cout << "CC " << i << " ~> Size: " << test.sizesCC[i] << '\n';
+        for (auto item : test.CC[i]){
             cout << item << " ";
         } cout << '\n';
     }
