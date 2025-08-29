@@ -16,7 +16,7 @@ struct graph {
     /*Creating the basics structures*/
     vector <vector <int>> matrix; // matrix
     vector <vector <int>> CC; // conected components
-    vector <int> sizesCC; //sizes of each CC 
+    vector <int> sizesCC; //sizes of each CC
     int quantCC = CC.size(); // quantity of CC
 
     //Support structures and variables
@@ -165,9 +165,42 @@ struct graph {
     /*Getting all conected components*/
     void ConctComp(){
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
-        stack <int> P; //creating the stack for getting the next item to be visited
+        vector <int> cc_list(n+1, 0); //creating a vector
+        int idCC = 0;
 
-        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+        for (int i=0; i<=n; i++){
+            if (visit_stats[i] == 0){
+                idCC++;
+                stack <int> P;
+                visit_stats[i] = 1;
+                cc_list[i] = idCC;
+
+                while (!P.empty()){
+                    int t = P.top();
+                    P.pop();
+                    for (int j=n; j>=1; j--){
+                        if (matrix[t][j] != 0){
+                            if (visit_stats[j] == 0){
+                                P.push(j);
+                                visit_stats[j] = 1;
+                                cc_list[j] = idCC;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        quantCC = idCC;
+        for (int k=0; k<=idCC; k++) {
+            sizesCC.push_back(0);
+            vector <int> aux;
+            CC.push_back(aux);
+        }
+        for (int l=0; l<=idCC; l++) {
+            sizesCC[cc_list[l]]++;
+            CC[cc_list[l]].push_back(l);
+        }
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -215,6 +248,7 @@ int main() {
     test.start();
     test.getinfo();
     test.print();
+    test.ConctComp();
     cout << "\nExecution Time: " << test.dt << " ms\n";
     cout << "Max G: " << test.G_max << "\nMin G: " << test.G_min << "\n";
     cout << "Medium G: " << test.G_med << "\nMedian G: " << test.Medi_g << "\n"; 
@@ -234,7 +268,20 @@ int main() {
     }
     cout << '\n';
 
-    cout << test.diameter() << '\n';
+    cout << test.diameter() << "\n\n";
+
+    vector <vector <int>> CC; // conected components
+    vector <int> sizesCC; //sizes of each CC
+    int quantCC = CC.size(); // quantity of CC
+
+
+    cout << test.quantCC << '\n';
+    for (int i=1; i<=test.quantCC; i++){
+        cout << "CC " << i << " ~> Size: " << sizesCC[i] << '\n';
+        for (auto item : CC[i]){
+            cout << item << " ";
+        } cout << '\n';
+    }
 
     return 0;
 }
