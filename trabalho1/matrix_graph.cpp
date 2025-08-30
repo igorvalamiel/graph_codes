@@ -17,7 +17,7 @@ struct graph {
     vector <vector <int>> matrix; // matrix
     vector <vector <int>> CC; // conected components
     vector <int> sizesCC; //sizes of each CC
-    int quantCC = CC.size(); // quantity of CC
+    int quantCC = 0; // quantity of CC
 
     //Support structures and variables
     vector <int> G_list;
@@ -163,43 +163,45 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting all conected components*/
-    void ConctComp(){
-        vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
-        vector <int> cc_list(n+1, 0); //creating a vector
-        int idCC = 0;
+    void ConctComp() {
+        // reset in case function is called more than once
+        CC.clear();
+        sizesCC.clear();
+        quantCC = 0;
 
-        for (int i=0; i<=n; i++){
-            if (visit_stats[i] == 0){
-                idCC++;
-                stack <int> P;
-                visit_stats[i] = 1;
-                cc_list[i] = idCC;
+        CC.push_back({});       // índice 0 vazio
+        sizesCC.push_back(0);   // índice 0 vazio
 
-                while (!P.empty()){
-                    int t = P.top();
+        vector<int> visited(n+1, 0);  // visited status for vertices
+
+        for (int start = 1; start <= n; start++) {
+            if (!visited[start]) {
+                // found a new component
+                quantCC++;
+                CC.push_back({});
+                sizesCC.push_back(0);
+
+                stack<int> P;
+                P.push(start);
+                visited[start] = 1;
+
+                while (!P.empty()) {
+                    int u = P.top();
                     P.pop();
-                    for (int j=n; j>=1; j--){
-                        if (matrix[t][j] != 0){
-                            if (visit_stats[j] == 0){
-                                P.push(j);
-                                visit_stats[j] = 1;
-                                cc_list[j] = idCC;
-                            }
+
+                    // add u to current component
+                    CC.back().push_back(u);
+                    sizesCC.back()++;
+
+                    // explore neighbors
+                    for (int v = 1; v <= n; v++) {
+                        if (matrix[u][v] != 0 && !visited[v]) {
+                            visited[v] = 1;
+                            P.push(v);
                         }
                     }
                 }
             }
-        }
-
-        quantCC = idCC;
-        for (int k=0; k<=idCC; k++) {
-            sizesCC.push_back(0);
-            vector <int> aux;
-            CC.push_back(aux);
-        }
-        for (int l=0; l<=idCC; l++) {
-            sizesCC[cc_list[l]]++;
-            CC[cc_list[l]].push_back(l);
         }
     }
 

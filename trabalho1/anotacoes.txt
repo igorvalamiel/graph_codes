@@ -39,5 +39,23 @@ CHECK-LIST
         @- MATRIZ
         - LISTA
     - Componentes Conexas
-        - MATRIZ
+        @- MATRIZ
         - LISTA
+
+
+
+
+
+
+cout << '\n';
+for (auto v : G_list){
+    cout << v << ' ';
+}
+cout << '\n';
+
+
+//printing the lines
+cout << '\n';
+for (int i=0; i<nlines; i++){
+    cout << edges[i][0] << "~>" << edges[i][1] << '\n';
+}
