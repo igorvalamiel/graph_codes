@@ -216,6 +216,19 @@ struct graph {
             cout << "|\n";
         }
     }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Executing the other functions to work properly*/
+    graph(const vector<vector<int>>& edges, int num_vertex){
+        graph_edges = edges;
+        n = num_vertex;
+        m = (int)graph_edges.size();
+
+        start();       // build adjacency matrix + degrees
+        getinfo();     // compute stats
+        ConctComp();   // compute connected components
+    }
+
 };
 
 //-------------------------------------------------------------------------------------------------------------------------
@@ -242,15 +255,12 @@ int main() {
     }
 
 
-    graph test;
+    graph test(edges, biggest);
     test.graph_edges = edges;
     test.n = biggest;
 
-    
-    test.start();
-    test.getinfo();
     test.print();
-    test.ConctComp();
+    
     cout << "\nExecution Time: " << test.dt << " ms\n";
     cout << "Max G: " << test.G_max << "\nMin G: " << test.G_min << "\n";
     cout << "Medium G: " << test.G_med << "\nMedian G: " << test.Medi_g << "\n"; 
