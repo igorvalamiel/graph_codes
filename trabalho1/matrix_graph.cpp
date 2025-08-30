@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <fstream>
 #include <chrono>
 
 using namespace std;
@@ -236,24 +237,29 @@ struct graph {
 //-------------------------------------------------------------------------------------------------------------------------
 int main() {
 
-    /*getting the number of lines*/
-    int nlines; cin >> nlines;
+    //opening the data file
+    ifstream infile("data.txt");
 
-    /*creating the a vector of vectors to keep all edges information*/
+    //getting the number of lines
+    int nlines; infile >> nlines;
+
+    //creating the a vector of vectors to keep all edges information
     vector <vector <int>> edges;
 
-    /*Looking for the biggest number to see the number of vertex*/
+    //Looking for the biggest number to see the number of vertex
     int biggest = 0;
 
-    /*getting all the edges of the graph*/
+    //getting all the edges of the graph
     for (int i=0; i<nlines; i++){
-        int a, b; cin >> a >> b;
+        int a, b; infile >> a >> b;
         vector <int> line = {a, b};
         edges.push_back(line);
         if (a > biggest) biggest = a;
         if (b > biggest) biggest = b;
     }
 
+    //closing the data file
+    infile.close();
 
     graph test(edges, biggest);
     test.graph_edges = edges;
