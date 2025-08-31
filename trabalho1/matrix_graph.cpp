@@ -238,9 +238,13 @@ struct graph {
 //-------------------------------------------------------------------------------------------------------------------------
     /*Making a function to print DFS or BFS*/
     void printSearch(vector <vector <int>> s){
-        cout << "[ ";
+        cout << "Levels: [ ";
         for (auto par : s){
             cout << par[1] << ' ';
+        } cout << "]    ";
+        cout << "|   Parents: [ ";
+        for (auto par : s){
+            cout << par[0] << ' ';
         } cout << "]\n";
     }
 
@@ -289,6 +293,7 @@ int main() {
         for (auto item : test.CC[i]){cout << item << " ";}
         cout << "]\n";
     }
+    cout << '\n';
 
     printSearch(test.BFS(1));
     printSearch(test.DFS(1));
