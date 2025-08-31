@@ -226,6 +226,7 @@ struct graph {
         n = num_vertex;
         m = (int)graph_edges.size();
 
+        //As soon as the structure graph is called, all these functions are also called
         start();
         getinfo();
         ConctComp();
@@ -279,6 +280,8 @@ int main() {
     test.graph_edges = edges;
     test.n = biggest;
 
+
+    //Output model (it should appear in another file just like that)
     cout << "\nNumero de vertices: " << test.n << '\n';
     cout << "Numero de arestas: " << test.m << '\n';
     cout << "Grau minimo: " << test.G_min << '\n';
