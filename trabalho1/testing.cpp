@@ -1,32 +1,29 @@
 #include <bits/stdc++.h>
 #include <fstream>
+#include <string>
 #include <chrono>
 
 using namespace std;
 
+void createFile(int n){
+
+    string fileName = "testFile" + to_string(n) + ".txt";
+
+    ofstream testFile(fileName);
+
+    if (testFile.is_open()){
+        testFile << "Testando essa merda aqui.\n";
+        testFile << "I'm working on this code for " << n << " days"; 
+    }
+}
+
 int main(){
 
-    ifstream infile("data.txt"); //opening the data file
-    
-    int m; //number of edges
-    infile >> m;
+    vector<int> l = {1,2,3,4};
 
-    vector<vector<int>> edges; //vector to get the edges
-
-    //getting the edges
-    for (int i=0; i<m; i++){ 
-        int u, v;
-        infile >> u >> v;
-        edges.push_back({u, v});
+    for (auto i : l){
+        createFile(i);
     }
-
-    infile.close(); //closing the data file
-
-    //printing the vector edges
-    for (auto &edge : edges) {
-            cout << "[" << edge[0] << "," << edge[1] << "] ";
-        }
-        cout << endl;
 
     return 0;
 }
