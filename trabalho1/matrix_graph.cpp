@@ -288,6 +288,9 @@ int main() {
     cout << "Diametro do Grafo: " << test.diam << "\n\n";
     test.print();
     cout << "\nComponentes Conexas (" << test.quantCC << " CC's)\n";
+
+    vector <int> cc_ordem;
+    
     for (int i=1; i<=test.quantCC; i++) {
         cout << "CC " << i << ": (" << test.sizesCC[i] << " vertices) ~ [ ";
         for (auto item : test.CC[i]){cout << item << " ";}
