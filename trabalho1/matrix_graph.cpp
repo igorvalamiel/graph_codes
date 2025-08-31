@@ -166,35 +166,39 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting all conected components*/
     void ConctComp() {
+        //Making atributtes empty
         CC.clear();
         sizesCC.clear();
         quantCC = 0;
 
+        //Placing the first item because the vertex 0 doesn't exist
         CC.push_back({});       
         sizesCC.push_back({0, 0}); //{size, idCC}
 
+        //Marking first vertex as visited
         vector<int> visited(n+1, 0);
 
         for (int start = 1; start <= n; start++) {
             if (!visited[start]) {
-                // found a new component
+                //Checking if found a new component
                 quantCC++;
                 CC.push_back({});
                 sizesCC.push_back({0, quantCC});
 
+                //creating the stack to get the Conected Components
                 stack<int> P;
                 P.push(start);
                 visited[start] = 1;
 
-                while (!P.empty()) {
+                while (!P.empty()) { //While there is no more vertex in the CC
                     int u = P.top();
                     P.pop();
 
-                    // add u to current component
+                    //Add u to current component
                     CC.back().push_back(u);
                     sizesCC.back()[0]++;
 
-                    // explore neighbors
+                    //Explore neighbors
                     for (int v = 1; v <= n; v++) {
                         if (matrix[u][v] != 0 && !visited[v]) {
                             visited[v] = 1;
@@ -204,6 +208,8 @@ struct graph {
                 }
             }
         }
+
+        //sorting the vector to print in decreasing order
         sort(sizesCC.begin(), sizesCC.end());
     }
 
