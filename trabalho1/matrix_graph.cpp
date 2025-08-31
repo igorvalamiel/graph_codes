@@ -18,7 +18,7 @@ struct graph {
     /*Creating the basics structures*/
     vector <vector <int>> matrix; // matrix
     vector <vector <int>> CC; // conected components
-    vector <int> sizesCC; //sizes of each CC
+    vector <vector <int>> sizesCC; //sizes of each CC
     int quantCC = 0; // quantity of CC
 
     //Support structures and variables
@@ -166,22 +166,21 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting all conected components*/
     void ConctComp() {
-        // reset in case function is called more than once
         CC.clear();
         sizesCC.clear();
         quantCC = 0;
 
-        CC.push_back({});       // índice 0 vazio
-        sizesCC.push_back(0);   // índice 0 vazio
+        CC.push_back({});       
+        sizesCC.push_back({0, 0}); //{size, idCC}
 
-        vector<int> visited(n+1, 0);  // visited status for vertices
+        vector<int> visited(n+1, 0);
 
         for (int start = 1; start <= n; start++) {
             if (!visited[start]) {
                 // found a new component
                 quantCC++;
                 CC.push_back({});
-                sizesCC.push_back(0);
+                sizesCC.push_back({0, quantCC});
 
                 stack<int> P;
                 P.push(start);
@@ -193,7 +192,7 @@ struct graph {
 
                     // add u to current component
                     CC.back().push_back(u);
-                    sizesCC.back()++;
+                    sizesCC.back()[0]++;
 
                     // explore neighbors
                     for (int v = 1; v <= n; v++) {
@@ -205,6 +204,7 @@ struct graph {
                 }
             }
         }
+        sort(sizesCC.begin(), sizesCC.end());
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -291,13 +291,14 @@ int main() {
 
     vector <int> cc_ordem;
     
-    for (int i=1; i<=test.quantCC; i++) {
-        cout << "CC " << i << ": (" << test.sizesCC[i] << " vertices) ~ [ ";
-        for (auto item : test.CC[i]){cout << item << " ";}
+    for (int i=test.quantCC; i>0; i--) {
+        vector <int> vecCC = test.sizesCC[i];
+        cout << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
+        for (auto item : test.CC[vecCC[1]]){cout << item << " ";}
         cout << "]\n";
     }
     cout << '\n';
 
-    printSearch(test.BFS(1));
-    printSearch(test.DFS(1));
+    cout << "BFS ~   "; printSearch(test.BFS(1));
+    cout << "DFS ~   "; printSearch(test.DFS(1));
 }
