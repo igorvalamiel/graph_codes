@@ -13,6 +13,7 @@ struct graph {
     int m = graph_edges.size(); //number of edges
     int G_min = 0, G_max = 0, G_med = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
+    int diam;
 
     /*Creating the basics structures*/
     vector <vector <int>> matrix; // matrix
@@ -151,15 +152,15 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting the diameter of the graph*/
-    int diameter(){
+    void diameter(){
         int max = 0; //setting auxiliar variable to find the maximum (minimun) distances
         for (int i=1; i<=n; i++){ //running a BFS for each vertex
             vector <vector <int>> bfs_res = BFS(i);
-            for (vector <int> v : bfs_res){ //finding the longest path in the BFS
+            for (auto v : bfs_res){ //finding the longest path in the BFS
                 if (v[1] > max) max = v[1];
             }
         }
-        return max;
+        diam = max;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -225,14 +226,23 @@ struct graph {
         n = num_vertex;
         m = (int)graph_edges.size();
 
-        start();       // build adjacency matrix + degrees
-        getinfo();     // compute stats
-        ConctComp();   // compute connected components
+        start();
+        getinfo();
+        ConctComp();
+        diameter();
     }
 
 };
 
 //-------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------
+    /*Making a function to print DFS or BFS*/
+    void printSearch(vector <vector <int>> s){
+        cout << "[ ";
+        for (auto par : s){
+            cout << par[1] << ' ';
+        } cout << "]\n";
+    }
 
 //-------------------------------------------------------------------------------------------------------------------------
 int main() {
@@ -265,36 +275,21 @@ int main() {
     test.graph_edges = edges;
     test.n = biggest;
 
+    cout << "\nNumero de vertices: " << test.n << '\n';
+    cout << "Numero de arestas: " << test.m << '\n';
+    cout << "Grau minimo: " << test.G_min << '\n';
+    cout << "Grau maximo: " << test.G_max << '\n';
+    cout << "Grau medio: " << test.G_med << '\n';
+    cout << "Mediana de grau: " << test.Medi_g << '\n';
+    cout << "Diametro do Grafo: " << test.diam << "\n\n";
     test.print();
-    
-    cout << "\nExecution Time: " << test.dt << " ms\n";
-    cout << "Max G: " << test.G_max << "\nMin G: " << test.G_min << "\n";
-    cout << "Medium G: " << test.G_med << "\nMedian G: " << test.Medi_g << "\n"; 
-    /*
-    for (int i=1; i<=5; i++){
-        vector <vector <int>> dfs = test.BFS(i);
-        cout << '\n';
-        for (int i=1; i<=5; i++){
-            cout << "vertex:" << i << "(level " << dfs[i][1] << ") ~> " << dfs[i][0] << '\n';
-        }
-        cout << "-----------------------------\n";
-    }
-    */
-
-    for (int i=1; i<=5; i++){
-        cout << test.dist(1,i) << ' ';
-    }
-    cout << '\n';
-
-    cout << test.diameter() << "\n\n";
-
-    cout << test.quantCC << '\n';
-    for (int i=1; i<=test.quantCC; i++){
-        cout << "CC " << i << " ~> Size: " << test.sizesCC[i] << '\n';
-        for (auto item : test.CC[i]){
-            cout << item << " ";
-        } cout << '\n';
+    cout << "\nComponentes Conexas (" << test.quantCC << " CC's)\n";
+    for (int i=1; i<=test.quantCC; i++) {
+        cout << "CC " << i << ": (" << test.sizesCC[i] << " vertices) ~ [ ";
+        for (auto item : test.CC[i]){cout << item << " ";}
+        cout << "]\n";
     }
 
-    return 0;
+    printSearch(test.BFS(1));
+    printSearch(test.DFS(1));
 }
