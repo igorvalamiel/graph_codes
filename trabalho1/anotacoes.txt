@@ -5,6 +5,7 @@ DUVIDAS
     - pra achar a media eu preciso necessariamente ordenar uma lista? (mas se eu ordenar eu perco a lista)
     - posso usar o próprio sort do c++ ou preciso fazer o meu?
     - Diametro tem que ser o mais otimizado possível?
+    - Preciso colocar no arquivo toda BFS/DFS para achar o diâmetro?
 
 CHECK-LIST
     - Entrada:

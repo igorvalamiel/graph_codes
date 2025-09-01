@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <fstream>
+#include <string>
 #include <chrono>
 
 using namespace std;
@@ -73,7 +74,7 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     //Implementing BFS
-    vector <vector <int>> BFS(int s){
+    vector <vector <int>> BFS(int s, bool diam_detec = false){
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         queue <int> Q; //creating the queue for getting the next item to be visited
 
@@ -104,12 +105,15 @@ struct graph {
             vector <int> aux = {parent[i], level[i]};
             ret.push_back(aux);
         }
+
+        createFile("BFS", ret, diam_detec);
+
         return ret;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
     //implemneting DFS
-    vector <vector <int>> DFS(int s){
+    vector <vector <int>> DFS(int s, bool diam_detec = false){
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         stack <int> P; //creating the stack for getting the next item to be visited
 
@@ -140,13 +144,16 @@ struct graph {
             vector <int> aux = {parent[i], level[i]};
             ret.push_back(aux);
         }
+
+        createFile("DFS", ret, diam_detec);
+
         return ret;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting the distance between the vertex a & b (obs: the distance between two vertex )*/
     int dist(int a, int b){
-        vector <vector <int>> bfs_res = BFS(a); //creating a vector to receive the BFS values
+        vector <vector <int>> bfs_res = BFS(a, true); //creating a vector to receive the BFS values
         return bfs_res[b][1];
     }
 
@@ -155,7 +162,7 @@ struct graph {
     void diameter(){
         int max = 0; //setting auxiliar variable to find the maximum (minimun) distances
         for (int i=1; i<=n; i++){ //running a BFS for each vertex
-            vector <vector <int>> bfs_res = BFS(i);
+            vector <vector <int>> bfs_res = BFS(i, true);
             for (auto v : bfs_res){ //finding the longest path in the BFS
                 if (v[1] > max) max = v[1];
             }
@@ -239,22 +246,45 @@ struct graph {
         diameter();
     }
 
+    //-------------------------------------------------------------------------------------------------------------------------
+    /*Creating a function to create and/or modify a file*/
+    void createFile(string name, vector <vector <int>> s, bool get_diam){
+
+        if (!get_diam) {
+            if (name == "BFS"){
+                ofstream testFile("bfs_output.txt", std::ios::app);
+                testFile << "BFS ~   ";
+
+                testFile << "Levels: [ ";
+                for (auto par : s){
+                    testFile << par[1] << ' ';
+                } testFile << "]    ";
+                testFile << "|   Parents: [ ";
+                for (auto par : s){
+                    testFile << par[0] << ' ';
+                } testFile << "]\n";
+
+                testFile.close();
+            } else {
+                ofstream testFile("dfs_output.txt", std::ios::app);
+                testFile << "DFS ~   ";
+
+                testFile << "Levels: [ ";
+                for (auto par : s){
+                    testFile << par[1] << ' ';
+                } testFile << "]    ";
+                testFile << "|   Parents: [ ";
+                for (auto par : s){
+                    testFile << par[0] << ' ';
+                } testFile << "]\n";
+
+                testFile.close();
+            }
+        }
+    }
 };
 
 //-------------------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------
-    /*Making a function to print DFS or BFS*/
-    void printSearch(vector <vector <int>> s){
-        cout << "Levels: [ ";
-        for (auto par : s){
-            cout << par[1] << ' ';
-        } cout << "]    ";
-        cout << "|   Parents: [ ";
-        for (auto par : s){
-            cout << par[0] << ' ';
-        } cout << "]\n";
-    }
-
 //-------------------------------------------------------------------------------------------------------------------------
 int main() {
 
@@ -308,6 +338,11 @@ int main() {
     }
     cout << '\n';
 
-    cout << "BFS ~   "; printSearch(test.BFS(1));
-    cout << "DFS ~   "; printSearch(test.DFS(1));
+    test.BFS(1);
+    test.DFS(1);
+    test.BFS(13);
+    test.DFS(13);
+    test.BFS(11);
+    test.DFS(11);
+
 }
