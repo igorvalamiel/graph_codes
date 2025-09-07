@@ -344,8 +344,8 @@ int main() {
 
 
     //Output model (it should appear in another file just like that)
-    outD << "\nNumero de vertices: " << test.n << '\n';
-    outD << "Numero de arestas: " << test.m << '\n';
+    outD << "\nNumero de arestas: " << test.n << '\n';
+    outD << "Numero de vertices: " << test.m << '\n';
     outD << "Grau minimo: " << test.G_min << '\n';
     outD << "Grau maximo: " << test.G_max << '\n';
     outD << "Grau medio: " << test.G_med << '\n';
@@ -354,6 +354,8 @@ int main() {
     outD << "Diametro do Grafo: " << test.diam << "\n";
     outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
+
+    /*
     vector <int> cc_ordem;
     
     for (int i=test.quantCC; i>0; i--) {
@@ -370,6 +372,8 @@ int main() {
     test.DFS(13);
     test.BFS(11);
     test.DFS(11);
+    */
+    
 
     outD << "=================================================\n";
     outD.close();
