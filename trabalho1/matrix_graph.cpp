@@ -2,8 +2,17 @@
 #include <fstream>
 #include <string>
 #include <chrono>
+#include <windows.h> 
+#include <psapi.h> //to get memory info
 
 using namespace std;
+
+string printMemoryUsage() {
+    PROCESS_MEMORY_COUNTERS_EX pmc;
+    GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+    SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;
+    return "Memória utilizada pelo processo: " + to_string(virtualMemUsedByMe / 1024) + " KB\n";
+}
 
 struct graph {
     /*Edges pairs*/
@@ -15,6 +24,7 @@ struct graph {
     int G_min = 0, G_max = 0, G_med = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
     int diam;
+    string mem_graph;
 
     /*Creating the basics structures*/
     vector <vector <int>> matrix; // matrix
@@ -28,7 +38,6 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     void start() {
         /*matrix estructure*/ 
-        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
         /*creating marix nxn with 0's*/
         for (int i=0; i<=n; i++){
             vector <int> support;
@@ -44,9 +53,7 @@ struct graph {
             G_list[item[0]] += 1;
             G_list[item[1]] += 1;
         }
-        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
-        chrono::duration<double,std::milli> duration = end_time - start_time;
-        dt = duration.count(); //em ms
+        mem_graph = printMemoryUsage();
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -75,6 +82,9 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     //Implementing BFS
     vector <vector <int>> BFS(int s, bool diam_detec = false){
+
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         queue <int> Q; //creating the queue for getting the next item to be visited
 
@@ -106,7 +116,11 @@ struct graph {
             ret.push_back(aux);
         }
 
-        createFile("BFS", ret, diam_detec);
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        createFile("BFS", ret, diam_detec, dt);
 
         return ret;
     }
@@ -114,6 +128,9 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     //implemneting DFS
     vector <vector <int>> DFS(int s, bool diam_detec = false){
+
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
         vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         stack <int> P; //creating the stack for getting the next item to be visited
 
@@ -145,7 +162,11 @@ struct graph {
             ret.push_back(aux);
         }
 
-        createFile("DFS", ret, diam_detec);
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        createFile("DFS", ret, diam_detec, dt);
 
         return ret;
     }
@@ -248,7 +269,7 @@ struct graph {
 
     //-------------------------------------------------------------------------------------------------------------------------
     /*Creating a function to create and/or modify a file*/
-    void createFile(string name, vector <vector <int>> s, bool get_diam){
+    void createFile(string name, vector <vector <int>> s, bool get_diam, int t){
 
         if (!get_diam) {
             if (name == "BFS"){
@@ -262,7 +283,8 @@ struct graph {
                 testFile << "|   Parents: [ ";
                 for (auto par : s){
                     testFile << par[0] << ' ';
-                } testFile << "]\n";
+                } testFile << "]";
+                testFile << "   |   Runtime: " << t << "ms\n";
 
                 testFile.close();
             } else {
@@ -276,7 +298,8 @@ struct graph {
                 testFile << "|   Parents: [ ";
                 for (auto par : s){
                     testFile << par[0] << ' ';
-                } testFile << "]\n";
+                } testFile << "]";
+                testFile << "   |   Runtime: " << t << "ms\n";
 
                 testFile.close();
             }
@@ -312,31 +335,34 @@ int main() {
     //closing the data file
     infile.close();
 
+    //opening the output_data file
+    ofstream outD("out_data.txt", std::ios::app);
+
     graph test(edges, biggest);
     test.graph_edges = edges;
     test.n = biggest;
 
 
     //Output model (it should appear in another file just like that)
-    cout << "\nNumero de vertices: " << test.n << '\n';
-    cout << "Numero de arestas: " << test.m << '\n';
-    cout << "Grau minimo: " << test.G_min << '\n';
-    cout << "Grau maximo: " << test.G_max << '\n';
-    cout << "Grau medio: " << test.G_med << '\n';
-    cout << "Mediana de grau: " << test.Medi_g << '\n';
-    cout << "Diametro do Grafo: " << test.diam << "\n\n";
-    test.print();
-    cout << "\nComponentes Conexas (" << test.quantCC << " CC's)\n";
+    outD << "\nNumero de vertices: " << test.n << '\n';
+    outD << "Numero de arestas: " << test.m << '\n';
+    outD << "Grau minimo: " << test.G_min << '\n';
+    outD << "Grau maximo: " << test.G_max << '\n';
+    outD << "Grau medio: " << test.G_med << '\n';
+    outD << "Mediana de grau: " << test.Medi_g << '\n';
+    outD << test.mem_graph << '\n';
+    outD << "Diametro do Grafo: " << test.diam << "\n";
+    outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
     vector <int> cc_ordem;
     
     for (int i=test.quantCC; i>0; i--) {
         vector <int> vecCC = test.sizesCC[i];
-        cout << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
-        for (auto item : test.CC[vecCC[1]]){cout << item << " ";}
-        cout << "]\n";
+        outD << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
+        for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
+        outD << "]\n";
     }
-    cout << '\n';
+    outD << '\n';
 
     test.BFS(1);
     test.DFS(1);
@@ -345,4 +371,6 @@ int main() {
     test.BFS(11);
     test.DFS(11);
 
+    outD << "=================================================\n";
+    outD.close();
 }
