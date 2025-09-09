@@ -1,0 +1,3 @@
+BFS ~   Levels: [ 0 0 1 1 0 0 ]    |   Parents: [ 0 0 1 1 0 0 ]   |   Runtime: 0ms
+BFS ~   Levels: [ 0 1 0 1 0 0 ]    |   Parents: [ 0 2 0 2 0 0 ]   |   Runtime: 0ms
+BFS ~   Levels: [ 0 1 1 0 0 0 ]    |   Parents: [ 0 3 3 0 0 0 ]   |   Runtime: 0ms
