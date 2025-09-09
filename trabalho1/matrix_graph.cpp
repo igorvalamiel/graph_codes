@@ -61,13 +61,13 @@ struct graph {
     void getinfo() {
         G_min = n; //seting G_min for the max value (the biggest degree a vertex can have is n-1, that's why I settle it n)
         for (int i=1; i<=n; i++){
-            int value = G_list[i];
+            double value = G_list[i];
             if (value < G_min) G_min = value; //getting lowest degree
             if (value > G_max) G_max = value; //getting highest degree
             G_med += value;
         }
         
-        G_med = G_med / n; //getting medium degree
+        G_med = G_med / (double) n; //getting medium degree
         
         //creating a copy of G_list to find the median
         vector <int> Copy_G_list; 

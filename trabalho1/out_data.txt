@@ -11,4 +11,38 @@ Diametro do Grafo: 400
 Componentes Conexas (1 CC's)
 =================================================
 
+Numero de vertices: 49948
+Numero de arestas: 1299794
+Grau minimo: 1
+Grau maximo: 112
+Grau medio: 52
+Mediana de grau: 55
+Memória utilizada pelo processo: 9941776 KB
 
+Diametro do Grafo: 418
+Componentes Conexas (10 CC's)
+=================================================
+
+Numero de vertices: 10000
+Numero de arestas: 109977
+Grau minimo: 8
+Grau maximo: 43
+Grau medio: 21
+Mediana de grau: 22
+Memória utilizada pelo processo: 403856 KB
+
+Diametro do Grafo: 165
+Componentes Conexas (1 CC's)
+=================================================
+
+Numero de vertices: 10000
+Numero de arestas: 109977
+Grau minimo: 8
+Grau maximo: 43
+Grau medio: 21.9954
+Mediana de grau: 22
+Memória utilizada pelo processo: 24788 KB
+
+Diametro do Grafo: -605668864
+Componentes Conexas (1 CC's)
+=================================================
