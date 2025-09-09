@@ -1,0 +1,36 @@
+
+Numero de vertices: 9993
+Numero de arestas: 100
+Grau minimo: 0
+Grau maximo: 2
+Grau medio: 0
+Mediana de grau: 0
+Memória utilizada pelo processo: 393276 KB
+
+Diametro do Grafo: 0
+Componentes Conexas (9893 CC's)
+=================================================
+
+Numero de vertices: 9996
+Numero de arestas: 1000
+Grau minimo: 0
+Grau maximo: 4
+Grau medio: 0
+Mediana de grau: 0
+Memória utilizada pelo processo: 393496 KB
+
+Diametro do Grafo: 0
+Componentes Conexas (8996 CC's)
+=================================================
+
+Numero de vertices: 10000
+Numero de arestas: 10000
+Grau minimo: 0
+Grau maximo: 9
+Grau medio: 2
+Mediana de grau: 2
+Memória utilizada pelo processo: 394480 KB
+
+Diametro do Grafo: 32
+Componentes Conexas (1578 CC's)
+=================================================
