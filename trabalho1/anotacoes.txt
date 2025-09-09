@@ -6,8 +6,8 @@ DUVIDAS
     - Preciso colocar no arquivo toda BFS/DFS para achar o diâmetro?        NÃO
 
 CHECK-LIST
-    - Entrada:
-        - Leitura de arquivo de entrada
+    @- Entrada:
+        @- Leitura de arquivo de entrada
         @- Processamento de entrada
     - Saída:
         @- MATRIZ:

@@ -351,11 +351,11 @@ int main() {
     outD << "Grau medio: " << test.G_med << '\n';
     outD << "Mediana de grau: " << test.Medi_g << '\n';
     outD << test.mem_graph << '\n';
+    /*
     outD << "Diametro do Grafo: " << test.diam << "\n";
     outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
 
-    /*
     vector <int> cc_ordem;
     
     for (int i=test.quantCC; i>0; i--) {
@@ -364,17 +364,7 @@ int main() {
         for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
         outD << "]\n";
     }
-    outD << '\n';
-
-    test.BFS(1);
-    test.DFS(1);
-    test.BFS(13);
-    test.DFS(13);
-    test.BFS(11);
-    test.DFS(11);
     */
-    
-
     outD << "=================================================\n";
     outD.close();
 }
