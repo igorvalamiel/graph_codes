@@ -41,11 +41,6 @@ CHECK-LIST
         @- MATRIZ
         - LISTA
 
-
-
-
-
-
 cout << '\n';
 for (auto v : G_list){
     cout << v << ' ';

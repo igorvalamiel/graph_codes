@@ -198,7 +198,8 @@ int main() {
 
     ofstream outD("out_data.txt",ios::app);
     graph G(edges,biggest,false); // false = diâmetro approx
-
+    
+    //Output model (it should appear in another file just like that)
     outD<<"\nNumero de vertices: "<<G.n<<"\n";
     outD<<"Numero de arestas: "<<G.m<<"\n";
     outD<<"Grau minimo: "<<G.G_min<<"\n";
@@ -208,6 +209,14 @@ int main() {
     outD<<G.mem_graph<<"\n";
     outD<<"Diametro do Grafo: "<<G.diam<<"\n";
     outD<<"Componentes Conexas ("<<G.quantCC<<" CC's)\n";
+
+    for (auto [tam, idx] : G.sizesCC) {
+        outD << "CC " << idx+1 << ": (" << tam << " vertices) ~ [ ";
+        for (auto v : G.CC[idx]) outD << v << " ";
+        outD << "]\n";
+    }
+
+
     outD<<"=================================================\n";
     outD.close();
 }
