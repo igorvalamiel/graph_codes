@@ -1,14 +1,14 @@
 
-Numero de vertices: 5
-Numero de arestas: 4
-Grau minimo: 1
-Grau maximo: 2
-Grau medio: 1
-Mediana de grau: 2
-Memória utilizada pelo processo: 1008 KB
+Numero de vertices: 10000
+Numero de arestas: 109977
+Grau minimo: 8
+Grau maximo: 43
+Grau medio: 21
+Mediana de grau: 22
+Memória utilizada pelo processo: 403884 KB
 
-Diametro do Grafo: 1
-Componentes Conexas (2 CC's)
-CC 1: (3 vertices) ~ [ 1 3 2 ]
-CC 2: (2 vertices) ~ [ 4 5 ]
+Diametro do Grafo: 400
+Componentes Conexas (1 CC's)
 =================================================
+
+

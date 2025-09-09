@@ -21,13 +21,14 @@ struct graph {
     /*graph's info*/
     int n = 0; //number of vectors
     int m = 0; //number of edges
-    int G_min = 0, G_max = 0, G_med = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
+    int G_min = 0, G_max = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
+    double G_med = 0;
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
     int diam;
     string mem_graph;
 
     /*Creating the basics structures*/
-    vector <vector <int>> matrix; // matrix
+    vector <vector <bool>> matrix; // matrix
     vector <vector <int>> CC; // conected components
     vector <vector <int>> sizesCC; //sizes of each CC
     int quantCC = 0; // quantity of CC
@@ -40,7 +41,7 @@ struct graph {
         /*matrix estructure*/ 
         /*creating marix nxn with 0's*/
         for (int i=0; i<=n; i++){
-            vector <int> support;
+            vector <bool> support;
             for (int j=0; j<=n; j++){support.push_back(0);}
             matrix.push_back(support);
             G_list.push_back(0);
@@ -255,16 +256,20 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Executing the other functions to work properly*/
-    graph(const vector<vector<int>>& edges, int num_vertex){
+    graph(const vector<vector<int>>& edges, int num_vertex, int num_edges){
         graph_edges = edges;
         n = num_vertex;
         m = (int)graph_edges.size();
 
         //As soon as the structure graph is called, all these functions are also called
         start();
+        cout << "Start ok\n";
         getinfo();
+        cout << "getinfo ok\n";
         ConctComp();
-        diameter();
+        cout << "CC ok\n";
+        //diameter();
+        //cout << "diameter ok\n";
     }
 
     //-------------------------------------------------------------------------------------------------------------------------
@@ -346,11 +351,7 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    graph test(edges, n);
-    test.graph_edges = edges;
-    test.n = n;
-    test.m = m;
-
+    graph test(edges, n, m);
 
     //Output model (it should appear in another file just like that)
     outD << "\nNumero de vertices: " << test.n << '\n';
@@ -363,14 +364,15 @@ int main() {
     outD << "Diametro do Grafo: " << test.diam << "\n";
     outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
+    /*
     vector <int> cc_ordem;
-    
+
     for (int i=test.quantCC; i>0; i--) {
         vector <int> vecCC = test.sizesCC[i];
         outD << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
         for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
         outD << "]\n";
-    }
+    }*/
 
     test.BFS(1);
     test.BFS(2);
