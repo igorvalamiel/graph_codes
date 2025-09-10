@@ -106,6 +106,28 @@ struct graph {
         else {Medi_g = (Copy_G_list[(n/2)-1] + Copy_G_list[n/2]) / 2;} //if the number of vertexes are odd
     }
 
+    //-----------------------------------------------------------------------------------------------------------------------
+    //Implementing BFS
+    vector <vector <int>> BFS(int s, bool diam_detect = false){
+
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
+        vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+        queue <int> Q; //creating the queue for getting the next item to be visited
+
+        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+        vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+        visit_stats[s] = 1; //marking s as visited
+        Q.push(s); //placing s in the queue
+
+        while (Q.size() > 0){ //While there is any item on the queue
+            int v = Q.front(); //getting the head
+            Q.pop(); //deleting the head
+        }
+
+    }
+
 };
 
 

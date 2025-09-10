@@ -86,7 +86,7 @@ struct graph {
 
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
-        vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+        vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         queue <int> Q; //creating the queue for getting the next item to be visited
 
         vector <int> parent(n+1, 0); //vector to register the parent of each vertex
@@ -132,7 +132,7 @@ struct graph {
 
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
-        vector <int> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+        vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
         stack <int> P; //creating the stack for getting the next item to be visited
 
         vector <int> parent(n+1, 0); //vector to register the parent of each vertex
