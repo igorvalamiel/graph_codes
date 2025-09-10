@@ -53,3 +53,14 @@ cout << '\n';
 for (int i=0; i<nlines; i++){
     cout << edges[i][0] << "~>" << edges[i][1] << '\n';
 }
+
+void diameter(){
+        vector <int> vecCC = sizesCC[quantCC]; //We will make a BFS only in the greatest Conected Component
+        int v = CC[vecCC[1]][1]; //getting one vertex of the gratest CC
+        int highest_level = 0; //setting the counter
+        vector <vector <int>> l = BFS(v, true); //doing the BFS
+        for (auto i : l) {
+            if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
+        }
+        diam = highest_level;
+    }

@@ -24,7 +24,7 @@ struct graph {
     int G_min = 0, G_max = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
     double G_med = 0;
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
-    int diam;
+    int diam = -1;
     string mem_graph;
 
     /*Creating the basics structures*/
@@ -182,15 +182,14 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting the diameter of the graph*/
     void diameter(){
-        vector <int> vecCC = sizesCC[0]; //We will make a BFS only in the greatest Conected Component
-        int v = CC[vecCC[1]][1]; //getting one vertex of the gratest CC
-        int highest_level = 0; //setting the counter
-        vector <vector <int>> l = BFS(v, true); //doing the BFS
-        for (auto i : l) {
-            if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
+        if (quantCC == 1) {
+            int highest_level = 0; //setting the counter
+            vector <vector <int>> l = BFS(1, true); //doing the BFS
+            for (auto i : l) {
+                if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
+            }
+            diam = highest_level;
         }
-        diam = highest_level;
-        cout << "teste\n";
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -318,7 +317,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("grafo_1.txt");
+    ifstream infile("grafo_2.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -362,10 +361,9 @@ int main() {
     outD << "Grau medio: " << test.G_med << '\n';
     outD << "Mediana de grau: " << test.Medi_g << '\n';
     outD << test.mem_graph << '\n';
-    outD << "Diametro do Grafo: " << test.diam << "\n";
+    if (test.diam < 0){outD << "Diametro do Grafo: infinito\n";}
+    else {outD << "Diametro do Grafo: " << test.diam << "\n";}
     outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
-
-    vector <int> cc_ordem;
 
     for (int i=test.quantCC; i>0; i--) {
         vector <int> vecCC = test.sizesCC[i];
