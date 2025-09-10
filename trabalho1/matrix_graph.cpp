@@ -317,7 +317,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("grafo_2.txt");
+    ifstream infile("grafo_1.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -364,7 +364,6 @@ int main() {
     outD << "Diametro do Grafo: " << test.diam << "\n";
     outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
-    /*
     vector <int> cc_ordem;
 
     for (int i=test.quantCC; i>0; i--) {
@@ -372,7 +371,7 @@ int main() {
         outD << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
         for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
         outD << "]\n";
-    }*/
+    }
 
     test.BFS(1);
     test.BFS(2);
