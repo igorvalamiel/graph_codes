@@ -182,14 +182,15 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting the diameter of the graph*/
     void diameter(){
-        int max = 0; //setting auxiliar variable to find the maximum (minimun) distances
-        for (int i=1; i<=n; i++){ //running a BFS for each vertex
-            vector <vector <int>> bfs_res = BFS(i, true);
-            for (auto v : bfs_res){ //finding the longest path in the BFS
-                if (v[1] > max) max = v[1];
-            }
+        vector <int> vecCC = sizesCC[0]; //We will make a BFS only in the greatest Conected Component
+        int v = CC[vecCC[1]][1]; //getting one vertex of the gratest CC
+        int highest_level = 0; //setting the counter
+        vector <vector <int>> l = BFS(v, true); //doing the BFS
+        for (auto i : l) {
+            if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
         }
-        diam = max;
+        diam = highest_level;
+        cout << "teste\n";
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -268,8 +269,8 @@ struct graph {
         cout << "getinfo ok\n";
         ConctComp();
         cout << "CC ok\n";
-        //diameter();
-        //cout << "diameter ok\n";
+        diameter();
+        cout << "diameter ok\n";
     }
 
     //-------------------------------------------------------------------------------------------------------------------------
