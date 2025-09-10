@@ -18,15 +18,15 @@ CHECK-LIST
             @- Grau medio
             @- Mediana de Grau
         - LISTA
-            - Numero de vertices
-            - Numero de arestas
+            @- Numero de vertices
+            @- Numero de arestas
             - Grau maximo
             - Grau minimo
             - Grau medio
             - Mediana de Grau
     - Representacao
         @- MATRIZ
-        - LISTA
+        @- LISTA
     - Busca em Grafos
         @- MATRIZ
             @- BFS

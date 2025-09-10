@@ -11,7 +11,7 @@ string printMemoryUsage() {
     PROCESS_MEMORY_COUNTERS_EX pmc;
     GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
     SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;
-    return "Memória utilizada pelo processo: " + to_string(virtualMemUsedByMe / 1024) + " KB\n";
+    return "Memoria utilizada pelo processo: " + to_string(virtualMemUsedByMe / 1024) + " KB\n";
 }
 
 /* Creating node structure */
@@ -34,11 +34,14 @@ struct graph {
     int diam = -1;
     string mem_graph;
 
+    vector <int> G_list; //getting the degrees of each vertex
+
     //-----------------------------------------------------------------------------------------------------------------------
     /* Starting the list */
     void start() {
         vector <node*> Linklist(m+1); //creating the linked-list
-
+        for (int i=0; i<=m; i++) {G_list.push_back(0);} //initiating the G_list
+        
         //placing all the edges
         for (auto item : graph_edges){
             
@@ -53,6 +56,10 @@ struct graph {
             node* auxB = new node; auxB->vertex = a;
             auxB->next = Linklist[b];
             Linklist[b] = auxB;
+
+            // adding a degree to a and b
+            G_list[a]++;
+            G_list[b]++;
         }
         mem_graph = printMemoryUsage();
     }
@@ -67,12 +74,36 @@ struct graph {
         //As soon as the structure graph is called, all these functions are also called
         start();
         cout << "Start ok\n";
-        /*getinfo();
+        getinfo();
         cout << "getinfo ok\n";
-        ConctComp();
+        /*ConctComp();
         cout << "CC ok\n";
         diameter();
         cout << "diameter ok\n";*/
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Getting all the information needed*/
+    void getinfo() {
+        G_min = n; //seting G_min for the max value (the biggest degree a vertex can have is n-1, that's why I settle it n)
+        for (int i=1; i<=n; i++){
+            double value = G_list[i];
+            if (value < G_min) G_min = value; //getting lowest degree
+            if (value > G_max) G_max = value; //getting highest degree
+            G_med += value;
+        }
+
+        G_med = G_med / (double) n; //getting the medium degree
+
+        //creating a copy of G_list to find the median
+        vector <int> Copy_G_list; 
+        for (int i=1; i<=n; i++) {Copy_G_list.push_back(G_list[i]);}
+
+        sort(Copy_G_list.begin(), Copy_G_list.end()); //sorting the copy list
+        
+        //getting the median
+        if (n % 2 == 1) {Medi_g = Copy_G_list[(n/2)+1];} //if the number of vertexes are even
+        else {Medi_g = (Copy_G_list[(n/2)-1] + Copy_G_list[n/2]) / 2;} //if the number of vertexes are odd
     }
 
 };
@@ -114,8 +145,17 @@ int main(){
 
     graph test(edges, n, m);
 
-    cout << test.n << '\n';
-    cout << test.m << '\n';
+    //Output model (it should appear in another file just like that)
+    cout << "\nNumero de vertices: " << test.n << '\n';
+    cout << "Numero de arestas: " << test.m << '\n';
+    cout << "Grau minimo: " << test.G_min << '\n';
+    cout << "Grau maximo: " << test.G_max << '\n';
+    cout << "Grau medio: " << test.G_med << '\n';
+    cout << "Mediana de grau: " << test.Medi_g << '\n';
+    cout << test.mem_graph << '\n';
+    //if (test.diam < 0){cout << "Diametro do Grafo: infinito\n";}
+    //else {cout << "Diametro do Grafo: " << test.diam << "\n";}
+    //cout << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
     return 0;
 }
