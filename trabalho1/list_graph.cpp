@@ -24,8 +24,6 @@ struct node {
 struct graph {
     /*Edges pairs*/
     vector <vector <int>> graph_edges;
-    
-    vector <node> Linklist; //creating the linked-list
 
     /*graph's info*/
     int n = 0; //number of vectors
@@ -37,16 +35,39 @@ struct graph {
     string mem_graph;
 
     //-----------------------------------------------------------------------------------------------------------------------
+    /* Starting the list */
+    void start() {
+        vector <node*> Linklist(m+1); //creating the linked-list
+
+        //placing all the edges
+        for (auto item : graph_edges){
+            
+            int a = item[0], b = item[1];
+
+            // creating edge a -> b
+            node* auxA = new node; auxA->vertex = b;
+            auxA->next = Linklist[a];
+            Linklist[a] = auxA;
+
+            // creating edge b -> a
+            node* auxB = new node; auxB->vertex = a;
+            auxB->next = Linklist[b];
+            Linklist[b] = auxB;
+        }
+        mem_graph = printMemoryUsage();
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
     /*Executing the other functions to work properly*/
     graph(const vector<vector<int>>& edges, int num_vertex, int num_edges){
         graph_edges = edges;
         n = num_vertex;
         m = (int)graph_edges.size();
 
-        /*//As soon as the structure graph is called, all these functions are also called
+        //As soon as the structure graph is called, all these functions are also called
         start();
         cout << "Start ok\n";
-        getinfo();
+        /*getinfo();
         cout << "getinfo ok\n";
         ConctComp();
         cout << "CC ok\n";
