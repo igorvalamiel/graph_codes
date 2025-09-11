@@ -34,6 +34,10 @@ struct graph {
     int diam = -1;
     string mem_graph;
 
+    /*Creating the basics structures*/
+    vector <vector <int>> CC; // conected components
+    vector <vector <int>> sizesCC; //sizes of each CC
+    int quantCC = 0; // quantity of CC
     vector <int> G_list; //getting the degrees of each vertex
     vector <node*> Linklist; //creating the linked-list
 
@@ -81,10 +85,10 @@ struct graph {
         cout << "Start ok\n";
         getinfo();
         cout << "getinfo ok\n";
-        /*ConctComp();
+        ConctComp();
         cout << "CC ok\n";
         diameter();
-        cout << "diameter ok\n";*/
+        cout << "diameter ok\n";
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -152,9 +156,157 @@ struct graph {
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
+        createFile("BFS", ret, diam_detect, dt);
+
         return ret;
     }
 
+    //-----------------------------------------------------------------------------------------------------------------------
+    //Implementing DFS
+
+    vector <vector <int>> DFS(int s, bool diam_detec = false){
+
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
+        vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+        stack <int> P; //creating the stack for getting the next item to be visited
+
+        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+        vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+        P.push(s); //adding s to the stack
+
+        while (P.size() > 0) {
+            int v = P.top();
+            P.pop();
+            //TERMINAR DE IMPLEMENTAR DFS
+        }
+
+        vector <vector <int>> ret;
+        for (int i=0; i<=n; i++){
+            vector <int> aux = {parent[i], level[i]};
+            ret.push_back(aux);
+        }
+
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        createFile("DFS", ret, diam_detec, dt);
+
+        return ret;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Getting the distance between the vertex a & b (obs: the distance between two vertex )*/
+    int dist(int a, int b){
+        vector <vector <int>> bfs_res = BFS(a, true); //creating a vector to receive the BFS values
+        return bfs_res[b][1];   
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Getting the diameter of the graph*/
+    void diameter(){
+        if (quantCC == 1) {
+            int highest_level = 0; //setting the counter
+            vector <vector <int>> l = BFS(1, true); //doing the BFS
+            for (auto i : l) {
+                if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
+            }
+            diam = highest_level;
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Getting all conected components*/
+    void ConctComp() {
+        //Making atributtes empty
+        CC.clear();
+        sizesCC.clear();
+        quantCC = 0;
+
+        //Placing the first item because the vertex 0 doesn't exist
+        CC.push_back({});       
+        sizesCC.push_back({0, 0}); //{size, idCC}
+
+        //Marking first vertex as visited
+        vector<int> visited(n+1, 0);
+
+        for (int start = 1; start <= n; start++) {
+            if (!visited[start]) {
+                //Checking if found a new component
+                quantCC++;
+                CC.push_back({});
+                sizesCC.push_back({0, quantCC});
+
+                //creating the stack to get the Conected Components
+                stack<int> P;
+                P.push(start);
+                visited[start] = 1;
+
+                while (!P.empty()) { //While there is no more vertex in the CC
+                    int u = P.top();
+                    P.pop();
+
+                    //Add u to current component
+                    CC.back().push_back(u);
+                    sizesCC.back()[0]++;
+
+                    //Explore neighbors
+                    for (int v = 1; v <= n; v++) {
+                        node* aux = Linklist[v];
+                        if (!visited[aux->vertex]) {
+                            visited[aux->vertex] = 1;
+                            P.push(aux->vertex);
+                            aux = aux->next;
+                        }   
+                    }
+                }
+            }
+        }
+
+        //sorting the vector to print in decreasing order
+        sort(sizesCC.begin(), sizesCC.end());
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    /*Creating a function to create and/or modify a file*/
+    void createFile(string name, vector <vector <int>> s, bool get_diam, int t){
+
+        if (!get_diam) {
+            if (name == "BFS"){
+                ofstream testFile("bfs_output.txt", std::ios::app);
+                testFile << "BFS ~   ";
+
+                testFile << "Levels: [ ";
+                for (auto par : s){
+                    testFile << par[1] << ' ';
+                } testFile << "]    ";
+                testFile << "|   Parents: [ ";
+                for (auto par : s){
+                    testFile << par[0] << ' ';
+                } testFile << "]";
+                testFile << "   |   Runtime: " << t << "ms\n";
+
+                testFile.close();
+            } else {
+                ofstream testFile("dfs_output.txt", std::ios::app);
+                testFile << "DFS ~   ";
+
+                testFile << "Levels: [ ";
+                for (auto par : s){
+                    testFile << par[1] << ' ';
+                } testFile << "]    ";
+                testFile << "|   Parents: [ ";
+                for (auto par : s){
+                    testFile << par[0] << ' ';
+                } testFile << "]";
+                testFile << "   |   Runtime: " << t << "ms\n";
+
+                testFile.close();
+            }
+        }
+    }
 };
 
 
@@ -200,17 +352,6 @@ int main(){
 
     graph test(edges, n, m);
 
-    vector <vector <int>> bfs1 = test.BFS(1);
-    cout << "Levels: [ ";
-    for (auto par : bfs1){
-        cout << par[1] << ' ';
-    } cout << "]    ";
-    cout << "|   Parents: [ ";
-    for (auto par : bfs1){
-        cout << par[0] << ' ';
-    } cout << "]";
-
-    cout << "\n\n";
     //Output model (it should appear in another file just like that)
     cout << "\nNumero de vertices: " << test.n << '\n';
     cout << "Numero de arestas: " << test.m << '\n';
@@ -219,9 +360,16 @@ int main(){
     cout << "Grau medio: " << test.G_med << '\n';
     cout << "Mediana de grau: " << test.Medi_g << '\n';
     cout << test.mem_graph << '\n';
-    //if (test.diam < 0){cout << "Diametro do Grafo: infinito\n";}
-    //else {cout << "Diametro do Grafo: " << test.diam << "\n";}
-    //cout << "Componentes Conexas (" << test.quantCC << " CC's)\n";
+    if (test.diam < 0){cout << "Diametro do Grafo: infinito\n";}
+    else {cout << "Diametro do Grafo: " << test.diam << "\n";}
+    cout << "Componentes Conexas (" << test.quantCC << " CC's)\n";
+
+    //test.BFS(1);
+    //test.BFS(2);
+    //test.BFS(3);
+    //test.DFS(1);
+    //test.DFS(2);
+    //test.DFS(3);
 
     return 0;
 }

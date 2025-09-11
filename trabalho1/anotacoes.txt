@@ -64,3 +64,39 @@ void diameter(){
         }
         diam = highest_level;
     }
+
+
+void ConctComp() {
+        //Making atributtes empty
+        CC.clear();
+        sizesCC.clear();
+        quantCC = 0;
+
+        //Placing the first item because the vertex 0 doesn't exist
+        CC.push_back({});       
+        sizesCC.push_back({0, 0}); //{size, idCC}
+
+        //Marking first vertex as visited
+        vector<int> visited(n+1, 0);
+
+        //counting visited vertexes
+        int cnt_visited = 0;
+
+        while (cnt_visited != n){
+            for (auto i : visited){
+                if (i == 0){
+                    vector <vector <int>> bfs = BFS(i);
+                    for (int j=0; j<bfs.size(); j++){
+                        if (bfs[j][0] != 0) {
+                            cnt_visited++;
+                            visited[j] = quantCC;
+                        }
+                    }
+                    quantCC++;
+                }
+            }
+        }
+
+        //sorting the vector to print in decreasing order
+        sort(sizesCC.begin(), sizesCC.end());
+    }
