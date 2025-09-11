@@ -100,3 +100,42 @@ void ConctComp() {
         //sorting the vector to print in decreasing order
         sort(sizesCC.begin(), sizesCC.end());
     }
+
+vector <vector <int>> DFS(int s, bool diam_detect = false){
+
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
+        vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+        stack <int> Q; //creating the queue for getting the next item to be visited
+
+        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+        vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+        Q.push(s); //placing s in the queue
+        
+        while (!Q.empty()){ //While there is any item on the queue
+            int v = Q.top(); //getting the head
+            Q.pop(); //deleting the head
+            node* aux = Linklist[v]; //creating a auxiliar node
+            if (!visit_stats[v]){
+                visit_stats[v] = 1;
+                cout << "teste\n";
+                aux = aux->next;
+                Q.push(aux->vertex);
+            }
+        }
+
+        vector <vector <int>> ret;
+        for (int i=0; i<=n; i++){
+            vector <int> aux = {parent[i], level[i]};
+            ret.push_back(aux);
+        }
+
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        createFile("DFS", ret, diam_detect, dt);
+
+        return ret;
+    }

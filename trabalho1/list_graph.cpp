@@ -46,9 +46,11 @@ struct graph {
     void start() {
 
         //initiating the G_list
-        for (int i=0; i<=m; i++) {
+        for (int i=0; i<=n; i++) {
             G_list.push_back(0);
-            Linklist.push_back(new node);
+            node* aux = new node;
+            aux->vertex = i;
+            Linklist.push_back(aux);
         }
         
         //placing all the edges
@@ -85,8 +87,8 @@ struct graph {
         cout << "Start ok\n";
         getinfo();
         cout << "getinfo ok\n";
-        ConctComp();
-        cout << "CC ok\n";
+        //ConctComp();
+        //cout << "CC ok\n";
         diameter();
         cout << "diameter ok\n";
     }
@@ -163,23 +165,28 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     //Implementing DFS
-
-    vector <vector <int>> DFS(int s, bool diam_detec = false){
+    vector <vector <int>> DFS(int s, bool diam_detect = false){
 
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
         vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
-        stack <int> P; //creating the stack for getting the next item to be visited
+        stack <int> Q; //creating the queue for getting the next item to be visited
 
         vector <int> parent(n+1, 0); //vector to register the parent of each vertex
         vector <int> level(n+1, 0); //vector to register the level of each vertex
 
-        P.push(s); //adding s to the stack
-
-        while (P.size() > 0) {
-            int v = P.top();
-            P.pop();
-            //TERMINAR DE IMPLEMENTAR DFS
+        Q.push(s); //placing s in the queue
+        
+        while (!Q.empty()){ //While there is any item on the queue
+            int v = Q.top(); //getting the head
+            Q.pop(); //deleting the head
+            node* aux = Linklist[v]; //creating a auxiliar node
+            if (!visit_stats[v]){
+                visit_stats[v] = 1;
+                cout << v << " teste\n";
+                aux = aux->next;
+                Q.push(aux->vertex);
+            }
         }
 
         vector <vector <int>> ret;
@@ -192,7 +199,7 @@ struct graph {
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
-        createFile("DFS", ret, diam_detec, dt);
+        createFile("DFS", ret, diam_detect, dt);
 
         return ret;
     }
@@ -218,54 +225,57 @@ struct graph {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
-    /*Getting all conected components*/
+    /*Getting all connected components*/
     void ConctComp() {
-        //Making atributtes empty
         CC.clear();
-        sizesCC.clear();
-        quantCC = 0;
+    sizesCC.clear();
+    quantCC = 0;
 
-        //Placing the first item because the vertex 0 doesn't exist
-        CC.push_back({});       
-        sizesCC.push_back({0, 0}); //{size, idCC}
+    // sentinel so vertex 0 doesn't exist
+    CC.push_back({});
+    sizesCC.push_back({0, 0}); // {size, idCC}
 
-        //Marking first vertex as visited
-        vector<int> visited(n+1, 0);
+    vector<int> visited(n+1, 0);
 
-        for (int start = 1; start <= n; start++) {
-            if (!visited[start]) {
-                //Checking if found a new component
-                quantCC++;
-                CC.push_back({});
-                sizesCC.push_back({0, quantCC});
+    for (int start = 1; start <= n; ++start) {
+        if (!visited[start]) {
+            quantCC++;
+            CC.push_back({});
+            sizesCC.push_back({0, quantCC});
 
-                //creating the stack to get the Conected Components
-                stack<int> P;
-                P.push(start);
-                visited[start] = 1;
+            stack<int> P;
+            visited[start] = 1;
+            P.push(start);
 
-                while (!P.empty()) { //While there is no more vertex in the CC
-                    int u = P.top();
-                    P.pop();
+            while (!P.empty()) {
+                int u = P.top();
+                P.pop();
 
-                    //Add u to current component
-                    CC.back().push_back(u);
-                    sizesCC.back()[0]++;
+                // add u to current component
+                CC.back().push_back(u);
+                sizesCC.back()[0]++;
 
-                    //Explore neighbors
-                    for (int v = 1; v <= n; v++) {
-                        node* aux = Linklist[v];
-                        if (!visited[aux->vertex]) {
-                            visited[aux->vertex] = 1;
-                            P.push(aux->vertex);
-                            aux = aux->next;
-                        }   
+                // iterate neighbors safely
+                node* aux = nullptr;
+                if (u >= 0 && u <= n) aux = Linklist[u]; // checagem simples (assegure que Linklist tem tamanho n+1)
+                if (!aux) continue;
+
+                // if there's a sentinel node (head vertex == u) and head->next exists, skip it
+                if (aux->vertex == u && aux->next != nullptr) aux = aux->next;
+
+                while (aux != nullptr) {
+                    int v = aux->vertex;
+                    if (v >= 1 && v <= n && !visited[v]) {
+                        visited[v] = 1;
+                        P.push(v);
                     }
+                    aux = aux->next;
                 }
             }
         }
+    }
 
-        //sorting the vector to print in decreasing order
+        //sorting the vector to print in increasing order
         sort(sizesCC.begin(), sizesCC.end());
     }
 
@@ -307,6 +317,20 @@ struct graph {
             }
         }
     }
+
+    /*Creating output grafics*/
+    void print(){
+        node* aux; 
+        for (auto line : Linklist){
+            aux = line;
+            while (aux != nullptr){
+                cout << aux->vertex << " ~> ";
+            aux = aux->next;
+            }
+            cout << '\n';
+        }
+    }
+
 };
 
 
@@ -363,6 +387,16 @@ int main(){
     if (test.diam < 0){cout << "Diametro do Grafo: infinito\n";}
     else {cout << "Diametro do Grafo: " << test.diam << "\n";}
     cout << "Componentes Conexas (" << test.quantCC << " CC's)\n";
+
+    for (int i=test.quantCC; i>0; i--) {
+        vector <int> vecCC = test.sizesCC[i];
+        cout << vecCC[0] << '\n';
+        cout << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
+        for (auto item : test.CC[vecCC[1]]){cout << item << " ";}
+        cout << "]\n";
+    }
+
+    test.print();
 
     //test.BFS(1);
     //test.BFS(2);
