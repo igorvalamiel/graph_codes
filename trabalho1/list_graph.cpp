@@ -35,12 +35,17 @@ struct graph {
     string mem_graph;
 
     vector <int> G_list; //getting the degrees of each vertex
+    vector <node*> Linklist; //creating the linked-list
 
     //-----------------------------------------------------------------------------------------------------------------------
     /* Starting the list */
     void start() {
-        vector <node*> Linklist(m+1); //creating the linked-list
-        for (int i=0; i<=m; i++) {G_list.push_back(0);} //initiating the G_list
+
+        //initiating the G_list
+        for (int i=0; i<=m; i++) {
+            G_list.push_back(0);
+            Linklist.push_back(new node);
+        }
         
         //placing all the edges
         for (auto item : graph_edges){
@@ -124,8 +129,30 @@ struct graph {
         while (Q.size() > 0){ //While there is any item on the queue
             int v = Q.front(); //getting the head
             Q.pop(); //deleting the head
+            node* aux = Linklist[v]; //creating a auxiliar node
+            for (int i=1; i<=G_list[v]; i++){ //for each node neighbor
+                int v_aux = aux->vertex; //getting vertex number
+                if (!visit_stats[v_aux]) { //if not visited
+                    visit_stats[v_aux] = 1; //mark as visited
+                    parent[v_aux] = v; //getting parent
+                    level[v_aux] = level[v] + 1; //setting level
+                    Q.push(v_aux); //placing in the queue
+                }
+                aux = aux->next; //getting next neighbor
+            }   
         }
 
+        vector <vector <int>> ret;
+        for (int i=0; i<=n; i++){
+            vector <int> aux = {parent[i], level[i]};
+            ret.push_back(aux);
+        }
+
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        return ret;
     }
 
 };
@@ -153,7 +180,10 @@ int main(){
         int a, b; infile >> a >> b;
         if (a == last1 && b == last2){break;}
         else {
-            vector <int> line = {a, b};
+            vector <int> line;
+            /*ordering the entry*/
+            if (a < b) {line = {a, b};}
+            else {line = {b, a};}
             edges.push_back(line);
             last1 = a;
             last2 = b;
@@ -161,12 +191,26 @@ int main(){
         }
     }
 
+    /*odering the edges list*/
+    sort(edges.begin(), edges.end(), greater());
+
     //closing the data file
     infile.close();
 
 
     graph test(edges, n, m);
 
+    vector <vector <int>> bfs1 = test.BFS(1);
+    cout << "Levels: [ ";
+    for (auto par : bfs1){
+        cout << par[1] << ' ';
+    } cout << "]    ";
+    cout << "|   Parents: [ ";
+    for (auto par : bfs1){
+        cout << par[0] << ' ';
+    } cout << "]";
+
+    cout << "\n\n";
     //Output model (it should appear in another file just like that)
     cout << "\nNumero de vertices: " << test.n << '\n';
     cout << "Numero de arestas: " << test.m << '\n';
