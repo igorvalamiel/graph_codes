@@ -41,6 +41,7 @@ struct graph {
     int quantCC = 0; // quantity of CC
     vector <int> G_list; //getting the degrees of each vertex
     vector <node*> Linklist; //creating the linked-list
+    vector <node*> TailLL; //creating a vector to keep all the last itens of the linked list
 
     //-----------------------------------------------------------------------------------------------------------------------
     /* Starting the list */
@@ -54,6 +55,7 @@ struct graph {
             aux->next = nullptr;
             aux->back = nullptr;
             Linklist.push_back(aux);
+            TailLL.push_back(aux);
         }
         
         //placing all the edges
@@ -185,13 +187,14 @@ struct graph {
         
         while (!Q.empty()){ //While there is any item on the queue
             int v = Q.top(); //getting the head
-            cout << v << ' ';
             Q.pop(); //deleting the head
-            node* aux = Linklist[v]; //creating a auxiliar node
+            node* aux = TailLL[v]; //creating a auxiliar node
+            cout << "tail: " << aux->vertex << '\n';
 
             cout << '\n';
-            for (int i = G_list[v]-1; i >= 0; i--){
+            while (aux != nullptr) {
                 int w = aux->vertex;
+                aux = aux->back;
                 if (!visit_stats[w]){
                     visit_stats[w] = 1;
                     cout << w << " teste\n";
@@ -199,7 +202,6 @@ struct graph {
                     level[w] = level[v]+1;
                     Q.push(w);
                 }
-                aux = aux->next;
             }
         }
 
@@ -335,7 +337,7 @@ struct graph {
     /*Creating output grafics*/
     void print(){
         node* aux;
-        int cnt = 1;
+        int cnt = 0;
         for (auto line : Linklist){
             aux = line;
             cout << cnt << " => ";
@@ -414,9 +416,9 @@ int main(){
 
     test.print();
 
-    //test.BFS(1);
-    //test.BFS(2);
-    //test.BFS(3);
+    test.BFS(1);
+    test.BFS(2);
+    test.BFS(3);
     test.DFS(1);
     test.DFS(2);
     test.DFS(3);
