@@ -94,17 +94,17 @@ struct graph {
         cout << "Start ok\n";
         getinfo();
         cout << "getinfo ok\n";
-        //ConctComp();
-        //cout << "CC ok\n";
-        diameter();
-        cout << "diameter ok\n";
+        ConctComp();
+        cout << "CC ok\n";
+        //diameter();
+        //cout << "diameter ok\n";
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting all the information needed*/
     void getinfo() {
         G_min = n; //seting G_min for the max value (the biggest degree a vertex can have is n-1, that's why I settle it n)
-        for (int i=1; i<=n; i++){
+        for (int i=0; i<n; i++){
             double value = G_list[i];
             if (value < G_min) G_min = value; //getting lowest degree
             if (value > G_max) G_max = value; //getting highest degree
@@ -246,47 +246,37 @@ struct graph {
         sizesCC.clear();
         quantCC = 0;
 
-        // sentinel so vertex 0 doesn't exist
         CC.push_back({});
         sizesCC.push_back({0, 0}); // {size, idCC}
 
-        vector<int> visited(n+1, 0);
+        vector<bool> visited(n+1, 0);
 
-        for (int start = 1; start <= n; ++start) {
+        for (int start = 1; start <= n; start++) {
             if (!visited[start]) {
+
+                //getting data
                 quantCC++;
-                CC.push_back({});
-                sizesCC.push_back({0, quantCC});
+                vector <int> CC_itens;
+                int ctng_CC = 0;
 
-                stack<int> P;
-                visited[start] = 1;
-                P.push(start);
+                //add start to current component
+                CC_itens.push_back(start);
+                ctng_CC++;
 
-                while (!P.empty()) {
-                    int u = P.top();
-                    P.pop();
-
-                    // add u to current component
-                    CC.back().push_back(u);
-                    sizesCC.back()[0]++;
-
-                    // iterate neighbors safely
-                    node* aux = nullptr;
-                    if (u >= 0 && u <= n) aux = Linklist[u]; // checagem simples (assegure que Linklist tem tamanho n+1)
-                    if (!aux) continue;
-
-                    // if there's a sentinel node (head vertex == u) and head->next exists, skip it
-                    if (aux->vertex == u && aux->next != nullptr) aux = aux->next;
-
-                    while (aux != nullptr) {
-                        int v = aux->vertex;
-                        if (v >= 1 && v <= n && !visited[v]) {
-                            visited[v] = 1;
-                            P.push(v);
-                        }
-                        aux = aux->next;
+                //explore vertexes
+                vector <vector <int>> bfs_res = BFS(start, true);
+                for (int i=0; i<bfs_res.size(); i++){
+                    int v = bfs_res[i][0];
+                    if (v != 0) {
+                        visited[i] = 1;
+                        CC_itens.push_back(i);
+                        ctng_CC++;
                     }
                 }
+
+                //rising data
+                CC.push_back(CC_itens);
+                sizesCC.push_back({ctng_CC, quantCC});
             }
         }
 
@@ -418,12 +408,12 @@ int main(){
 
     //test.print();
 
-    //test.BFS(1);
-    //test.BFS(2);
-    //test.BFS(3);
-    //test.DFS(1);
-    //test.DFS(2);
-    //test.DFS(3);
+    test.BFS(1);
+    test.BFS(2);
+    test.BFS(3);
+    test.DFS(1);
+    test.DFS(2);
+    test.DFS(3);
 
     outD << "=================================================\n";
     outD.close();
