@@ -177,16 +177,31 @@ struct graph {
         vector <int> level(n+1, 0); //vector to register the level of each vertex
 
         Q.push(s); //placing s in the queue
+        visit_stats[s] = 1; //marking s as visited
         
         while (!Q.empty()){ //While there is any item on the queue
             int v = Q.top(); //getting the head
+            cout << v << ' ';
             Q.pop(); //deleting the head
             node* aux = Linklist[v]; //creating a auxiliar node
-            if (!visit_stats[v]){
-                visit_stats[v] = 1;
-                cout << v << " teste\n";
-                aux = aux->next;
-                Q.push(aux->vertex);
+
+            //getting the neighbors to run backways
+            vector <int> neighbors;
+            while (aux != nullptr) {
+                neighbors.push_back(aux->vertex);
+                cout << aux->vertex << " ";
+                aux = aux->next;}
+
+            cout << '\n';
+            for (int i = G_list[v]-1; i >= 0; i--){
+                int w = neighbors[i];
+                if (!visit_stats[w]){
+                    visit_stats[w] = 1;
+                    cout << w << " teste\n";
+                    parent[w] = v;
+                    level[w] = level[v]+1;
+                    Q.push(w);
+                }
             }
         }
 
@@ -229,52 +244,52 @@ struct graph {
     /*Getting all connected components*/
     void ConctComp() {
         CC.clear();
-    sizesCC.clear();
-    quantCC = 0;
+        sizesCC.clear();
+        quantCC = 0;
 
-    // sentinel so vertex 0 doesn't exist
-    CC.push_back({});
-    sizesCC.push_back({0, 0}); // {size, idCC}
+        // sentinel so vertex 0 doesn't exist
+        CC.push_back({});
+        sizesCC.push_back({0, 0}); // {size, idCC}
 
-    vector<int> visited(n+1, 0);
+        vector<int> visited(n+1, 0);
 
-    for (int start = 1; start <= n; ++start) {
-        if (!visited[start]) {
-            quantCC++;
-            CC.push_back({});
-            sizesCC.push_back({0, quantCC});
+        for (int start = 1; start <= n; ++start) {
+            if (!visited[start]) {
+                quantCC++;
+                CC.push_back({});
+                sizesCC.push_back({0, quantCC});
 
-            stack<int> P;
-            visited[start] = 1;
-            P.push(start);
+                stack<int> P;
+                visited[start] = 1;
+                P.push(start);
 
-            while (!P.empty()) {
-                int u = P.top();
-                P.pop();
+                while (!P.empty()) {
+                    int u = P.top();
+                    P.pop();
 
-                // add u to current component
-                CC.back().push_back(u);
-                sizesCC.back()[0]++;
+                    // add u to current component
+                    CC.back().push_back(u);
+                    sizesCC.back()[0]++;
 
-                // iterate neighbors safely
-                node* aux = nullptr;
-                if (u >= 0 && u <= n) aux = Linklist[u]; // checagem simples (assegure que Linklist tem tamanho n+1)
-                if (!aux) continue;
+                    // iterate neighbors safely
+                    node* aux = nullptr;
+                    if (u >= 0 && u <= n) aux = Linklist[u]; // checagem simples (assegure que Linklist tem tamanho n+1)
+                    if (!aux) continue;
 
-                // if there's a sentinel node (head vertex == u) and head->next exists, skip it
-                if (aux->vertex == u && aux->next != nullptr) aux = aux->next;
+                    // if there's a sentinel node (head vertex == u) and head->next exists, skip it
+                    if (aux->vertex == u && aux->next != nullptr) aux = aux->next;
 
-                while (aux != nullptr) {
-                    int v = aux->vertex;
-                    if (v >= 1 && v <= n && !visited[v]) {
-                        visited[v] = 1;
-                        P.push(v);
+                    while (aux != nullptr) {
+                        int v = aux->vertex;
+                        if (v >= 1 && v <= n && !visited[v]) {
+                            visited[v] = 1;
+                            P.push(v);
+                        }
+                        aux = aux->next;
                     }
-                    aux = aux->next;
                 }
             }
         }
-    }
 
         //sorting the vector to print in increasing order
         sort(sizesCC.begin(), sizesCC.end());
@@ -400,14 +415,12 @@ int main(){
         cout << "]\n";
     }
 
-    test.print();
-
     //test.BFS(1);
     //test.BFS(2);
     //test.BFS(3);
-    //test.DFS(1);
-    //test.DFS(2);
-    //test.DFS(3);
+    test.DFS(1);
+    test.DFS(2);
+    test.DFS(3);
 
     return 0;
 }
