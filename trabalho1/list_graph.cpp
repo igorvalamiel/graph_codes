@@ -142,7 +142,7 @@ struct graph {
         while (Q.size() > 0){ //While there is any item on the queue
             int v = Q.front(); //getting the head
             Q.pop(); //deleting the head
-            node* aux = Linklist[v]; //creating a auxiliar node
+            node* aux = new node; aux = Linklist[v]; //creating a auxiliar node
             for (int i=1; i<=G_list[v]; i++){ //for each node neighbor
                 int v_aux = aux->vertex; //getting vertex number
                 if (!visit_stats[v_aux]) { //if not visited
@@ -177,31 +177,28 @@ struct graph {
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
         vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
-        stack <int> Q; //creating the queue for getting the next item to be visited
+        stack <int> P; //creating the queue for getting the next item to be visited
 
         vector <int> parent(n+1, 0); //vector to register the parent of each vertex
         vector <int> level(n+1, 0); //vector to register the level of each vertex
 
-        Q.push(s); //placing s in the queue
-        visit_stats[s] = 1; //marking s as visited
-        
-        while (!Q.empty()){ //While there is any item on the queue
-            int v = Q.top(); //getting the head
-            Q.pop(); //deleting the head
-            node* aux = TailLL[v]; //creating a auxiliar node
-            cout << "tail: " << aux->vertex << '\n';
+        visit_stats[s] = 1;
+        P.push(s); //placing s in the queue
 
-            cout << '\n';
-            while (aux != nullptr) {
-                int w = aux->vertex;
-                aux = aux->back;
-                if (!visit_stats[w]){
-                    visit_stats[w] = 1;
-                    cout << w << " teste\n";
+        while (!P.empty()){ //While there is any item on the queue
+            int v = P.top(); //getting the head
+            P.pop(); //deleting the head
+            node* aux = TailLL[v]; //creating a auxiliar node
+            if (!visit_stats[v]){
+                visit_stats[v] = 1;
+                //action for each vertex neighbor
+                while (aux != nullptr){
+                    aux = aux->back;
+                    int w = aux->vertex;
                     parent[w] = v;
                     level[w] = level[v]+1;
-                    Q.push(w);
-                }
+                    P.push(w);
+                }   
             }
         }
 
@@ -416,9 +413,9 @@ int main(){
 
     test.print();
 
-    test.BFS(1);
-    test.BFS(2);
-    test.BFS(3);
+    //test.BFS(1);
+    //test.BFS(2);
+    //test.BFS(3);
     test.DFS(1);
     test.DFS(2);
     test.DFS(3);
