@@ -46,10 +46,11 @@ struct graph {
     void start() {
 
         //initiating the G_list
-        for (int i=0; i<=n; i++) {
+        for (int i=0; i<n; i++) {
             G_list.push_back(0);
             node* aux = new node;
             aux->vertex = i;
+            aux->next = nullptr;
             Linklist.push_back(aux);
         }
         
@@ -320,13 +321,16 @@ struct graph {
 
     /*Creating output grafics*/
     void print(){
-        node* aux; 
+        node* aux;
+        int cnt = 1;
         for (auto line : Linklist){
             aux = line;
+            cout << cnt << " => ";
             while (aux != nullptr){
                 cout << aux->vertex << " ~> ";
             aux = aux->next;
             }
+            cnt++;
             cout << '\n';
         }
     }
