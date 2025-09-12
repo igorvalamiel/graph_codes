@@ -185,16 +185,9 @@ struct graph {
             Q.pop(); //deleting the head
             node* aux = Linklist[v]; //creating a auxiliar node
 
-            //getting the neighbors to run backways
-            vector <int> neighbors;
-            while (aux != nullptr) {
-                neighbors.push_back(aux->vertex);
-                cout << aux->vertex << " ";
-                aux = aux->next;}
-
             cout << '\n';
             for (int i = G_list[v]-1; i >= 0; i--){
-                int w = neighbors[i];
+                int w = aux->vertex;
                 if (!visit_stats[w]){
                     visit_stats[w] = 1;
                     cout << w << " teste\n";
@@ -202,6 +195,7 @@ struct graph {
                     level[w] = level[v]+1;
                     Q.push(w);
                 }
+                aux = aux->next;
             }
         }
 
