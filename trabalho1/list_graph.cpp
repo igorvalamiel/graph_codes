@@ -391,36 +391,42 @@ int main(){
     //closing the data file
     infile.close();
 
+    //opening the output_data file
+    ofstream outD("out_data.txt", std::ios::app);
+
     graph test(edges, n, m);
 
     //Output model (it should appear in another file just like that)
-    cout << "\nNumero de vertices: " << test.n << '\n';
-    cout << "Numero de arestas: " << test.m << '\n';
-    cout << "Grau minimo: " << test.G_min << '\n';
-    cout << "Grau maximo: " << test.G_max << '\n';
-    cout << "Grau medio: " << test.G_med << '\n';
-    cout << "Mediana de grau: " << test.Medi_g << '\n';
-    cout << test.mem_graph << '\n';
-    if (test.diam < 0){cout << "Diametro do Grafo: infinito\n";}
-    else {cout << "Diametro do Grafo: " << test.diam << "\n";}
-    cout << "Componentes Conexas (" << test.quantCC << " CC's)\n";
+    outD << "\nNumero de vertices: " << test.n << '\n';
+    outD << "Numero de arestas: " << test.m << '\n';
+    outD << "Grau minimo: " << test.G_min << '\n';
+    outD << "Grau maximo: " << test.G_max << '\n';
+    outD << "Grau medio: " << test.G_med << '\n';
+    outD << "Mediana de grau: " << test.Medi_g << '\n';
+    outD << test.mem_graph << '\n';
+    if (test.diam < 0){outD << "Diametro do Grafo: infinito\n";}
+    else {outD << "Diametro do Grafo: " << test.diam << "\n";}
+    outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
     for (int i=test.quantCC; i>0; i--) {
         vector <int> vecCC = test.sizesCC[i];
-        cout << vecCC[0] << '\n';
-        cout << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
-        for (auto item : test.CC[vecCC[1]]){cout << item << " ";}
-        cout << "]\n";
+        outD << vecCC[0] << '\n';
+        outD << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
+        for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
+        outD << "]\n";
     }
 
-    test.print();
+    //test.print();
 
-    test.BFS(1);
-    test.BFS(2);
-    test.BFS(3);
-    test.DFS(1);
-    test.DFS(2);
-    test.DFS(3);
+    //test.BFS(1);
+    //test.BFS(2);
+    //test.BFS(3);
+    //test.DFS(1);
+    //test.DFS(2);
+    //test.DFS(3);
+
+    outD << "=================================================\n";
+    outD.close();
 
     return 0;
 }
