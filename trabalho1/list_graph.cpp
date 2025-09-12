@@ -182,7 +182,6 @@ struct graph {
         vector <int> parent(n+1, 0); //vector to register the parent of each vertex
         vector <int> level(n+1, 0); //vector to register the level of each vertex
 
-        visit_stats[s] = 1;
         P.push(s); //placing s in the queue
 
         while (!P.empty()){ //While there is any item on the queue
@@ -192,13 +191,16 @@ struct graph {
             if (!visit_stats[v]){
                 visit_stats[v] = 1;
                 //action for each vertex neighbor
-                while (aux != nullptr){
+                while (true){
                     aux = aux->back;
+                    if (aux == nullptr) {break;}
                     int w = aux->vertex;
-                    parent[w] = v;
-                    level[w] = level[v]+1;
                     P.push(w);
-                }   
+                    if (!visit_stats[w]){
+                        parent[w] = v;
+                        level[w] = level[v]+1;
+                    }
+                }
             }
         }
 
@@ -413,9 +415,9 @@ int main(){
 
     test.print();
 
-    //test.BFS(1);
-    //test.BFS(2);
-    //test.BFS(3);
+    test.BFS(1);
+    test.BFS(2);
+    test.BFS(3);
     test.DFS(1);
     test.DFS(2);
     test.DFS(3);
