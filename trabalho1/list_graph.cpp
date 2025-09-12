@@ -17,6 +17,7 @@ string printMemoryUsage() {
 /* Creating node structure */
 struct node {
     int vertex;
+    node* back;
     node* next;
 };
 
@@ -51,6 +52,7 @@ struct graph {
             node* aux = new node;
             aux->vertex = i;
             aux->next = nullptr;
+            aux->back = nullptr;
             Linklist.push_back(aux);
         }
         
@@ -62,11 +64,13 @@ struct graph {
             // creating edge a -> b
             node* auxA = new node; auxA->vertex = b;
             auxA->next = Linklist[a];
+            if (Linklist[a] != nullptr) Linklist[a]->back = auxA;
             Linklist[a] = auxA;
 
             // creating edge b -> a
             node* auxB = new node; auxB->vertex = a;
             auxB->next = Linklist[b];
+            if (Linklist[b] != nullptr) Linklist[b]->back = auxB;
             Linklist[b] = auxB;
 
             // adding a degree to a and b
@@ -386,7 +390,6 @@ int main(){
     //closing the data file
     infile.close();
 
-
     graph test(edges, n, m);
 
     //Output model (it should appear in another file just like that)
@@ -408,6 +411,8 @@ int main(){
         for (auto item : test.CC[vecCC[1]]){cout << item << " ";}
         cout << "]\n";
     }
+
+    test.print();
 
     //test.BFS(1);
     //test.BFS(2);
