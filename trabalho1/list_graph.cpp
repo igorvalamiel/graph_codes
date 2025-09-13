@@ -104,7 +104,7 @@ struct graph {
     /*Getting all the information needed*/
     void getinfo() {
         G_min = n; //seting G_min for the max value (the biggest degree a vertex can have is n-1, that's why I settle it n)
-        for (int i=0; i<n; i++){
+        for (int i=1; i<=n; i++){
             double value = G_list[i];
             if (value < G_min) G_min = value; //getting lowest degree
             if (value > G_max) G_max = value; //getting highest degree
@@ -210,8 +210,6 @@ struct graph {
                 }
             }
         }
-
-        cout << "DFS concluida\n";
 
         vector <vector <int>> ret;
         for (int i=0; i<=n; i++){
@@ -354,7 +352,7 @@ struct graph {
 
 int main(){
     //opening the data file
-    ifstream infile("grafo_1.txt");
+    ifstream infile("data.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -371,19 +369,12 @@ int main(){
 
     int a = 0, b = 0; 
     //getting all the edges of the graph
-    while (true){
-        infile >> a >> b;
-        if (a == last1 && b == last2){break;}
-        else {
-            vector <int> line;
-            /*ordering the entry*/
-            if (a < b) {line = {a, b};}
-            else {line = {b, a};}
-            edges.push_back(line);
-            last1 = a;
-            last2 = b;
-            m++;
-        }
+    while (infile >> a >> b) {
+        vector <int> line;
+        if (a < b) line = {a, b};
+        else line = {b, a};
+        edges.push_back(line);
+        m++;
     }
 
     /*odering the edges list*/
