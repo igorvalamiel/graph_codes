@@ -184,21 +184,28 @@ struct graph {
 
         P.push(s); //placing s in the queue
 
-        while (!P.empty()){ //While there is any item on the queue
-            int v = P.top(); //getting the head
-            P.pop(); //deleting the head
-            node* aux = TailLL[v]; //creating a auxiliar node
+        while (!P.empty()){
+            int v = P.top();
+            P.pop();
             if (!visit_stats[v]){
                 visit_stats[v] = 1;
-                //action for each vertex neighbor
-                while (aux->vertex != Linklist[v]->vertex){
-                    aux = aux->back;
-                    if (aux == nullptr) {break;}
-                    int w = aux->vertex;
+
+                // Coleta todos os vizinhos de v
+                vector<int> neighbors;
+                node* aux = Linklist[v];
+                while (aux != nullptr) {
+                    neighbors.push_back(aux->vertex);
+                    aux = aux->next;
+                }
+
+                // Ordena do MAIOR para o MENOR para garantir ordem crescente de exploração
+                sort(neighbors.rbegin(), neighbors.rend());
+
+                for (int w : neighbors) {
                     P.push(w);
-                    if (!visit_stats[w]){
+                    if (!visit_stats[w]) {
                         parent[w] = v;
-                        level[w] = level[v]+1;
+                        level[w] = level[v] + 1;
                     }
                 }
             }
@@ -347,7 +354,7 @@ struct graph {
 
 int main(){
     //opening the data file
-    ifstream infile("data.txt");
+    ifstream infile("grafo_1.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
