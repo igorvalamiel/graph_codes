@@ -191,7 +191,7 @@ struct graph {
             if (!visit_stats[v]){
                 visit_stats[v] = 1;
                 //action for each vertex neighbor
-                while (true){
+                while (aux->vertex != Linklist[v]->vertex){
                     aux = aux->back;
                     if (aux == nullptr) {break;}
                     int w = aux->vertex;
@@ -203,6 +203,8 @@ struct graph {
                 }
             }
         }
+
+        cout << "DFS concluida\n";
 
         vector <vector <int>> ret;
         for (int i=0; i<=n; i++){
@@ -247,42 +249,43 @@ struct graph {
         quantCC = 0;
 
         CC.push_back({});
-        sizesCC.push_back({0, 0}); // {size, idCC}
+        sizesCC.push_back({0, 0});
 
         vector<bool> visited(n+1, 0);
 
         for (int start = 1; start <= n; start++) {
             if (!visited[start]) {
-
-                //getting data
                 quantCC++;
-                vector <int> CC_itens;
+                vector<int> CC_itens;
                 int ctng_CC = 0;
 
-                //add start to current component
-                CC_itens.push_back(start);
-                ctng_CC++;
+                queue<int> Q;
+                Q.push(start);
+                visited[start] = true;
 
-                //explore vertexes
-                vector <vector <int>> bfs_res = BFS(start, true);
-                for (int i=0; i<bfs_res.size(); i++){
-                    int v = bfs_res[i][0];
-                    if (v != 0) {
-                        visited[i] = 1;
-                        CC_itens.push_back(i);
-                        ctng_CC++;
+                while (!Q.empty()) {
+                    int v = Q.front(); Q.pop();
+                    CC_itens.push_back(v);
+                    ctng_CC++;
+                    node* aux = Linklist[v];
+                    while (aux != nullptr) {
+                        int w = aux->vertex;
+                        if (!visited[w]) {
+                            visited[w] = true;
+                            Q.push(w);
+                        }
+                        aux = aux->next;
                     }
                 }
 
-                //rising data
                 CC.push_back(CC_itens);
                 sizesCC.push_back({ctng_CC, quantCC});
             }
         }
 
-        //sorting the vector to print in increasing order
         sort(sizesCC.begin(), sizesCC.end());
     }
+
 
     //-------------------------------------------------------------------------------------------------------------------------
     /*Creating a function to create and/or modify a file*/
@@ -344,7 +347,7 @@ struct graph {
 
 int main(){
     //opening the data file
-    ifstream infile("grafo_1.txt");
+    ifstream infile("data.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
