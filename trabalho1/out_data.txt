@@ -53,21 +53,3 @@ CC 2: (2 vertices) ~ [ 8 9 ]
 
 //-----------------------------------------------------------------------------------------------------------------------
 Lista Encadeada
-
-Numero de vertices: 13
-Numero de arestas: 13
-Grau minimo: 0
-Grau maximo: 4
-Grau medio: 1.84615
-Mediana de grau: 2
-Memoria utilizada pelo processo: 1004 KB
-
-Diametro do Grafo: infinito
-Componentes Conexas (3 CC's)
-7
-CC 1: (7 vertices) ~ [ 1 2 3 4 5 6 7 ]
-4
-CC 3: (4 vertices) ~ [ 10 11 12 13 ]
-2
-CC 2: (2 vertices) ~ [ 8 9 ]
-=================================================

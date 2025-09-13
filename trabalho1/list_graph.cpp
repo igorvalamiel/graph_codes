@@ -96,8 +96,8 @@ struct graph {
         cout << "getinfo ok\n";
         ConctComp();
         cout << "CC ok\n";
-        //diameter();
-        //cout << "diameter ok\n";
+        diameter();
+        cout << "diameter ok\n";
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -115,7 +115,7 @@ struct graph {
 
         //creating a copy of G_list to find the median
         vector <int> Copy_G_list; 
-        for (int i=1; i<=n; i++) {Copy_G_list.push_back(G_list[i]);}
+        for (int i=0; i<n; i++) {Copy_G_list.push_back(G_list[i]);}
 
         sort(Copy_G_list.begin(), Copy_G_list.end()); //sorting the copy list
         
@@ -359,9 +359,10 @@ int main(){
     //stopping point
     int last1, last2;
 
+    int a = 0, b = 0; 
     //getting all the edges of the graph
     while (true){
-        int a, b; infile >> a >> b;
+        infile >> a >> b;
         if (a == last1 && b == last2){break;}
         else {
             vector <int> line;
@@ -400,7 +401,6 @@ int main(){
 
     for (int i=test.quantCC; i>0; i--) {
         vector <int> vecCC = test.sizesCC[i];
-        outD << vecCC[0] << '\n';
         outD << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
         for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
         outD << "]\n";
