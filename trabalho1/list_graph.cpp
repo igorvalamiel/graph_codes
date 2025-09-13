@@ -352,7 +352,7 @@ struct graph {
 
 int main(){
     //opening the data file
-    ifstream infile("grafo_2.txt");
+    ifstream infile("teste_2.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
