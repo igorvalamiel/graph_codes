@@ -317,10 +317,11 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("data.txt");
+    ifstream infile("../../../trabalho1/grafo_1.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
+    cout << nlines << '\n';
 
     //creating the a vector of vectors to keep all edges information
     vector <vector <int>> edges;
