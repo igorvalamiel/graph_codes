@@ -355,6 +355,18 @@ struct graph {
                 if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
             }
             diam = highest_level;
+        } else if (quantCC < 1){
+            int highest_level = 0; //setting the counter
+            vector <vector <int>> l = BFS(1, true); //doing the BFS
+            for (auto i : l) {
+                if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
+            }
+            int double_diam = 0; //setting the counter
+            vector <vector <int>> l2 = BFS(highest_level, true); //doing the BFS
+            for (auto i : l) {
+                if (i[1] > double_diam) {double_diam = i[1];} //finding the biggest distance
+            }
+            diam = double_diam;
         }
     }
 
@@ -697,7 +709,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_1.txt");
+    ifstream infile("../../../trabalho1/grafo_6.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -732,12 +744,12 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    //graph testL(edges, n, m);
-    graph testM(edges, n, m, 0);
+    graph testL(edges, n, m);
+    //graph testM(edges, n, m, 0);
 
     /* 1st Question */
     //outD << "Questão 1\n";
-    //outD << "Lista 6: " << testL.mem_graph;
+    outD << "Lista 6: " << testL.mem_graph;
     //outD << "Matriz 3: " << testM.mem_graph << '\n';
 
     /* 2nd & 3rd Questions */
@@ -780,15 +792,16 @@ int main() {
     outD << "Dist(10, 20) : " << d1020 << '\n';
     outD << "Dist(10, 30) : " << d1030 << '\n';
     outD << "Dist(20, 30) : " << d2030 << '\n';*/
-    int d1020 = testM.dist(10, 20);
-    int d1030 = testM.dist(10, 30);
-    int d2030 = testM.dist(20, 30);
-    outD << "{Matriz - grafo_1}:\n";
-    outD << "Dist(10, 20) : " << d1020 << '\n';
-    outD << "Dist(10, 30) : " << d1030 << '\n';
-    outD << "Dist(20, 30) : " << d2030 << '\n';
 
-    
+    /* 6th Question */
+    /*int qCC = testL.quantCC;
+    int maiorCC = testL.sizesCC[1][0], menorCC = testL.sizesCC[qCC][0];
+    outD << "{Grafo 1} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';*/
+
+    /* 7th Question */
+    outD << "Diâmetro do grafo 1 : " << testL.diam << " vértices\n";
+
+
     outD << "=================================================\n";
     outD.close();
 

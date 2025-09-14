@@ -40,20 +40,22 @@ Pai[30] = 86
 Pai[10] = 2042      Pai[10] = 2042
 Pai[20] = 9543      Pai[20] = 8382
 Pai[30] = 7311      Pai[30] = 2394
-
-{Matriz - grafo_1} DFS(1):
-Pai[10] = 709
-Pai[20] = 666
-Pai[30] = 86
 =================================================
 Questão 5
 {Lista - grafo_1}:
 Dist(10, 20) : 3
 Dist(10, 30) : 3
 Dist(20, 30) : 4
-
-{Matriz - grafo_1}:
-Dist(10, 20) : 3
-Dist(10, 30) : 3
-Dist(20, 30) : 4
+=================================================
+Questão 6
+{Grafo 1} ~> 1CC's
+Menor CC: 10000
+Maior CC: 10000
+=================================================
+Questão 7
+Diâmetro do grafo 1 : 4 vértices
+Diâmetro do grafo 2 : -1 vértices
+Diâmetro do grafo 3 : -1 vértices
+Diâmetro do grafo 4 : -1 vértices
+Diâmetro do grafo 1 : -1 vértices
 =================================================
