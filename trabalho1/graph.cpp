@@ -512,7 +512,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_1.txt");
+    ifstream infile("data.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -547,7 +547,7 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    graph test(edges, n, m);
+    graph test(edges, n, m, 0);
 
     //Output model (it should appear in another file just like that)
     outD << "\nNumero de vertices: " << test.n << '\n';
