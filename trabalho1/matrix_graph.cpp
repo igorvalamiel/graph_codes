@@ -82,7 +82,7 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     //Implementing BFS
-    vector <vector <int>> BFS(int s, bool diam_detec = false){
+    vector <vector <int>> BFS(int s, bool diam_detect = false){
 
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
@@ -121,14 +121,14 @@ struct graph {
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
-        createFile("BFS", ret, diam_detec, dt);
+        createFile("BFS", ret, diam_detect, dt);
 
         return ret;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
     //implemneting DFS
-    vector <vector <int>> DFS(int s, bool diam_detec = false){
+    vector <vector <int>> DFS(int s, bool diam_detect = false){
 
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
@@ -167,7 +167,7 @@ struct graph {
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
-        createFile("DFS", ret, diam_detec, dt);
+        createFile("DFS", ret, diam_detect, dt);
 
         return ret;
     }
