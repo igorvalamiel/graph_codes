@@ -446,7 +446,7 @@ struct graph {
         if (!get_diam) {
             if (name == "BFS"){
                 ofstream testFile("bfs_output.txt", std::ios::app);
-                testFile << "BFS ~   ";
+                /*testFile << "BFS ~   ";
 
                 testFile << "Levels: [ ";
                 for (auto par : s){
@@ -455,13 +455,13 @@ struct graph {
                 testFile << "|   Parents: [ ";
                 for (auto par : s){
                     testFile << par[0] << ' ';
-                } testFile << "]";
+                } testFile << "]";*/
                 testFile << "   |   Runtime: " << t << "ms\n";
 
                 testFile.close();
             } else {
                 ofstream testFile("dfs_output.txt", std::ios::app);
-                testFile << "DFS ~   ";
+                /*testFile << "DFS ~   ";
 
                 testFile << "Levels: [ ";
                 for (auto par : s){
@@ -470,7 +470,7 @@ struct graph {
                 testFile << "|   Parents: [ ";
                 for (auto par : s){
                     testFile << par[0] << ' ';
-                } testFile << "]";
+                } testFile << "]";*/
                 testFile << "   |   Runtime: " << t << "ms\n";
 
                 testFile.close();
@@ -505,6 +505,190 @@ struct graph {
         }
     }
 
+    int BFS_time(int s, bool diam_detect = false){
+
+        if (graph_type){
+            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
+            vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+            queue <int> Q; //creating the queue for getting the next item to be visited
+
+            vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+            vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+            visit_stats[s] = 1; //marking s as visited
+            Q.push(s); //placing s in the queue
+
+            while (Q.size() > 0){ //While there is any item on the queue
+                int v = Q.front(); //getting the head
+                Q.pop(); //deleting the head
+                node* aux = new node; aux = Linklist[v]; //creating a auxiliar node
+                for (int i=1; i<=G_list[v]; i++){ //for each node neighbor
+                    int v_aux = aux->vertex; //getting vertex number
+                    if (!visit_stats[v_aux]) { //if not visited
+                        visit_stats[v_aux] = 1; //mark as visited
+                        parent[v_aux] = v; //getting parent
+                        level[v_aux] = level[v] + 1; //setting level
+                        Q.push(v_aux); //placing in the queue
+                    }
+                    aux = aux->next; //getting next neighbor
+                }   
+            }
+
+            vector <vector <int>> ret;
+            for (int i=0; i<=n; i++){
+                vector <int> aux = {parent[i], level[i]};
+                ret.push_back(aux);
+            }
+
+            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+            chrono::duration<double,std::milli> duration = end_time - start_time;
+            dt = duration.count(); //em ms
+
+            createFile("BFS", ret, diam_detect, dt);
+
+            return dt;
+        } else {
+            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
+            vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+            queue <int> Q; //creating the queue for getting the next item to be visited
+
+            vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+            vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+            visit_stats[s] = 1; //marking s as visited
+            Q.push(s); //placing s in the queue
+
+            while (Q.size() > 0){ //while there is any item on the queue
+                int v = Q.front(); //getting the head
+                Q.pop(); //deleting the head
+
+                for (int i=1; i<=n; i++){ //the matrix representation uses matrix[v][i] to say if i is a neighbor of v
+                    if (matrix[v][i] != 0){ //if they are neighbors
+                        if (visit_stats[i] == 0){ //if not visited yet
+                            visit_stats[i] = 1; //mark as visited
+                            parent[i] = v; //getting parent
+                            level[i] = level[v] + 1; //setting level
+                            Q.push(i); //placing the neighbor in the queue
+                        }
+                    }
+                }
+            }
+
+            vector <vector <int>> ret;
+            for (int i=0; i<=n; i++){
+                vector <int> aux = {parent[i], level[i]};
+                ret.push_back(aux);
+            }
+
+            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+            chrono::duration<double,std::milli> duration = end_time - start_time;
+            dt = duration.count(); //em ms
+
+            createFile("BFS", ret, diam_detect, dt);
+
+            return dt;
+        }
+    }
+
+    int DFS_time(int s, bool diam_detect = false){
+
+        if (graph_type) {
+            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
+            vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+            stack <int> P; //creating the queue for getting the next item to be visited
+
+            vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+            vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+            P.push(s); //placing s in the queue
+
+            while (!P.empty()){
+                int v = P.top();
+                P.pop();
+                if (!visit_stats[v]){
+                    visit_stats[v] = 1;
+
+                    // Coleta todos os vizinhos de v
+                    vector<int> neighbors;
+                    node* aux = Linklist[v];
+                    while (aux != nullptr) {
+                        neighbors.push_back(aux->vertex);
+                        aux = aux->next;
+                    }
+
+                    // Ordena do MAIOR para o MENOR para garantir ordem crescente de exploração
+                    sort(neighbors.rbegin(), neighbors.rend());
+
+                    for (int w : neighbors) {
+                        P.push(w);
+                        if (!visit_stats[w]) {
+                            parent[w] = v;
+                            level[w] = level[v] + 1;
+                        }
+                    }
+                }
+            }
+
+            vector <vector <int>> ret;
+            for (int i=0; i<=n; i++){
+                vector <int> aux = {parent[i], level[i]};
+                ret.push_back(aux);
+            }
+
+            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+            chrono::duration<double,std::milli> duration = end_time - start_time;
+            dt = duration.count(); //em ms
+
+            createFile("DFS", ret, diam_detect, dt);
+
+            return dt;
+        } else {
+            auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
+            vector <bool> visit_stats(n+1, 0); //creating a vector to mark if the vertex was already visited
+            stack <int> P; //creating the stack for getting the next item to be visited
+
+            vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+            vector <int> level(n+1, 0); //vector to register the level of each vertex
+
+            P.push(s); //adding s to the stack
+
+            while (!P.empty()){
+                int u = P.top(); //getting the highest element
+                P.pop(); //removing the highest element
+                if (visit_stats[u] == 0){ //verifying if u was already visited
+                    visit_stats[u] = 1; //marking u as visited
+                    for (int j=n; j>=1; j--){ //looking for the next neighbor
+                        if (matrix[u][j] != 0){
+                            if (visit_stats[j] == 0){ //if the neighbor wasn't visited
+                                parent[j] = u; //setting parent
+                                level[j] = level[u] + 1; //setting level
+                                P.push(j); //putting neighbor in the stack
+                            }
+                        }
+                    }
+                }
+            }
+
+            vector <vector <int>> ret;
+            for (int i=0; i<=n; i++){
+                vector <int> aux = {parent[i], level[i]};
+                ret.push_back(aux);
+            }
+
+            auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+            chrono::duration<double,std::milli> duration = end_time - start_time;
+            dt = duration.count(); //em ms
+
+            createFile("DFS", ret, diam_detect, dt);
+
+            return dt;
+        }
+    }
+
 };
 
 //-------------------------------------------------------------------------------------------------------------------------
@@ -513,7 +697,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_3.txt");
+    ifstream infile("../../../trabalho1/grafo_2.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -551,10 +735,26 @@ int main() {
     //graph testL(edges, n, m);
     graph testM(edges, n, m, 0);
 
-    //1st Question
+    /* 1st Question */
     //outD << "Questão 1\n";
     //outD << "Lista 6: " << testL.mem_graph;
-    outD << "Matriz 3: " << testM.mem_graph << '\n';
+    //outD << "Matriz 3: " << testM.mem_graph << '\n';
+
+    /* 2nd & 3rd Questions */
+    int bfs_sum = 0, dfs_sum = 0;
+    for (int i = 1; i<=100; i++){
+        //int n; n = testL.BFS_time(i); bfs_sum += n;
+        int n; n = testM.BFS_time(i); bfs_sum += n;
+        //int n2; n2 = testL.DFS_time(i); dfs_sum += n;
+        int n2; n2 = testM.DFS_time(i); dfs_sum += n;
+    }
+    float bfs_time = bfs_sum/100;
+    float dfs_time = dfs_sum/100;
+
+    //outD << "Tempo medio de BFS [Lista - grafo_2] : " << bfs_time << " ms\n";
+    //outD << "Tempo medio de DFS [Lista - grafo_2] : " << dfs_time << " ms\n";
+    outD << "Tempo medio de BFS [Matriz - grafo_2] : " << bfs_time << " ms\n";
+    outD << "Tempo medio de DFS [Matriz - grafo_2] : " << dfs_time << " ms\n";
 
     outD << "=================================================\n";
     outD.close();

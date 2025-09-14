@@ -13,3 +13,15 @@ Matriz 4:
 Matriz 5: 
 Matriz 6: 
 =================================================
+Questão 2
+Tempo medio de BFS [Lista - grafo_1] : 18 ms
+Tempo medio de BFS [Lista - grafo_2] : 144 ms
+Tempo medio de BFS [Matriz - grafo_1] : 3039 ms
+Tempo medio de BFS [Matriz - grafo_2] : 30718 ms
+=================================================
+Questão 3
+Tempo medio de DFS [Lista - grafo_1] : 18 ms
+Tempo medio de DFS [Lista - grafo_2] : 144 ms
+Tempo medio de DFS [Matriz - grafo_1] : 3039 ms
+Tempo medio de DFS [Matriz - grafo_2] : 30718 ms
+=================================================
