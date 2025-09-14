@@ -1,0 +1,5 @@
+Questão 1
+Lista 1: Memória utilizada pelo processo: 1020 KB
+Matriz 1: Memória utilizada pelo processo: 1028 KB
+
+=================================================

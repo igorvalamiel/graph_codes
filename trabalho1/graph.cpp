@@ -509,6 +509,7 @@ struct graph {
 
 //-------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------
+
 int main() {
 
     //opening the data file
@@ -547,33 +548,13 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    graph test(edges, n, m, 0);
+    graph testL(edges, n, m);
+    graph testM(edges, n, m, 0);
 
-    //Output model (it should appear in another file just like that)
-    outD << "\nNumero de vertices: " << test.n << '\n';
-    outD << "Numero de arestas: " << test.m << '\n';
-    outD << "Grau minimo: " << test.G_min << '\n';
-    outD << "Grau maximo: " << test.G_max << '\n';
-    outD << "Grau medio: " << test.G_med << '\n';
-    outD << "Mediana de grau: " << test.Medi_g << '\n';
-    outD << test.mem_graph << '\n';
-    if (test.diam < 0){outD << "Diametro do Grafo: infinito\n";}
-    else {outD << "Diametro do Grafo: " << test.diam << "\n";}
-    outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
-
-    for (int i=test.quantCC; i>0; i--) {
-        vector <int> vecCC = test.sizesCC[i];
-        outD << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
-        for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
-        outD << "]\n";
-    }
-
-    test.BFS(1);
-    test.BFS(2);
-    test.BFS(3);
-    test.DFS(1);
-    test.DFS(2);
-    test.DFS(3);
+    //1st Question
+    outD << "Questão 1\n";
+    outD << "Lista 1: " << testL.mem_graph;
+    outD << "Matriz 1: " << testM.mem_graph << '\n';
 
     outD << "=================================================\n";
     outD.close();
