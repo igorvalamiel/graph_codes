@@ -732,8 +732,8 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    graph testL(edges, n, m);
-    //graph testM(edges, n, m, 0);
+    //graph testL(edges, n, m);
+    graph testM(edges, n, m, 0);
 
     /* 1st Question */
     //outD << "Questão 1\n";
@@ -764,18 +764,31 @@ int main() {
     outD << "Pai[10] = " << list_dfs1[10][0] << '\n';
     outD << "Pai[20] = " << list_dfs1[20][0] << '\n';
     outD << "Pai[30] = " << list_dfs1[30][0] << '\n';
-    vector <vector <int>> mat_dfs1 = testL.DFS(1);
-    vector <vector <int>> mat_dfs2 = testL.DFS(2);
-    vector <vector <int>> mat_dfs3 = testL.DFS(3);
+    vector <vector <int>> mat_dfs1 = testM.DFS(1);
+    vector <vector <int>> mat_dfs2 = testM.DFS(2);
+    vector <vector <int>> mat_dfs3 = testM.DFS(3);
     outD << "{Matriz - grafo_1} DFS(1):\n";
     outD << "Pai[10] = " << mat_dfs1[10][0] << '\n';
     outD << "Pai[20] = " << mat_dfs1[20][0] << '\n';
     outD << "Pai[30] = " << mat_dfs1[30][0] << '\n';*/
 
     /* 5th Question */
-    
-    
+    /*int d1020 = testL.dist(10, 20);
+    int d1030 = testL.dist(10, 30);
+    int d2030 = testL.dist(20, 30);
+    outD << "{Matriz - grafo_1}:\n";
+    outD << "Dist(10, 20) : " << d1020 << '\n';
+    outD << "Dist(10, 30) : " << d1030 << '\n';
+    outD << "Dist(20, 30) : " << d2030 << '\n';*/
+    int d1020 = testM.dist(10, 20);
+    int d1030 = testM.dist(10, 30);
+    int d2030 = testM.dist(20, 30);
+    outD << "{Matriz - grafo_1}:\n";
+    outD << "Dist(10, 20) : " << d1020 << '\n';
+    outD << "Dist(10, 30) : " << d1030 << '\n';
+    outD << "Dist(20, 30) : " << d2030 << '\n';
 
+    
     outD << "=================================================\n";
     outD.close();
 
