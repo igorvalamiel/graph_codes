@@ -4,7 +4,12 @@ Lista 2: Memória utilizada pelo processo: 216796 KB
 Lista 3: Memória utilizada pelo processo: 144920 KB
 Lista 4: Memória utilizada pelo processo: 1250100 KB
 Lista 5: Memória utilizada pelo processo: 2376804 KB
+Lista 6: 
 
 Matriz 1: Memória utilizada pelo processo: 37784 KB
 Matriz 2: Memória utilizada pelo processo: 600604 KB
+Matriz 3: 
+Matriz 4: 
+Matriz 5: 
+Matriz 6: 
 =================================================
