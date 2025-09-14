@@ -697,7 +697,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_2.txt");
+    ifstream infile("../../../trabalho1/grafo_1.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -732,8 +732,8 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    //graph testL(edges, n, m);
-    graph testM(edges, n, m, 0);
+    graph testL(edges, n, m);
+    //graph testM(edges, n, m, 0);
 
     /* 1st Question */
     //outD << "Questão 1\n";
@@ -741,7 +741,7 @@ int main() {
     //outD << "Matriz 3: " << testM.mem_graph << '\n';
 
     /* 2nd & 3rd Questions */
-    int bfs_sum = 0, dfs_sum = 0;
+    /*int bfs_sum = 0, dfs_sum = 0;
     for (int i = 1; i<=100; i++){
         //int n; n = testL.BFS_time(i); bfs_sum += n;
         int n; n = testM.BFS_time(i); bfs_sum += n;
@@ -754,7 +754,27 @@ int main() {
     //outD << "Tempo medio de BFS [Lista - grafo_2] : " << bfs_time << " ms\n";
     //outD << "Tempo medio de DFS [Lista - grafo_2] : " << dfs_time << " ms\n";
     outD << "Tempo medio de BFS [Matriz - grafo_2] : " << bfs_time << " ms\n";
-    outD << "Tempo medio de DFS [Matriz - grafo_2] : " << dfs_time << " ms\n";
+    outD << "Tempo medio de DFS [Matriz - grafo_2] : " << dfs_time << " ms\n";*/
+
+    /* 4th Question */
+    /*vector <vector <int>> list_dfs1 = testL.DFS(1);
+    vector <vector <int>> list_dfs2 = testL.DFS(2);
+    vector <vector <int>> list_dfs3 = testL.DFS(3);
+    outD << "{Lista - grafo_1} DFS(1):\n";
+    outD << "Pai[10] = " << list_dfs1[10][0] << '\n';
+    outD << "Pai[20] = " << list_dfs1[20][0] << '\n';
+    outD << "Pai[30] = " << list_dfs1[30][0] << '\n';
+    vector <vector <int>> mat_dfs1 = testL.DFS(1);
+    vector <vector <int>> mat_dfs2 = testL.DFS(2);
+    vector <vector <int>> mat_dfs3 = testL.DFS(3);
+    outD << "{Matriz - grafo_1} DFS(1):\n";
+    outD << "Pai[10] = " << mat_dfs1[10][0] << '\n';
+    outD << "Pai[20] = " << mat_dfs1[20][0] << '\n';
+    outD << "Pai[30] = " << mat_dfs1[30][0] << '\n';*/
+
+    /* 5th Question */
+    
+    
 
     outD << "=================================================\n";
     outD.close();

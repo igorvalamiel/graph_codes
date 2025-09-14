@@ -25,3 +25,26 @@ Tempo medio de DFS [Lista - grafo_2] : 144 ms
 Tempo medio de DFS [Matriz - grafo_1] : 3039 ms
 Tempo medio de DFS [Matriz - grafo_2] : 30718 ms
 =================================================
+Questão 4
+{Lista - grafo_1} BFS(1):
+Pai[10] = 2042
+Pai[20] = 9543
+Pai[30] = 7311
+
+{Lista - grafo_1} DFS(1):
+Pai[10] = 709
+Pai[20] = 666
+Pai[30] = 86
+
+{Matriz - grafo_1} BFS(1):
+Pai[10] = 2042
+Pai[20] = 9543
+Pai[30] = 7311
+
+{Matriz - grafo_1} DFS(1):
+Pai[10] = 709
+Pai[20] = 666
+Pai[30] = 86
+=================================================
+Questão 5
+
