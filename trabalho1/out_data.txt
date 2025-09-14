@@ -1,5 +1,10 @@
 Questão 1
-Lista 1: Memória utilizada pelo processo: 1020 KB
-Matriz 1: Memória utilizada pelo processo: 1028 KB
+Lista 1: Memória utilizada pelo processo: 18792 KB
+Lista 2: Memória utilizada pelo processo: 216796 KB
+Lista 3: Memória utilizada pelo processo: 144920 KB
+Lista 4: Memória utilizada pelo processo: 1250100 KB
+Lista 5: Memória utilizada pelo processo: 2376804 KB
 
+Matriz 1: Memória utilizada pelo processo: 37784 KB
+Matriz 2: Memória utilizada pelo processo: 600604 KB
 =================================================

@@ -513,7 +513,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("data.txt");
+    ifstream infile("../../../trabalho1/grafo_3.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -548,13 +548,13 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    graph testL(edges, n, m);
+    //graph testL(edges, n, m);
     graph testM(edges, n, m, 0);
 
     //1st Question
-    outD << "Questão 1\n";
-    outD << "Lista 1: " << testL.mem_graph;
-    outD << "Matriz 1: " << testM.mem_graph << '\n';
+    //outD << "Questão 1\n";
+    //outD << "Lista 6: " << testL.mem_graph;
+    outD << "Matriz 3: " << testM.mem_graph << '\n';
 
     outD << "=================================================\n";
     outD.close();
