@@ -710,7 +710,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_6.txt");
+    ifstream infile("../../../trabalho1/grafo_3.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -745,16 +745,17 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    graph testL(edges, n, m);
-    //graph testM(edges, n, m, 0);
+    //graph testL(edges, n, m);
+    graph testM(edges, n, m, 0);
 
     /* 1st Question */
-    //outD << "Questão 1\n";
+    cout << "Questão 1\n";
     //outD << "Lista 6: " << testL.mem_graph;
-    //outD << "Matriz 3: " << testM.mem_graph << '\n';
+    outD << "Matriz 3: " << testM.mem_graph << '\n';
 
     /* 2nd & 3rd Questions */
-    /*int bfs_sum = 0, dfs_sum = 0;
+    cout << "Questoes 2 e 3\n";
+    int bfs_sum = 0, dfs_sum = 0;
     for (int i = 1; i<=100; i++){
         //int n; n = testL.BFS_time(i); bfs_sum += n;
         int n; n = testM.BFS_time(i); bfs_sum += n;
@@ -766,11 +767,11 @@ int main() {
 
     //outD << "Tempo medio de BFS [Lista - grafo_2] : " << bfs_time << " ms\n";
     //outD << "Tempo medio de DFS [Lista - grafo_2] : " << dfs_time << " ms\n";
-    outD << "Tempo medio de BFS [Matriz - grafo_2] : " << bfs_time << " ms\n";
-    outD << "Tempo medio de DFS [Matriz - grafo_2] : " << dfs_time << " ms\n";*/
+    outD << "Tempo medio de BFS [Matriz - grafo_3] : " << bfs_time << " ms\n";
+    outD << "Tempo medio de DFS [Matriz - grafo_3] : " << dfs_time << " ms\n";
 
     /* 4th Question */
-    cout << "Questao 4\n";
+    /*cout << "Questao 4\n";
     vector <vector <int>> list_bfs1 = testL.BFS(1);
     vector <vector <int>> list_bfs2 = testL.BFS(2);
     vector <vector <int>> list_bfs3 = testL.BFS(3);
@@ -800,23 +801,23 @@ int main() {
     outD << "DFS(3):\n";
     outD << "Pai[10] = " << list_dfs3[10][0] << '\n';
     outD << "Pai[20] = " << list_dfs3[20][0] << '\n';
-    outD << "Pai[30] = " << list_dfs3[30][0] << '\n';
+    outD << "Pai[30] = " << list_dfs3[30][0] << '\n';*/
 
     /* 5th Question */
-    cout << "Questao 5\n";
+    /*cout << "Questao 5\n";
     int d1020 = testL.dist(10, 20);
     int d1030 = testL.dist(10, 30);
     int d2030 = testL.dist(20, 30);
     outD << "{Lista - grafo_6}:\n";
     outD << "Dist(10, 20) : " << d1020 << '\n';
     outD << "Dist(10, 30) : " << d1030 << '\n';
-    outD << "Dist(20, 30) : " << d2030 << '\n';
+    outD << "Dist(20, 30) : " << d2030 << '\n';*/
 
     /* 6th Question */
-    cout << "Questao 6\n";
+    /*cout << "Questao 6\n";
     int qCC = testL.quantCC;
     int maiorCC = testL.sizesCC[1][0], menorCC = testL.sizesCC[qCC][0];
-    outD << "{Grafo 6} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';
+    outD << "{Grafo 6} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';*/
 
     /* 7th Question */
     /*outD << "Diâmetro do grafo 1 : " << testL.diam << " vértices\n";*/
