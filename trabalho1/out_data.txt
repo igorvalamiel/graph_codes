@@ -4,7 +4,7 @@ Lista 2: Memória utilizada pelo processo: 216796 KB
 Lista 3: Memória utilizada pelo processo: 144920 KB
 Lista 4: Memória utilizada pelo processo: 1250100 KB
 Lista 5: Memória utilizada pelo processo: 2376804 KB
-Lista 6: 
+Lista 6: Memória utilizada pelo processo: 7744216 KB
 
 Matriz 1: Memória utilizada pelo processo: 37784 KB
 Matriz 2: Memória utilizada pelo processo: 600604 KB
@@ -57,5 +57,6 @@ Diâmetro do grafo 1 : 4 vértices
 Diâmetro do grafo 2 : -1 vértices
 Diâmetro do grafo 3 : -1 vértices
 Diâmetro do grafo 4 : -1 vértices
-Diâmetro do grafo 1 : -1 vértices
+Diâmetro do grafo 5 : -1 vértices
+Diâmetro do grafo 6 : -1 vértices
 =================================================
