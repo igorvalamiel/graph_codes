@@ -169,8 +169,9 @@ struct graph {
             while (Q.size() > 0){ //While there is any item on the queue
                 int v = Q.front(); //getting the head
                 Q.pop(); //deleting the head
-                node* aux = new node; aux = Linklist[v]; //creating a auxiliar node
-                for (int i=1; i<=G_list[v]; i++){ //for each node neighbor
+                node* aux = Linklist[v]; //creating a auxiliar node
+                while (true) { //for each node neighbor
+                    if (aux == nullptr) {break;}
                     int v_aux = aux->vertex; //getting vertex number
                     if (!visit_stats[v_aux]) { //if not visited
                         visit_stats[v_aux] = 1; //mark as visited
@@ -184,8 +185,8 @@ struct graph {
 
             vector <vector <int>> ret;
             for (int i=0; i<=n; i++){
-                vector <int> aux = {parent[i], level[i]};
-                ret.push_back(aux);
+                vector <int> auxl = {parent[i], level[i]};
+                ret.push_back(auxl);
             }
 
             auto end_time = chrono::high_resolution_clock::now(); //getting ending time
@@ -549,8 +550,8 @@ struct graph {
 
             vector <vector <int>> ret;
             for (int i=0; i<=n; i++){
-                vector <int> aux = {parent[i], level[i]};
-                ret.push_back(aux);
+                vector <int> auxl = {parent[i], level[i]};
+                ret.push_back(auxl);
             }
 
             auto end_time = chrono::high_resolution_clock::now(); //getting ending time
@@ -749,7 +750,7 @@ int main() {
 
     /* 1st Question */
     //outD << "Questão 1\n";
-    outD << "Lista 6: " << testL.mem_graph;
+    //outD << "Lista 6: " << testL.mem_graph;
     //outD << "Matriz 3: " << testM.mem_graph << '\n';
 
     /* 2nd & 3rd Questions */
@@ -769,37 +770,56 @@ int main() {
     outD << "Tempo medio de DFS [Matriz - grafo_2] : " << dfs_time << " ms\n";*/
 
     /* 4th Question */
-    /*vector <vector <int>> list_dfs1 = testL.DFS(1);
+    cout << "Questao 4\n";
+    vector <vector <int>> list_bfs1 = testL.BFS(1);
+    vector <vector <int>> list_bfs2 = testL.BFS(2);
+    vector <vector <int>> list_bfs3 = testL.BFS(3);
+    outD << "{Lista - grafo_6}\nBFS(1):\n";
+    outD << "Pai[10] = " << list_bfs1[10][0] << '\n';
+    outD << "Pai[20] = " << list_bfs1[20][0] << '\n';
+    outD << "Pai[30] = " << list_bfs1[30][0] << '\n';
+    outD << "BFS(2):\n";
+    outD << "Pai[10] = " << list_bfs2[10][0] << '\n';
+    outD << "Pai[20] = " << list_bfs2[20][0] << '\n';
+    outD << "Pai[30] = " << list_bfs2[30][0] << '\n';
+    outD << "BFS(3):\n";
+    outD << "Pai[10] = " << list_bfs3[10][0] << '\n';
+    outD << "Pai[20] = " << list_bfs3[20][0] << '\n';
+    outD << "Pai[30] = " << list_bfs3[30][0] << '\n';
+    vector <vector <int>> list_dfs1 = testL.DFS(1);
     vector <vector <int>> list_dfs2 = testL.DFS(2);
     vector <vector <int>> list_dfs3 = testL.DFS(3);
-    outD << "{Lista - grafo_1} DFS(1):\n";
+    outD << "{Lista - grafo_6}\nDFS(1):\n";
     outD << "Pai[10] = " << list_dfs1[10][0] << '\n';
     outD << "Pai[20] = " << list_dfs1[20][0] << '\n';
     outD << "Pai[30] = " << list_dfs1[30][0] << '\n';
-    vector <vector <int>> mat_dfs1 = testM.DFS(1);
-    vector <vector <int>> mat_dfs2 = testM.DFS(2);
-    vector <vector <int>> mat_dfs3 = testM.DFS(3);
-    outD << "{Matriz - grafo_1} DFS(1):\n";
-    outD << "Pai[10] = " << mat_dfs1[10][0] << '\n';
-    outD << "Pai[20] = " << mat_dfs1[20][0] << '\n';
-    outD << "Pai[30] = " << mat_dfs1[30][0] << '\n';*/
+    outD << "DFS(2):\n";
+    outD << "Pai[10] = " << list_dfs2[10][0] << '\n';
+    outD << "Pai[20] = " << list_dfs2[20][0] << '\n';
+    outD << "Pai[30] = " << list_dfs2[30][0] << '\n';
+    outD << "DFS(3):\n";
+    outD << "Pai[10] = " << list_dfs3[10][0] << '\n';
+    outD << "Pai[20] = " << list_dfs3[20][0] << '\n';
+    outD << "Pai[30] = " << list_dfs3[30][0] << '\n';
 
     /* 5th Question */
-    /*int d1020 = testL.dist(10, 20);
+    cout << "Questao 5\n";
+    int d1020 = testL.dist(10, 20);
     int d1030 = testL.dist(10, 30);
     int d2030 = testL.dist(20, 30);
-    outD << "{Matriz - grafo_1}:\n";
+    outD << "{Lista - grafo_6}:\n";
     outD << "Dist(10, 20) : " << d1020 << '\n';
     outD << "Dist(10, 30) : " << d1030 << '\n';
-    outD << "Dist(20, 30) : " << d2030 << '\n';*/
+    outD << "Dist(20, 30) : " << d2030 << '\n';
 
     /* 6th Question */
-    /*int qCC = testL.quantCC;
+    cout << "Questao 6\n";
+    int qCC = testL.quantCC;
     int maiorCC = testL.sizesCC[1][0], menorCC = testL.sizesCC[qCC][0];
-    outD << "{Grafo 1} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';*/
+    outD << "{Grafo 6} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';
 
     /* 7th Question */
-    outD << "Diâmetro do grafo 1 : " << testL.diam << " vértices\n";
+    /*outD << "Diâmetro do grafo 1 : " << testL.diam << " vértices\n";*/
 
 
     outD << "=================================================\n";

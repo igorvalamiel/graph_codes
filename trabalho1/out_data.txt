@@ -26,31 +26,187 @@ Tempo medio de DFS [Matriz - grafo_1] : 3039 ms
 Tempo medio de DFS [Matriz - grafo_2] : 30718 ms
 =================================================
 Questão 4
-{Lista - grafo_1} BFS(1):
+{Lista - grafo_1}
+BFS(1):
 Pai[10] = 2042
 Pai[20] = 9543
 Pai[30] = 7311
-
-{Lista - grafo_1} DFS(1):
+BFS(2):
+Pai[10] = 8935
+Pai[20] = 2193
+Pai[30] = 5783
+BFS(3):
+Pai[10] = 7685
+Pai[20] = 4656
+Pai[30] = 5783
+{Lista - grafo_1}
+DFS(1):
 Pai[10] = 709
 Pai[20] = 666
 Pai[30] = 86
-
-{Matriz - grafo_1} BFS(1):
-Pai[10] = 2042      Pai[10] = 2042
-Pai[20] = 9543      Pai[20] = 8382
-Pai[30] = 7311      Pai[30] = 2394
+DFS(2):
+Pai[10] = 709
+Pai[20] = 666
+Pai[30] = 86
+DFS(3):
+Pai[10] = 709
+Pai[20] = 666
+Pai[30] = 86
+-----------------------
+{Lista - grafo_2}
+BFS(1):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+BFS(2):
+Pai[10] = 11747
+Pai[20] = 0
+Pai[30] = 0
+BFS(3):
+Pai[10] = 0
+Pai[20] = 46738
+Pai[30] = 21931
+{Lista - grafo_2}
+DFS(1):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+DFS(2):
+Pai[10] = 3946
+Pai[20] = 0
+Pai[30] = 0
+DFS(3):
+Pai[10] = 0
+Pai[20] = 217
+Pai[30] = 3513
+------------------------
+{Lista - grafo_3}
+BFS(1):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 44296
+BFS(2):
+Pai[10] = 158403
+Pai[20] = 318657
+Pai[30] = 0
+BFS(3):
+Pai[10] = 158403
+Pai[20] = 319691
+Pai[30] = 0
+{Lista - grafo_3}
+DFS(1):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 141597
+DFS(2):
+Pai[10] = 192218
+Pai[20] = 141526
+Pai[30] = 0
+DFS(3):
+Pai[10] = 106718
+Pai[20] = 141526
+Pai[30] = 0
+-----------------------
+{Lista - grafo_4}
+BFS(1):
+Pai[10] = 35479
+Pai[20] = 64869
+Pai[30] = 136244
+BFS(2):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+BFS(3):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+{Lista - grafo_4}
+DFS(1):
+Pai[10] = 12269
+Pai[20] = 10738
+Pai[30] = 1531
+DFS(2):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+DFS(3):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+--------------------
+{Lista - grafo_5}
+BFS(1):
+Pai[10] = 1888350
+Pai[20] = 0
+Pai[30] = 4692602
+BFS(2):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+BFS(3):
+Pai[10] = 1888350
+Pai[20] = 0
+Pai[30] = 191713
+{Lista - grafo_5}
+DFS(1):
+Pai[10] = 1888350
+Pai[20] = 0
+Pai[30] = 191713
+DFS(2):
+Pai[10] = 0
+Pai[20] = 0
+Pai[30] = 0
+DFS(3):
+Pai[10] = 1888350
+Pai[20] = 0
+Pai[30] = 2502539
 =================================================
 Questão 5
 {Lista - grafo_1}:
 Dist(10, 20) : 3
 Dist(10, 30) : 3
 Dist(20, 30) : 4
+
+{Lista - grafo_2}:
+Dist(10, 20) : 0
+Dist(10, 30) : 0
+Dist(20, 30) : 3
+
+{Lista - grafo_3}:
+Dist(10, 20) : 9
+Dist(10, 30) : 0
+Dist(20, 30) : 0
+
+{Lista - grafo_4}:
+Dist(10, 20) : 4
+Dist(10, 30) : 3
+Dist(20, 30) : 4
+
+{Lista - grafo_5}:
+Dist(10, 20) : 0
+Dist(10, 30) : 9
+Dist(20, 30) : 0
 =================================================
 Questão 6
 {Grafo 1} ~> 1CC's
 Menor CC: 10000
 Maior CC: 10000
+
+{Grafo 2} ~> 10CC's
+Menor CC: 25000
+Maior CC: 48
+
+{Grafo 3} ~> 2CC's
+Menor CC: 250000
+Maior CC: 125000
+
+{Grafo 4} ~> 2CC's
+Menor CC: 250000
+Maior CC: 125000
+
+{Grafo 5} ~> 5CC's
+Menor CC: 2500000
+Maior CC: 156250
 =================================================
 Questão 7
 Diâmetro do grafo 1 : 4 vértices
