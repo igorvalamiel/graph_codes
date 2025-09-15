@@ -22,3 +22,6 @@
    |   Runtime: 24352ms
    |   Runtime: 5305ms
    |   Runtime: 10226ms
+   |   Runtime: 10502ms
+   |   Runtime: 35359ms
+   |   Runtime: 15921ms
