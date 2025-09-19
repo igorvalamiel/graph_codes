@@ -357,18 +357,19 @@ struct graph {
                     if (j[1] > big) {big = j[1];} //finding the biggest distance
                 }
             }
+            diam = big;
         } else if (quantCC == 1) {
             int big = 0; //setting the counter
             vector <vector <int>> l = BFS(1, true); //doing the BFS
             for (auto i : l) {
                 if (i[1] > big) {big = i[1];} //finding the biggest distance
             }
-            int double_diam = 0; //setting the counter
+            int big2 = 0; //setting the counter
             vector <vector <int>> l2 = BFS(big, true); //doing the BFS
             for (auto i : l) {
-                if (i[1] > double_diam) {double_diam = i[1];} //finding the biggest distance
+                if (i[1] > big2) {big2 = i[1];} //finding the biggest distance
             }
-            diam = double_diam;
+            diam = big2;
         }
     }
 
@@ -711,7 +712,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_2.txt");
+    ifstream infile("../../../trabalho1/data.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -751,12 +752,13 @@ int main() {
     //graph testL(edges, n, m);
     graph testM(edges, n, m, 0);
 
-    /* 1st Question */
+    
+    /* 1st Question
     cout << "Questão 1\n";
     //outD << "Lista 6: " << testL.mem_graph;
-    outD << "Matriz 3: " << testM.mem_graph << '\n';
+    outD << "Matriz 3: " << testM.mem_graph << '\n';*/
 
-    /* 2nd & 3rd Questions */
+    /* 2nd & 3rd Questions
     cout << "Questoes 2 e 3\n";
     int bfs_sum = 0, dfs_sum = 0;
     for (int i = 1; i<=100; i++){
@@ -771,7 +773,7 @@ int main() {
     //outD << "Tempo medio de BFS [Lista - grafo_2] : " << bfs_time << " ms\n";
     //outD << "Tempo medio de DFS [Lista - grafo_2] : " << dfs_time << " ms\n";
     outD << "Tempo medio de BFS [Matriz - grafo_3] : " << bfs_time << " ms\n";
-    outD << "Tempo medio de DFS [Matriz - grafo_3] : " << dfs_time << " ms\n";
+    outD << "Tempo medio de DFS [Matriz - grafo_3] : " << dfs_time << " ms\n";*/
 
     /* 4th Question */
     /*cout << "Questao 4\n";
@@ -823,7 +825,7 @@ int main() {
     outD << "{Grafo 6} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';*/
 
     /* 7th Question */
-    /*outD << "Diâmetro do grafo 1 : " << testL.diam << " vértices\n";*/
+    /*outD << "Diâmetro do grafo 1 : " << testM.diam << " vértices\n";*/
 
 
     outD << "=================================================\n";

@@ -252,3 +252,5 @@ Diâmetro do grafo 4 : -1 vértices
 Diâmetro do grafo 5 : -1 vértices
 Diâmetro do grafo 6 : -1 vértices
 =================================================
+Diâmetro do grafo 1 : 4 vértices
+=================================================
