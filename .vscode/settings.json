@@ -4,6 +4,7 @@
         "chrono": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "random": "cpp"
     }
 }

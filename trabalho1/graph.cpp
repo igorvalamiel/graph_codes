@@ -348,22 +348,23 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Getting the diameter of the graph*/
-    void diameter(){
-        if (quantCC == 1) {
-            int highest_level = 0; //setting the counter
-            vector <vector <int>> l = BFS(1, true); //doing the BFS
-            for (auto i : l) {
-                if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
+    void diameter(bool complete = 0){
+        if (complete){
+            int big = 0; //setting the counter
+            for (int i = 1; i<=n; i++){
+                vector <vector <int>> l = BFS(1, true); //doing the BFS
+                for (auto j : l) {
+                    if (j[1] > big) {big = j[1];} //finding the biggest distance
+                }
             }
-            diam = highest_level;
-        } else if (quantCC < 1){
-            int highest_level = 0; //setting the counter
+        } else if (quantCC == 1) {
+            int big = 0; //setting the counter
             vector <vector <int>> l = BFS(1, true); //doing the BFS
             for (auto i : l) {
-                if (i[1] > highest_level) {highest_level = i[1];} //finding the biggest distance
+                if (i[1] > big) {big = i[1];} //finding the biggest distance
             }
             int double_diam = 0; //setting the counter
-            vector <vector <int>> l2 = BFS(highest_level, true); //doing the BFS
+            vector <vector <int>> l2 = BFS(big, true); //doing the BFS
             for (auto i : l) {
                 if (i[1] > double_diam) {double_diam = i[1];} //finding the biggest distance
             }
@@ -710,7 +711,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_3.txt");
+    ifstream infile("../../../trabalho1/grafo_2.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -739,6 +740,8 @@ int main() {
         }
     }
 
+    sort(edges.begin(), edges.end());
+    
     //closing the data file
     infile.close();
 
