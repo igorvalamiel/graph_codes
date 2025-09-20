@@ -46,40 +46,40 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /* Starting the list */
     void start() {
-
         //initiating the G_list
-        for (int i=0; i<n; i++) {
-            G_list.push_back(0);
-            node* aux = new node;
-            aux->vertex = i;
-            aux->next = nullptr;
-            aux->back = nullptr;
-            Linklist.push_back(aux);
-            TailLL.push_back(aux);
-        }
-        
-        //placing all the edges
-        for (auto item : graph_edges){
+            for (int i=0; i<n; i++) {
+                G_list.push_back(0);
+                node* aux = new node;
+                aux->vertex = i;
+                aux->next = nullptr;
+                aux->back = nullptr;
+                Linklist.push_back(aux);
+                TailLL.push_back(aux);
+            }
             
-            int a = item[0], b = item[1];
+            //placing all the edges
+            for (auto item : graph_edges){
+                
+                int a = item[0], b = item[1];
 
-            // creating edge a -> b
-            node* auxA = new node; auxA->vertex = b;
-            auxA->next = Linklist[a];
-            if (Linklist[a] != nullptr) Linklist[a]->back = auxA;
-            Linklist[a] = auxA;
+                // creating edge a -> b
+                node* auxA = new node; auxA->vertex = b;
+                auxA->next = Linklist[a];
+                if (Linklist[a] != nullptr) Linklist[a]->back = auxA;
+                Linklist[a] = auxA;
 
-            // creating edge b -> a
-            node* auxB = new node; auxB->vertex = a;
-            auxB->next = Linklist[b];
-            if (Linklist[b] != nullptr) Linklist[b]->back = auxB;
-            Linklist[b] = auxB;
+                // creating edge b -> a
+                node* auxB = new node; auxB->vertex = a;
+                auxB->next = Linklist[b];
+                if (Linklist[b] != nullptr) Linklist[b]->back = auxB;
+                Linklist[b] = auxB;
 
-            // adding a degree to a and b
-            G_list[a]++;
-            G_list[b]++;
-        }
-        mem_graph = printMemoryUsage();
+                // adding a degree to a and b
+                G_list[a]++;
+                G_list[b]++;
+            }
+
+            mem_graph = printMemoryUsage();
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -143,15 +143,15 @@ struct graph {
             int v = Q.front(); //getting the head
             Q.pop(); //deleting the head
             node* aux = new node; aux = Linklist[v]; //creating a auxiliar node
-            for (int i=1; i<=G_list[v]; i++){ //for each node neighbor
-                int v_aux = aux->vertex; //getting vertex number
-                if (!visit_stats[v_aux]) { //if not visited
-                    visit_stats[v_aux] = 1; //mark as visited
-                    parent[v_aux] = v; //getting parent
-                    level[v_aux] = level[v] + 1; //setting level
-                    Q.push(v_aux); //placing in the queue
+            while (aux != nullptr) {
+                int v_aux = aux->vertex;
+                if (!visit_stats[v_aux]) {
+                    visit_stats[v_aux] = 1;
+                    parent[v_aux] = v;
+                    level[v_aux] = level[v] + 1;
+                    Q.push(v_aux);
                 }
-                aux = aux->next; //getting next neighbor
+                aux = aux->next;
             }   
         }
 
@@ -239,11 +239,12 @@ struct graph {
         if (complete){
             int big = 0; //setting the counter
             for (int i = 1; i<=n; i++){
-                vector <vector <int>> l = BFS(1, true); //doing the BFS
+                vector <vector <int>> l = BFS(i, true); //doing the BFS
                 for (auto j : l) {
                     if (j[1] > big) {big = j[1];} //finding the biggest distance
                 }
             }
+            diam = big;
         } else if (quantCC == 1) {
             int big = 0; //setting the counter
             vector <vector <int>> l = BFS(1, true); //doing the BFS
@@ -379,6 +380,8 @@ int main(){
     int n = nlines;
     int m = 0;
 
+    cout << n << '\n';
+
     //stopping point
     int last1, last2;
 
@@ -404,7 +407,7 @@ int main(){
     graph test(edges, n, m);
 
     //Output model (it should appear in another file just like that)
-    outD << "\nNumero de vertices: " << test.n << '\n';
+    /*outD << "\nNumero de vertices: " << test.n << '\n';
     outD << "Numero de arestas: " << test.m << '\n';
     outD << "Grau minimo: " << test.G_min << '\n';
     outD << "Grau maximo: " << test.G_max << '\n';
@@ -421,15 +424,40 @@ int main(){
         for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
         outD << "]\n";
     }
-
+    */
     //test.print();
 
-    test.BFS(1);
-    test.BFS(2);
-    test.BFS(3);
-    test.DFS(1);
-    test.DFS(2);
-    test.DFS(3);
+    /*cout << "Questao 4\n";
+    vector <vector <int>> list_bfs1 = test.BFS(1);
+    vector <vector <int>> list_bfs2 = test.BFS(2);
+    vector <vector <int>> list_bfs3 = test.BFS(3);
+    outD << "{Lista - grafo_2}\nBFS(1):\n";
+    outD << "Pai[10] = " << list_bfs1[10][0] << '\n';
+    outD << "Pai[20] = " << list_bfs1[20][0] << '\n';
+    outD << "Pai[30] = " << list_bfs1[30][0] << '\n';
+    outD << "BFS(2):\n";
+    outD << "Pai[10] = " << list_bfs2[10][0] << '\n';
+    outD << "Pai[20] = " << list_bfs2[20][0] << '\n';
+    outD << "Pai[30] = " << list_bfs2[30][0] << '\n';
+    outD << "BFS(3):\n";
+    outD << "Pai[10] = " << list_bfs3[10][0] << '\n';
+    outD << "Pai[20] = " << list_bfs3[20][0] << '\n';
+    outD << "Pai[30] = " << list_bfs3[30][0] << '\n';
+    vector <vector <int>> list_dfs1 = test.DFS(1);
+    vector <vector <int>> list_dfs2 = test.DFS(2);
+    vector <vector <int>> list_dfs3 = test.DFS(3);
+    outD << "{Lista - grafo_2}\nDFS(1):\n";
+    outD << "Pai[10] = " << list_dfs1[10][0] << '\n';
+    outD << "Pai[20] = " << list_dfs1[20][0] << '\n';
+    outD << "Pai[30] = " << list_dfs1[30][0] << '\n';
+    outD << "DFS(2):\n";
+    outD << "Pai[10] = " << list_dfs2[10][0] << '\n';
+    outD << "Pai[20] = " << list_dfs2[20][0] << '\n';
+    outD << "Pai[30] = " << list_dfs2[30][0] << '\n';
+    outD << "DFS(3):\n";
+    outD << "Pai[10] = " << list_dfs3[10][0] << '\n';
+    outD << "Pai[20] = " << list_dfs3[20][0] << '\n';
+    outD << "Pai[30] = " << list_dfs3[30][0] << '\n';*/
 
     outD << "=================================================\n";
     outD.close();

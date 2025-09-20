@@ -73,12 +73,14 @@ struct graph {
     void start() {
         if (graph_type) {
             //initiating the G_list
-            for (int i=0; i<n; i++) {
-                G_list.push_back(0);
+            for (int i=0; i<=n; i++) {
+                G_list.push_back(0); //adding a vertex in teh degree's list
+
                 node* aux = new node;
                 aux->vertex = i;
                 aux->next = nullptr;
                 aux->back = nullptr;
+
                 Linklist.push_back(aux);
                 TailLL.push_back(aux);
             }
@@ -89,13 +91,15 @@ struct graph {
                 int a = item[0], b = item[1];
 
                 // creating edge a -> b
-                node* auxA = new node; auxA->vertex = b;
+                node* auxA = new node;
+                auxA->vertex = b;
                 auxA->next = Linklist[a];
                 if (Linklist[a] != nullptr) Linklist[a]->back = auxA;
                 Linklist[a] = auxA;
 
                 // creating edge b -> a
-                node* auxB = new node; auxB->vertex = a;
+                node* auxB = new node;
+                auxB->vertex = a;
                 auxB->next = Linklist[b];
                 if (Linklist[b] != nullptr) Linklist[b]->back = auxB;
                 Linklist[b] = auxB;
@@ -152,7 +156,7 @@ struct graph {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
-    //Implementing BFS
+    /*Implementing BFS*/
     vector <vector <int>> BFS(int s, bool diam_detect = false){
 
         if (graph_type){
@@ -170,24 +174,23 @@ struct graph {
             while (Q.size() > 0){ //While there is any item on the queue
                 int v = Q.front(); //getting the head
                 Q.pop(); //deleting the head
-                node* aux = Linklist[v]; //creating a auxiliar node
-                while (true) { //for each node neighbor
-                    if (aux == nullptr) {break;}
-                    int v_aux = aux->vertex; //getting vertex number
-                    if (!visit_stats[v_aux]) { //if not visited
-                        visit_stats[v_aux] = 1; //mark as visited
-                        parent[v_aux] = v; //getting parent
-                        level[v_aux] = level[v] + 1; //setting level
-                        Q.push(v_aux); //placing in the queue
+                node* aux = new node; aux = Linklist[v]; //creating a auxiliar node
+                while (aux != nullptr) {
+                    int v_aux = aux->vertex;
+                    if (!visit_stats[v_aux]) {
+                        visit_stats[v_aux] = 1;
+                        parent[v_aux] = v;
+                        level[v_aux] = level[v] + 1;
+                        Q.push(v_aux);
                     }
-                    aux = aux->next; //getting next neighbor
+                    aux = aux->next;
                 }   
             }
 
             vector <vector <int>> ret;
             for (int i=0; i<=n; i++){
-                vector <int> auxl = {parent[i], level[i]};
-                ret.push_back(auxl);
+                vector <int> aux = {parent[i], level[i]};
+                ret.push_back(aux);
             }
 
             auto end_time = chrono::high_resolution_clock::now(); //getting ending time
@@ -242,7 +245,7 @@ struct graph {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
-    //Implementing DFS
+    /*Implementing DFS*/
     vector <vector <int>> DFS(int s, bool diam_detect = false){
 
         if (graph_type) {
@@ -713,7 +716,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_1.txt");
+    ifstream infile("../../../trabalho1/grafo_5.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -759,29 +762,29 @@ int main() {
     //outD << "Lista 6: " << testL.mem_graph;
     outD << "Matriz 3: " << testM.mem_graph << '\n';*/
 
-    /* 2nd & 3rd Questions
+    //2nd & 3rd Questions
     cout << "Questoes 2 e 3\n";
     int bfs_sum = 0, dfs_sum = 0;
     for (int i = 1; i<=100; i++){
         //int n; n = testL.BFS_time(i); bfs_sum += n;
-        int n; n = testM.BFS_time(i); bfs_sum += n;
+        int n; n = testL.BFS_time(i); bfs_sum += n;
         //int n2; n2 = testL.DFS_time(i); dfs_sum += n;
-        int n2; n2 = testM.DFS_time(i); dfs_sum += n;
+        int n2; n2 = testL.DFS_time(i); dfs_sum += n;
     }
     float bfs_time = bfs_sum/100;
     float dfs_time = dfs_sum/100;
 
-    //outD << "Tempo medio de BFS [Lista - grafo_2] : " << bfs_time << " ms\n";
-    //outD << "Tempo medio de DFS [Lista - grafo_2] : " << dfs_time << " ms\n";
-    outD << "Tempo medio de BFS [Matriz - grafo_3] : " << bfs_time << " ms\n";
-    outD << "Tempo medio de DFS [Matriz - grafo_3] : " << dfs_time << " ms\n";*/
+    outD << "Tempo medio de BFS [Lista - grafo_5] : " << bfs_time << " ms\n";
+    outD << "Tempo medio de DFS [Lista - grafo_5] : " << dfs_time << " ms\n";
+    //outD << "Tempo medio de BFS [Matriz - grafo_3] : " << bfs_time << " ms\n";
+    //outD << "Tempo medio de DFS [Matriz - grafo_3] : " << dfs_time << " ms\n";
 
     /* 4th Question */
     cout << "Questao 4\n";
     vector <vector <int>> list_bfs1 = testL.BFS(1);
     vector <vector <int>> list_bfs2 = testL.BFS(2);
     vector <vector <int>> list_bfs3 = testL.BFS(3);
-    outD << "{Lista - grafo_2}\nBFS(1):\n";
+    outD << "{Lista - grafo_5}\nBFS(1):\n";
     outD << "Pai[10] = " << list_bfs1[10][0] << '\n';
     outD << "Pai[20] = " << list_bfs1[20][0] << '\n';
     outD << "Pai[30] = " << list_bfs1[30][0] << '\n';
@@ -796,7 +799,7 @@ int main() {
     vector <vector <int>> list_dfs1 = testL.DFS(1);
     vector <vector <int>> list_dfs2 = testL.DFS(2);
     vector <vector <int>> list_dfs3 = testL.DFS(3);
-    outD << "{Lista - grafo_2}\nDFS(1):\n";
+    outD << "{Lista - grafo_5}\nDFS(1):\n";
     outD << "Pai[10] = " << list_dfs1[10][0] << '\n';
     outD << "Pai[20] = " << list_dfs1[20][0] << '\n';
     outD << "Pai[30] = " << list_dfs1[30][0] << '\n';
