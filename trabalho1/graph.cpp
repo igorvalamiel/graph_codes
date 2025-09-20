@@ -104,6 +104,7 @@ struct graph {
                 G_list[a]++;
                 G_list[b]++;
             }
+
             mem_graph = printMemoryUsage();
         } else {
             /*matrix estructure*/ 
@@ -712,7 +713,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/data.txt");
+    ifstream infile("../../../trabalho1/grafo_1.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -749,8 +750,8 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    //graph testL(edges, n, m);
-    graph testM(edges, n, m, 0);
+    graph testL(edges, n, m);
+    //graph testM(edges, n, m, 0);
 
     
     /* 1st Question
@@ -776,11 +777,11 @@ int main() {
     outD << "Tempo medio de DFS [Matriz - grafo_3] : " << dfs_time << " ms\n";*/
 
     /* 4th Question */
-    /*cout << "Questao 4\n";
+    cout << "Questao 4\n";
     vector <vector <int>> list_bfs1 = testL.BFS(1);
     vector <vector <int>> list_bfs2 = testL.BFS(2);
     vector <vector <int>> list_bfs3 = testL.BFS(3);
-    outD << "{Lista - grafo_6}\nBFS(1):\n";
+    outD << "{Lista - grafo_2}\nBFS(1):\n";
     outD << "Pai[10] = " << list_bfs1[10][0] << '\n';
     outD << "Pai[20] = " << list_bfs1[20][0] << '\n';
     outD << "Pai[30] = " << list_bfs1[30][0] << '\n';
@@ -795,7 +796,7 @@ int main() {
     vector <vector <int>> list_dfs1 = testL.DFS(1);
     vector <vector <int>> list_dfs2 = testL.DFS(2);
     vector <vector <int>> list_dfs3 = testL.DFS(3);
-    outD << "{Lista - grafo_6}\nDFS(1):\n";
+    outD << "{Lista - grafo_2}\nDFS(1):\n";
     outD << "Pai[10] = " << list_dfs1[10][0] << '\n';
     outD << "Pai[20] = " << list_dfs1[20][0] << '\n';
     outD << "Pai[30] = " << list_dfs1[30][0] << '\n';
@@ -806,7 +807,7 @@ int main() {
     outD << "DFS(3):\n";
     outD << "Pai[10] = " << list_dfs3[10][0] << '\n';
     outD << "Pai[20] = " << list_dfs3[20][0] << '\n';
-    outD << "Pai[30] = " << list_dfs3[30][0] << '\n';*/
+    outD << "Pai[30] = " << list_dfs3[30][0] << '\n';
 
     /* 5th Question */
     /*cout << "Questao 5\n";
@@ -825,7 +826,7 @@ int main() {
     outD << "{Grafo 6} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';*/
 
     /* 7th Question */
-    /*outD << "Diâmetro do grafo 1 : " << testM.diam << " vértices\n";*/
+    /*outD << "Diâmetro do grafo 1 : " << testL.diam << " vértices\n";*/
 
 
     outD << "=================================================\n";
