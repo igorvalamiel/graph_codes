@@ -16,6 +16,10 @@ Matriz 6:
 Questão 2
 Tempo medio de BFS [Lista - grafo_1] : 18 ms
 Tempo medio de BFS [Lista - grafo_2] : 144 ms
+Tempo medio de BFS [Lista - grafo_3] : 358 ms
+Tempo medio de BFS [Lista - grafo_4] : 1679 ms
+Tempo medio de BFS [Lista - grafo_5] : 5631 ms
+
 Tempo medio de BFS [Matriz - grafo_1] : 3039 ms
 Tempo medio de BFS [Matriz - grafo_2] : 30718 ms
 =================================================
@@ -26,15 +30,16 @@ Tempo medio de DFS [Matriz - grafo_1] : 3039 ms
 Tempo medio de DFS [Matriz - grafo_2] : 30718 ms
 =================================================
 Questão 4
+
 {Lista - grafo_1}
 BFS(1):
 Pai[10] = 2042
-Pai[20] = 9543
+Pai[20] = 8382
 Pai[30] = 7311
 BFS(2):
 Pai[10] = 8935
-Pai[20] = 2193
-Pai[30] = 5783
+Pai[20] = 7541
+Pai[30] = 6040
 BFS(3):
 Pai[10] = 7685
 Pai[20] = 4656
@@ -59,7 +64,7 @@ Pai[10] = 0
 Pai[20] = 0
 Pai[30] = 0
 BFS(2):
-Pai[10] = 11747
+Pai[10] = 49017
 Pai[20] = 0
 Pai[30] = 0
 BFS(3):
@@ -87,7 +92,7 @@ Pai[20] = 0
 Pai[30] = 44296
 BFS(2):
 Pai[10] = 158403
-Pai[20] = 318657
+Pai[20] = 229942
 Pai[30] = 0
 BFS(3):
 Pai[10] = 158403
@@ -109,8 +114,8 @@ Pai[30] = 0
 -----------------------
 {Lista - grafo_4}
 BFS(1):
-Pai[10] = 35479
-Pai[20] = 64869
+Pai[10] = 321882
+Pai[20] = 292553
 Pai[30] = 136244
 BFS(2):
 Pai[10] = 0
@@ -138,15 +143,15 @@ Pai[30] = 0
 BFS(1):
 Pai[10] = 1888350
 Pai[20] = 0
-Pai[30] = 4692602
+Pai[30] = 2502539
 BFS(2):
 Pai[10] = 0
 Pai[20] = 0
 Pai[30] = 0
 BFS(3):
-Pai[10] = 1888350
+Pai[10] = 1928249
 Pai[20] = 0
-Pai[30] = 191713
+Pai[30] = 4692602
 {Lista - grafo_5}
 DFS(1):
 Pai[10] = 1888350
@@ -162,31 +167,7 @@ Pai[20] = 0
 Pai[30] = 2502539
 --------------------
 {Lista - grafo_6}
-BFS(1):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-BFS(2):
-Pai[10] = 1677854
-Pai[20] = 863890
-Pai[30] = 3898629
-BFS(3):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-{Lista - grafo_6}
-DFS(1):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-DFS(2):
-Pai[10] = 381031
-Pai[20] = 431008
-Pai[30] = 446011
-DFS(3):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
+
 =================================================
 Questão 5
 {Lista - grafo_1}:
@@ -251,146 +232,3 @@ Diâmetro do grafo 3 : -1 vértices
 Diâmetro do grafo 4 : -1 vértices
 Diâmetro do grafo 5 : -1 vértices
 Diâmetro do grafo 6 : -1 vértices
-=================================================
-{Lista - grafo_1}
-BFS(1):
-Pai[10] = 2042
-Pai[20] = 8382
-Pai[30] = 7311
-BFS(2):
-Pai[10] = 8935
-Pai[20] = 7541
-Pai[30] = 6040
-BFS(3):
-Pai[10] = 7685
-Pai[20] = 4656
-Pai[30] = 5783
-{Lista - grafo_1}
-DFS(1):
-Pai[10] = 709
-Pai[20] = 666
-Pai[30] = 86
-DFS(2):
-Pai[10] = 709
-Pai[20] = 666
-Pai[30] = 86
-DFS(3):
-Pai[10] = 709
-Pai[20] = 666
-Pai[30] = 86
-=================================================
-{Lista - grafo_2}
-BFS(1):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-BFS(2):
-Pai[10] = 49017
-Pai[20] = 0
-Pai[30] = 0
-BFS(3):
-Pai[10] = 0
-Pai[20] = 46738
-Pai[30] = 21931
-{Lista - grafo_2}
-DFS(1):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-DFS(2):
-Pai[10] = 3946
-Pai[20] = 0
-Pai[30] = 0
-DFS(3):
-Pai[10] = 0
-Pai[20] = 217
-Pai[30] = 3513
-=================================================
-{Lista - grafo_3}
-BFS(1):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 44296
-BFS(2):
-Pai[10] = 158403
-Pai[20] = 229942
-Pai[30] = 0
-BFS(3):
-Pai[10] = 158403
-Pai[20] = 319691
-Pai[30] = 0
-{Lista - grafo_3}
-DFS(1):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 141597
-DFS(2):
-Pai[10] = 192218
-Pai[20] = 141526
-Pai[30] = 0
-DFS(3):
-Pai[10] = 106718
-Pai[20] = 141526
-Pai[30] = 0
-=================================================
-Tempo medio de BFS [Lista - grafo_2] : 358 ms
-Tempo medio de DFS [Lista - grafo_2] : 358 ms
-=================================================
-Tempo medio de BFS [Lista - grafo_4] : 1679 ms
-Tempo medio de DFS [Lista - grafo_4] : 1679 ms
-{Lista - grafo_4}
-BFS(1):
-Pai[10] = 321882
-Pai[20] = 292553
-Pai[30] = 136244
-BFS(2):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-BFS(3):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-{Lista - grafo_4}
-DFS(1):
-Pai[10] = 12269
-Pai[20] = 10738
-Pai[30] = 1531
-DFS(2):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-DFS(3):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-=================================================
-Tempo medio de BFS [Lista - grafo_5] : 5631 ms
-Tempo medio de DFS [Lista - grafo_5] : 5631 ms
-{Lista - grafo_5}
-BFS(1):
-Pai[10] = 1888350
-Pai[20] = 0
-Pai[30] = 2502539
-BFS(2):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-BFS(3):
-Pai[10] = 1928249
-Pai[20] = 0
-Pai[30] = 4692602
-{Lista - grafo_5}
-DFS(1):
-Pai[10] = 1888350
-Pai[20] = 0
-Pai[30] = 191713
-DFS(2):
-Pai[10] = 0
-Pai[20] = 0
-Pai[30] = 0
-DFS(3):
-Pai[10] = 1888350
-Pai[20] = 0
-Pai[30] = 2502539
-=================================================
