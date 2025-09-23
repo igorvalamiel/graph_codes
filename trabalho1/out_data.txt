@@ -19,15 +19,21 @@ Tempo medio de BFS [Lista - grafo_2] : 144 ms
 Tempo medio de BFS [Lista - grafo_3] : 358 ms
 Tempo medio de BFS [Lista - grafo_4] : 1679 ms
 Tempo medio de BFS [Lista - grafo_5] : 5631 ms
+Tempo medio de BFS [Lista - grafo_6] : 264023 ms
 
 Tempo medio de BFS [Matriz - grafo_1] : 3039 ms
 Tempo medio de BFS [Matriz - grafo_2] : 30718 ms
 =================================================
 Questão 3
-Tempo medio de DFS [Lista - grafo_1] : 18 ms
-Tempo medio de DFS [Lista - grafo_2] : 144 ms
-Tempo medio de DFS [Matriz - grafo_1] : 3039 ms
-Tempo medio de DFS [Matriz - grafo_2] : 30718 ms
+Tempo medio de DFS [Lista - grafo_1] : 83 ms
+Tempo medio de DFS [Lista - grafo_2] : 435 ms
+Tempo medio de DFS [Lista - grafo_3] : 575 ms
+Tempo medio de DFS [Lista - grafo_4] : 5387 ms
+Tempo medio de DFS [Lista - grafo_5] : 8937 ms
+Tempo medio de DFS [Lista - grafo_6] : 361797 ms
+
+Tempo medio de DFS [Matriz - grafo_1] : 3439 ms
+Tempo medio de DFS [Matriz - grafo_2] : 30546 ms
 =================================================
 Questão 4
 
@@ -232,3 +238,4 @@ Diâmetro do grafo 3 : -1 vértices
 Diâmetro do grafo 4 : -1 vértices
 Diâmetro do grafo 5 : -1 vértices
 Diâmetro do grafo 6 : -1 vértices
+=================================================
