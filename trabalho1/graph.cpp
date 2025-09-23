@@ -64,7 +64,7 @@ struct graph {
         cout << "getinfo ok\n";
         ConctComp();
         cout << "CC ok\n";
-        diameter();
+        diameter(true);
         cout << "diameter ok\n";
     }
 
@@ -265,7 +265,6 @@ struct graph {
                 if (!visit_stats[v]){
                     visit_stats[v] = 1;
 
-                    // Coleta todos os vizinhos de v
                     vector<int> neighbors;
                     node* aux = Linklist[v];
                     while (aux != nullptr) {
@@ -273,7 +272,6 @@ struct graph {
                         aux = aux->next;
                     }
 
-                    // Ordena do MAIOR para o MENOR para garantir ordem crescente de exploração
                     sort(neighbors.rbegin(), neighbors.rend());
 
                     for (int w : neighbors) {
@@ -630,7 +628,6 @@ struct graph {
                 if (!visit_stats[v]){
                     visit_stats[v] = 1;
 
-                    // Coleta todos os vizinhos de v
                     vector<int> neighbors;
                     node* aux = Linklist[v];
                     while (aux != nullptr) {
@@ -638,7 +635,6 @@ struct graph {
                         aux = aux->next;
                     }
 
-                    // Ordena do MAIOR para o MENOR para garantir ordem crescente de exploração
                     sort(neighbors.rbegin(), neighbors.rend());
 
                     for (int w : neighbors) {
@@ -716,7 +712,7 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_6.txt");
+    ifstream infile("../../../trabalho1/grafo_2.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -763,7 +759,7 @@ int main() {
     outD << "Matriz 3: " << testM.mem_graph << '\n';*/
 
     //2nd & 3rd Questions
-    cout << "Questoes 2 e 3\n";
+    /*cout << "Questoes 2 e 3\n";
     int bfs_sum = 0, dfs_sum = 0;
     for (int i = 1; i<=100; i++){
         //int n; n = testM.BFS_time(i); bfs_sum += n;
@@ -777,7 +773,7 @@ int main() {
     outD << "Tempo medio de BFS [Lista - grafo_6] : " << bfs_time << " ms\n";
     outD << "Tempo medio de DFS [Lista - grafo_6] : " << dfs_time << " ms\n";
     //outD << "Tempo medio de BFS [Matriz - grafo_1] : " << bfs_time << " ms\n";
-    //outD << "Tempo medio de DFS [Matriz - grafo_2] : " << dfs_time << " ms\n";
+    //outD << "Tempo medio de DFS [Matriz - grafo_2] : " << dfs_time << " ms\n";*/
 
     /* 4th Question */
     /*cout << "Questao 4\n";
@@ -829,7 +825,7 @@ int main() {
     outD << "{Grafo 6} ~> " << qCC << "CC's\n" << "Menor CC: " << menorCC << "\nMaior CC: " << maiorCC << '\n';*/
 
     /* 7th Question */
-    /*outD << "Diâmetro do grafo 1 : " << testL.diam << " vértices\n";*/
+    outD << "Diâmetro do grafo 2 : " << testL.diam << " vértices\n";
 
 
     outD << "=================================================\n";
