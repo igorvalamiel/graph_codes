@@ -16,7 +16,7 @@ string printMemoryUsage() {
 
 struct graph {
     /*Edges pairs*/
-    vector <vector <int>> graph_edges;
+    vector <vector <float>> graph_edges;
 
     /*graph's info*/
     int n = 0; //number of vectors
@@ -25,6 +25,7 @@ struct graph {
     double G_med = 0;
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
     int diam = -1;
+    bool w = false; //verifying if the graph is weightened
     string mem_graph;
 
     /*Creating the basics structures*/
@@ -42,15 +43,15 @@ struct graph {
         /*creating marix nxn with 0's*/
         for (int i=0; i<=n; i++){
             vector <bool> support;
-            for (int j=0; j<=n; j++){support.push_back(0);}
+            for (int j=0; j<=n; j++){support.push_back('.');}
             matrix.push_back(support);
             G_list.push_back(0);
         }
 
         /*Placing edges*/
         for (auto item : graph_edges){
-            matrix[item[0]][item[1]] = 1;
-            matrix[item[1]][item[0]] = 1;
+            matrix[item[0]][item[1]] = item[2];
+            matrix[item[1]][item[0]] = item[2];
             G_list[item[0]] += 1;
             G_list[item[1]] += 1;
         }
@@ -258,10 +259,10 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /*Creating output grafics*/
     void print(){
-        for (auto line : matrix){
+        for (int i=0; i<n; i++){
             cout << "|  ";
-            for (auto item : line) {
-                cout << item << "   ";
+            for (int j=0; j<n; j++) {
+                cout << matrix[i][j] << "   ";
             }
             cout << "|\n";
         }
@@ -269,10 +270,11 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Executing the other functions to work properly*/
-    graph(const vector<vector<int>>& edges, int num_vertex, int num_edges){
+    graph(const vector<vector<float>>& edges, int num_vertex, int num_edges, bool weightened){
         graph_edges = edges;
         n = num_vertex;
         m = (int)graph_edges.size();
+        w = weightened;
 
         //As soon as the structure graph is called, all these functions are also called
         start();
@@ -330,33 +332,54 @@ struct graph {
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_1.txt");
+    ifstream infile("data.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
     cout << nlines << '\n';
 
     //creating the a vector of vectors to keep all edges information
-    vector <vector <int>> edges;
+    vector <vector <float>> edges;
+    string line;
+    bool weightened = false;
 
     //getting n and m
     int n = nlines;
     int m = 0;
 
     //stopping point
-    int last1, last2;
+    int last1, last2, lastw;
 
     //getting all the edges of the graph
     while (true){
-        int a, b; infile >> a >> b;
-        if (a == last1 && b == last2){break;}
-        else {
-            vector <int> line = {a, b};
-            edges.push_back(line);
-            last1 = a;
-            last2 = b;
-            m++;
+        getline(infile, line);
+        stringstream ss(line);
+
+        float a, b, w; ss >> a >> b;
+
+        if (ss >> w) weightened = true;
+
+        if (weightened) {
+            if (a == last1 && b == last2 && w == lastw){break;}
+            else {
+                vector <float> line = {a, b, w};
+                edges.push_back(line);
+                last1 = a;
+                last2 = b;
+                lastw = w;
+                m++;
+            }
+        } else {
+            if (a == last1 && b == last2){break;}
+            else {
+                vector <float> line = {a, b};
+                edges.push_back(line);
+                last1 = a;
+                last2 = b;
+                m++;
+            }
         }
+        
     }
 
     //closing the data file
@@ -365,34 +388,38 @@ int main() {
     //opening the output_data file
     ofstream outD("out_data.txt", std::ios::app);
 
-    graph test(edges, n, m);
+    graph test(edges, n, m, weightened);
+
+    test.print();
+    cout << endl;
 
     //Output model (it should appear in another file just like that)
-    outD << "\nNumero de vertices: " << test.n << '\n';
-    outD << "Numero de arestas: " << test.m << '\n';
-    outD << "Grau minimo: " << test.G_min << '\n';
-    outD << "Grau maximo: " << test.G_max << '\n';
-    outD << "Grau medio: " << test.G_med << '\n';
-    outD << "Mediana de grau: " << test.Medi_g << '\n';
-    outD << test.mem_graph << '\n';
-    if (test.diam < 0){outD << "Diametro do Grafo: infinito\n";}
-    else {outD << "Diametro do Grafo: " << test.diam << "\n";}
-    outD << "Componentes Conexas (" << test.quantCC << " CC's)\n";
+    cout << "\nNumero de vertices: " << test.n << '\n';
+    cout << "Numero de arestas: " << test.m << '\n';
+    cout << "Grau minimo: " << test.G_min << '\n';
+    cout << "Grau maximo: " << test.G_max << '\n';
+    cout << "Grau medio: " << test.G_med << '\n';
+    cout << "Mediana de grau: " << test.Medi_g << '\n';
+    cout << test.mem_graph << '\n';
+    if (test.diam < 0){cout << "Diametro do Grafo: infinito\n";}
+    else {cout << "Diametro do Grafo: " << test.diam << "\n";}
+    cout << "Componentes Conexas (" << test.quantCC << " CC's)\n";
 
     for (int i=test.quantCC; i>0; i--) {
         vector <int> vecCC = test.sizesCC[i];
-        outD << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
-        for (auto item : test.CC[vecCC[1]]){outD << item << " ";}
-        outD << "]\n";
+        cout << "CC " << vecCC[1] << ": (" << vecCC[0] << " vertices) ~ [ ";
+        for (auto item : test.CC[vecCC[1]]){cout << item << " ";}
+        cout << "]\n";
     }
 
+    /*
     vector <vector <int>> a = test.BFS(1);
     cout << "Pai[10] = " << a[10][0] << '\n';
     cout << "Pai[20] = " << a[20][0] << '\n';
     cout << "Pai[30] = " << a[30][0] << '\n';
+    */
 
-
-    outD << "=================================================\n";
+    cout << "=================================================\n";
     outD.close();
 
     return 0;

@@ -367,7 +367,7 @@ struct graph {
 
 int main(){
     //opening the data file
-    ifstream infile("../../../trabalho1/grafo_1.txt");
+    ifstream infile("../../../trabalho2/data.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -383,14 +383,14 @@ int main(){
     cout << n << '\n';
 
     //stopping point
-    int last1, last2;
+    int last1, last2, lastw;
 
-    int a = 0, b = 0; 
+    int a = 0, b = 0, w; 
     //getting all the edges of the graph
-    while (infile >> a >> b) {
+    while (infile >> a >> b >> w) {
         vector <int> line;
-        if (a < b) line = {a, b};
-        else line = {b, a};
+        if (a < b) line = {a, b, w};
+        else line = {b, a, w};
         edges.push_back(line);
         m++;
     }
