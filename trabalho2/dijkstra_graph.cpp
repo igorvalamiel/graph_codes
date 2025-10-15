@@ -195,7 +195,7 @@ struct graph {
             visited[v] = 1;
 
             if (graph_type){
-                node* aux = Linklist[v]; //creating a auxiliar node
+                node* aux = Linklist[v];
                 while (aux != nullptr) {
                     int v_aux = aux->vertex;
                     if (!visited[v_aux]) {
@@ -209,11 +209,19 @@ struct graph {
                     aux = aux->next;
                 }
             } else {
-                int i;
+                for (int i=1; i<=n; i++){
+                    if (matrix[v][i] != 0){
+                        if (!visited[i]){
+                            float sum = dist[v]+weight_matrix[v][i];
+                            if (dist[i] > sum){
+                                dist[i] = sum;
+                                parent[i] = v;
+                                S.update(i, sum);
+                            }
+                        }
+                    }
+                }
             }
-
-            counter++;
-            if (counter == n-1) break;
         }
 
         vector <float> par_float; for (auto i : parent) par_float.push_back(i);
@@ -852,15 +860,24 @@ int main() {
     testM.print();
     */
 
-    vector <vector <float>> dijL = testL.heap_dijkstra(1);
-
-    cout << "Dist: ";
+    /*vector <vector <float>> dijL = testL.heap_dijkstra(1);
+    cout << "LIST:\nDist: ";
     for (auto i : dijL[0]) {
         cout << i << ", ";
     } cout << '\n' << "Parents: ";
     for (auto i : dijL[1]) {
         cout << i << ", ";
     } cout << '\n';
+
+    
+    vector <vector <float>> dijM = testM.heap_dijkstra(1);
+    cout << "MATRIX\nDist: ";
+    for (auto i : dijM[0]) {
+        cout << i << ", ";
+    } cout << '\n' << "Parents: ";
+    for (auto i : dijM[1]) {
+        cout << i << ", ";
+    } cout << '\n';*/
 
     //vector <vector <int>> dijM = testM.heap_dijkstra(1);
 
