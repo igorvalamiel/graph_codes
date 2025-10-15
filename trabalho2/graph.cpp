@@ -166,6 +166,12 @@ struct graph {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
+    /*Implementing Dijkstra - With vectors*/
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Implementing Dijkstra - With Heap*/
+
+    //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing BFS*/
     vector <vector <int>> BFS(int s, bool diam_detect = false){
 
@@ -512,9 +518,10 @@ struct graph {
             for (int i = 1; i <= n; i++) {
                 cout << i << " -> ";
                 node* current = Linklist[i];
-                while (current != nullptr) {
+                while (true) {
                     cout << current->vertex << "(" << current->weight << ") -> ";
                     current = current->next;
+                    if (current->next == nullptr) break;
                 }
                 cout << "\n";
             }
@@ -729,6 +736,9 @@ int main() {
     //setting line to indentify if its weightened or not
     string line;
 
+    //setting error string
+    string error_str = "A biblioteca ainda nao implementa caminhos minimos com pesos negativos\n";
+
     //creating the a vector of vectors to keep all edges information
     vector <vector <float>> edges;
 
@@ -746,7 +756,7 @@ int main() {
 
         float a, b; ss >> a >> b;
         float w = 0;
-        if (ss >> w) {if (w < 0) raise(1);}
+        if (ss >> w) {if (w < 0) {cout << error_str; throw;}}
 
         if (a == last1 && b == last2){break;}
         else {
