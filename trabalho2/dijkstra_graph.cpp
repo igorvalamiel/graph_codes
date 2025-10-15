@@ -40,6 +40,7 @@ struct graph {
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
     int diam = -1;
     string mem_graph;
+    bool weightened = 0;
 
     /*Creating the basics structures*/
     vector <vector <bool>> matrix; // matrix
@@ -54,22 +55,24 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Executing the other functions to work properly*/
-    graph(const vector<vector<float>>& edges, int num_vertex, int num_edges, bool gt = 1){
+    graph(const vector<vector<float>>& edges, int num_vertex, int num_edges, bool w, bool gt = 1){
         graph_edges = edges;
         n = num_vertex;
         m = (int)graph_edges.size();
         graph_type = gt;
+        weightened = w;
 
         //As soon as the structure graph is called, all these functions are also called
         start();
         cout << "Start ok\n";
         getinfo();
         cout << "getinfo ok\n";
-        /*
-        ConctComp();
-        cout << "CC ok\n";
-        diameter(true);
-        cout << "diameter ok\n";*/
+        if (!weightened){
+            ConctComp();
+            cout << "CC ok\n";
+            diameter(true);
+            cout << "diameter ok\n";
+        }
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -170,6 +173,7 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing Dijkstra - With Heap*/
+
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing BFS*/
@@ -741,6 +745,7 @@ int main() {
 
     //creating the a vector of vectors to keep all edges information
     vector <vector <float>> edges;
+    bool weightened = 0;
 
     //getting n and m
     int n = nlines;
@@ -756,7 +761,10 @@ int main() {
 
         float a, b; ss >> a >> b;
         float w = 0;
-        if (ss >> w) {if (w < 0) {cout << error_str; throw;}}
+        if (ss >> w) {
+            weightened = 1;
+            if (w < 0) {cout << error_str; throw;}
+        }
 
         if (a == last1 && b == last2){break;}
         else {
@@ -776,8 +784,8 @@ int main() {
     //opening the output_data file
     //ofstream outD("out_data.txt", std::ios::app);
 
-    graph testL(edges, n, m);
-    graph testM(edges, n, m, 0);
+    graph testL(edges, n, m, weightened);
+    graph testM(edges, n, m, weightened, 0);
 
     testL.print();
     cout << "\n\n";
