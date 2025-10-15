@@ -4,7 +4,7 @@
 #include <chrono>
 #include <windows.h> 
 #include <psapi.h> //to get memory info
-#include d_ary_heap.hpp //to use a binary heap 
+#include "bin_heap.cpp"
 
 using namespace std;
 
@@ -180,13 +180,55 @@ struct graph {
 
         vector <int> parent(n+1, 0); //vector to register the parent of each vertex
         vector <int> weight(n+1, 0); //vector to register the cummulative weight to get to each vertex
-        vector <int> dist(n+1, inf); //vector to get the distances
+        vector <int> dist(n+1, inf);
+        vector <int> visited(n+1, 0);
+        visited[s] = 1;
 
-        /*create heap here*/
+        MinHeap S(n);
+        for (int i = 0; i<n; i++){S.insertKey(inf);}
 
+        while (true) {
+            int v = S.extractMin();
+            visited[v] = 1;
+
+            node* aux = new node; aux = Linklist[v]; //creating a auxiliar node
+            if (graph_type){
+                while (aux != nullptr) {
+                    int v_aux = aux->vertex;
+                    if (!visited[v_aux]) {
+                        visited[v_aux] = 1;
+                        if (S.harr[v_aux] > (S.harr[v_aux]+aux->weight)){
+                            S.decreaseKey(v_aux, S.harr[v_aux]+aux->weight);
+                            dist[v_aux] = S.harr[v_aux]+aux->weight;
+                            parent[v_aux] = v;
+                        }
+                    }
+                    aux = aux->next;
+                }
+            } else {
+                for (int i=1; i<=n; i++){ //the matrix representation uses matrix[v][i] to say if i is a neighbor of v
+                    int aux = matrix[v][i];
+                    if (aux != 0){ //if they are neighbors
+                        if (visited[i] == 0){ //if not visited yet
+                            visited[i] = 1; //mark as visited
+                            if (S.harr[aux] > (S.harr[aux]+aux)){
+                                S.decreaseKey(aux, S.harr[aux]+aux);
+                                dist[aux] = S.harr[aux]+aux;
+                                parent[i] = v; //getting parent
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (S.heap_size != 0) break;
+        }
+        cout << "chegou aqui\n";
         auto end_time = chrono::high_resolution_clock::now(); //getting ending time
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
+
+        return {dist, parent};
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -810,9 +852,23 @@ int main() {
     graph testL(edges, n, m, weightened);
     graph testM(edges, n, m, weightened, 0);
 
+    /*
     testL.print();
     cout << "\n\n";
     testM.print();
+    */
+
+    vector <vector <int>> dijL = testM.heap_dijkstra(1);
+
+    cout << "Dist: ";
+    for (auto i : dijL[0]) {
+        cout << i << " ,";
+    } cout << '\n' << "Parents: ";
+    for (auto i : dijL[1]) {
+        cout << i << " ,";
+    } cout << '\n';
+
+    //vector <vector <int>> dijM = testM.heap_dijkstra(1);
 
     cout << "=================================================\n";
     //outD.close();
