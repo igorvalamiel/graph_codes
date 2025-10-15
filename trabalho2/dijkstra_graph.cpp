@@ -4,7 +4,7 @@
 #include <chrono>
 #include <windows.h> 
 #include <psapi.h> //to get memory info
-#include "bin_heap.cpp"
+#include "heap_new.cpp"
 
 using namespace std;
 
@@ -175,60 +175,54 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing Dijkstra - With Heap*/
-    vector <vector <int>> heap_dijkstra(int s) {
+    vector <vector <float>> heap_dijkstra(int s) {
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
         vector <int> parent(n+1, 0); //vector to register the parent of each vertex
         vector <int> weight(n+1, 0); //vector to register the cummulative weight to get to each vertex
-        vector <int> dist(n+1, inf);
+        vector <float> dist(n+1, inf);
         vector <int> visited(n+1, 0);
         visited[s] = 1;
+        dist[s] = 0;
+        int counter = 0;
 
-        MinHeap S(n);
-        for (int i = 0; i<n; i++){S.insertKey(inf);}
+        priory_queue_update <int, float> S;
+        for (int i = 1; i<=n; i++){S.push(i, dist[i]);}
 
-        while (true) {
-            int v = S.extractMin();
+        while (!S.empty()) {
+            int v = S.top();
+            S.pop();
             visited[v] = 1;
 
-            node* aux = new node; aux = Linklist[v]; //creating a auxiliar node
             if (graph_type){
+                node* aux = Linklist[v]; //creating a auxiliar node
                 while (aux != nullptr) {
                     int v_aux = aux->vertex;
                     if (!visited[v_aux]) {
-                        visited[v_aux] = 1;
-                        if (S.harr[v_aux] > (S.harr[v_aux]+aux->weight)){
-                            S.decreaseKey(v_aux, S.harr[v_aux]+aux->weight);
-                            dist[v_aux] = S.harr[v_aux]+aux->weight;
+                        float sum = dist[v]+aux->weight;
+                        if (dist[v_aux] > sum){
+                            dist[v_aux] = sum;
                             parent[v_aux] = v;
+                            S.update(v_aux, sum);
                         }
                     }
                     aux = aux->next;
                 }
             } else {
-                for (int i=1; i<=n; i++){ //the matrix representation uses matrix[v][i] to say if i is a neighbor of v
-                    int aux = matrix[v][i];
-                    if (aux != 0){ //if they are neighbors
-                        if (visited[i] == 0){ //if not visited yet
-                            visited[i] = 1; //mark as visited
-                            if (S.harr[aux] > (S.harr[aux]+aux)){
-                                S.decreaseKey(aux, S.harr[aux]+aux);
-                                dist[aux] = S.harr[aux]+aux;
-                                parent[i] = v; //getting parent
-                            }
-                        }
-                    }
-                }
+                int i;
             }
 
-            if (S.heap_size != 0) break;
+            counter++;
+            if (counter == n-1) break;
         }
-        cout << "chegou aqui\n";
+
+        vector <float> par_float; for (auto i : parent) par_float.push_back(i);
+        
         auto end_time = chrono::high_resolution_clock::now(); //getting ending time
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
-        return {dist, parent};
+        return {dist, par_float};
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -858,14 +852,14 @@ int main() {
     testM.print();
     */
 
-    vector <vector <int>> dijL = testM.heap_dijkstra(1);
+    vector <vector <float>> dijL = testL.heap_dijkstra(1);
 
     cout << "Dist: ";
     for (auto i : dijL[0]) {
-        cout << i << " ,";
+        cout << i << ", ";
     } cout << '\n' << "Parents: ";
     for (auto i : dijL[1]) {
-        cout << i << " ,";
+        cout << i << ", ";
     } cout << '\n';
 
     //vector <vector <int>> dijM = testM.heap_dijkstra(1);
