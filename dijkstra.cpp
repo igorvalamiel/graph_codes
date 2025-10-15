@@ -196,47 +196,21 @@ struct graph {
         while (vertex_unexplored > 0)
         {
             int u = 0;
-            for (int i=0, i<=n,i++){
-                if (visited[i]== True && dist[i] < min){
-                    min = dist[i]
+            for (int i=0; i <= n; i++){
+                if (visited[i]==true && dist[i] < min){
+                    min = dist[i];
                     u = i;
-                    visited[i] == True;
+                    visited[i] == true;
                     vertex_unexplored = vertex_unexplored -1;
                 }
             }
         }
-            if (type)
-            
-
-
-
-
-
-            
-            
-        
-        
-
-
-
-
     }
 
-
-
-
-
-
-
-
-
-
-
-
 //-------------------------------------------------------------------------------------------------------------------------
-int main() {
+int main() { //
     // Abrir arquivo
-    ifstream infile("C:/Users/Julia/Desktop/teste_grafo.txt");
+    ifstream infile("data.txt");
 
     // Ler número de vértices
     int n;
@@ -248,6 +222,7 @@ int main() {
 
     // Ler todas as arestas do arquivo
     while (infile >> a >> b >> w) {
+        if (w < 0) raise(1);
         edges.push_back({(float)a, (float)b, w});
     }
     infile.close();
