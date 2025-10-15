@@ -4,6 +4,7 @@
 #include <chrono>
 #include <windows.h> 
 #include <psapi.h> //to get memory info
+#include d_ary_heap.hpp //to use a binary heap 
 
 using namespace std;
 
@@ -170,10 +171,32 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing Dijkstra - With vectors*/
+    vector <int> vec_dijkstra(int s){}
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing Dijkstra - With Heap*/
+    vector <vector <int>> heap_dijkstra(int s) {
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
+        vector <int> parent(n+1, 0); //vector to register the parent of each vertex
+        vector <int> weight(n+1, 0); //vector to register the cummulative weight to get to each vertex
+        vector <int> dist(n+1, inf); //vector to get the distances
+
+        /*create heap here*/
+
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    /*Implementing function to get the min dist using Dijkstra*/
+    /*int dist_dijkstra(int s, bool dijtype=1){ //using bool to set what dijkstra to use [0 to use with vectors & 1 to use with heap]
+        //Getting the right spanning tree
+        vector <int> aux_dij;
+        if (dijtype) aux_dij = heap_dijkstra(s);
+        else aux_dij = vec_dijkstra(s);
+    }*/
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing BFS*/
