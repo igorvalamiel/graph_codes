@@ -234,15 +234,6 @@ struct graph {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
-    /*Implementing function to get the min dist using Dijkstra*/
-    /*int dist_dijkstra(int s, bool dijtype=1){ //using bool to set what dijkstra to use [0 to use with vectors & 1 to use with heap]
-        //Getting the right spanning tree
-        vector <int> aux_dij;
-        if (dijtype) aux_dij = heap_dijkstra(s);
-        else aux_dij = vec_dijkstra(s);
-    }*/
-
-    //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing BFS*/
     vector <vector <int>> BFS(int s, bool diam_detect = false){
 
@@ -860,7 +851,7 @@ int main() {
     testM.print();
     */
 
-    /*vector <vector <float>> dijL = testL.heap_dijkstra(1);
+    vector <vector <float>> dijL = testL.heap_dijkstra(1);
     cout << "LIST:\nDist: ";
     for (auto i : dijL[0]) {
         cout << i << ", ";
@@ -870,7 +861,7 @@ int main() {
     } cout << '\n';
 
     
-    vector <vector <float>> dijM = testM.heap_dijkstra(1);
+    /*vector <vector <float>> dijM = testM.heap_dijkstra(1);
     cout << "MATRIX\nDist: ";
     for (auto i : dijM[0]) {
         cout << i << ", ";
