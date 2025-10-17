@@ -4,6 +4,7 @@
 #include <chrono>
 #include <windows.h> 
 #include <psapi.h> //to get memory info
+#include "heap_new.cpp"
 
 using namespace std;
 
@@ -170,10 +171,140 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing Dijkstra - With vectors*/
+    vector<vector<float>> Dijkstra_vector(int s){
+        vector<float> dist(n + 1, inf); // distancia entre s e cada vértice i
+        vector<float> parent(n + 1, -1);
+        vector<int> discovered;
+        vector<int> unexplored;
+        vector<float> level(n+1, -1);
+        vector<int> explored(n+1,-1);
+        
+        for (int i = 0; i <= n; i++){
+            unexplored.push_back(i);
+        }
+
+        dist[s] = 0;
+        level[s]=0;
+        discovered.push_back(s);
+        unexplored[s] = -1;
+
+        if (graph_type){
+            // seleciona o vértice no conjunto de descobertos
+            while(!discovered.empty()){
+                int u = discovered[0];
+                node* current = Linklist[u];
+                while(current != nullptr){
+                    int v = current->vertex;
+                    float w = current->weight;
+                    // mais facil ir por indice
+                    if (unexplored[v] == v){ // verificando se tá nos inesplorados
+                        discovered.push_back(v); // adicionando aos descobertos
+                        unexplored[v] = -1; //marcando v como "não inesplorado"
+                    }
+                    if (explored[v] == -1) { //aqui eu preciso verificar se v tá nos explorados
+                        if (dist[v] > dist[u] + w){
+                            dist[v] = dist[u] + w;
+                            parent[v] = u;
+                            level[v] = level[u]+ 1;
+                        }
+                    }
+                    current = current->next;
+                }
+                discovered.erase(discovered.begin());
+                explored[u] = u;
+            }
+        } else {
+            // seleciona o vértice no conjunto de descobertos
+            while(!discovered.empty()){
+                int u = discovered[0];
+                for (int v = 0; v <= n; v++){
+                if (matrix[u][v]){
+                    float w = weight_matrix[u][v];
+                    // só adiciona v em discovered se estiver em unexplored
+                    if (unexplored[v] == v){
+                        discovered.push_back(v);
+                        unexplored[v] = -1;
+                    }
+                    // só atualiza a distancia se ainda não estiver explorado pra n dar xabu
+                    if (explored[v] == -1){
+                        if (dist[v] > dist[u] + w){
+                            dist[v] = dist[u] + w;
+                            parent[v] = u;
+                            level[v] = level[u]+ 1;
+                        }
+                    }
+                }
+            }
+                // aqui o u já foi explorado
+                discovered.erase(discovered.begin());
+                explored[u] = u;
+            }
+        }
+        
+        return {dist, parent, level};
+    }
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing Dijkstra - With Heap*/
+    vector <vector <float>> heap_dijkstra(int s) {
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
+        vector <float> parent(n+1, -1);
+        vector <int> weight(n+1, 0);
+        vector <float> level(n+1, -1);
+        vector <float> dist(n+1, inf);
+        vector <int> visited(n+1, 0);
+        visited[s] = 1;
+        dist[s] = 0;
+        level[s] = 0;
+        int counter = 0;
+
+        priory_queue_update <int, float> S;
+        for (int i = 1; i<=n; i++){S.push(i, dist[i]);}
+
+        while (!S.empty()) {
+            int v = S.top();
+            S.pop();
+            visited[v] = 1;
+
+            if (graph_type){
+                node* aux = Linklist[v];
+                while (aux != nullptr) {
+                    int v_aux = aux->vertex;
+                    if (!visited[v_aux]) {
+                        float sum = dist[v]+aux->weight;
+                        if (dist[v_aux] > sum){
+                            dist[v_aux] = sum;
+                            level[v_aux] = level[v] + 1;
+                            parent[v_aux] = v;
+                            S.update(v_aux, sum);
+                        }
+                    }
+                    aux = aux->next;
+                }
+            } else {
+                for (int i=1; i<=n; i++){
+                    if (matrix[v][i] != 0){
+                        if (!visited[i]){
+                            float sum = dist[v]+weight_matrix[v][i];
+                            if (dist[i] > sum){
+                                dist[i] = sum;
+                                level[i] = level[v] + 1;
+                                parent[i] = v;
+                                S.update(i, sum);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        return {dist, parent, level};
+    }
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing BFS*/
@@ -787,9 +918,38 @@ int main() {
     graph testL(edges, n, m, weightened);
     graph testM(edges, n, m, weightened, 0);
 
+    /*
     testL.print();
     cout << "\n\n";
     testM.print();
+    */
+
+    /*
+    vector <vector <float>> dijL = testL.heap_dijkstra(1);
+    //vector <vector <float>> dijL = testL.Dijkstra_vector(1);
+    cout << "LIST:\nDist: ";
+    for (auto i : dijL[0]) {
+        cout << i << ", ";
+    } cout << '\n' << "Parents: ";
+    for (auto i : dijL[1]) {
+        cout << i << ", ";
+    } cout << '\n';
+    */
+
+
+    /*
+    vector <vector <float>> dijM = testM.heap_dijkstra(1);
+    //vector <vector <float>> dijM = testM.Dijkstra_vector(1);
+    cout << "MATRIX\nDist: ";
+    for (auto i : dijM[0]) {
+        cout << i << ", ";
+    } cout << '\n' << "Parents: ";
+    for (auto i : dijM[1]) {
+        cout << i << ", ";
+    } cout << '\n';
+    */
+
+    //vector <vector <int>> dijM = testM.heap_dijkstra(1);
 
     cout << "=================================================\n";
     //outD.close();

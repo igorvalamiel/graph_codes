@@ -185,10 +185,10 @@ struct graph {
     vector<vector<float>> Dijkstra_vector(int s){
         float inf = numeric_limits<float>::infinity();
         vector<float> dist(n + 1, inf); // distancia entre s e cada vértice i
-        vector<int> parent(n + 1, -1);
+        vector<float> parent(n + 1, -1);
         vector<int> discovered;
         vector<int> unexplored;
-        vector<int> level(n+1, -1);
+        vector<float> level(n+1, -1);
         vector<int> explored(n+1,-1);
         
         for (int i = 0; i <= n; i++){
@@ -201,17 +201,14 @@ struct graph {
         unexplored[s] = -1;
 
         if (graph_type){
-
             // seleciona o vértice no conjunto de descobertos
             while(!discovered.empty()){
                 int u = discovered[0];
-                
                 node* current = Linklist[u];
                 while(current != nullptr){
                     int v = current->vertex;
                     float w = current->weight;
-
-// mais facil ir por indice
+                    // mais facil ir por indice
                     if (unexplored[v] == v){ // verificando se tá nos inesplorados
                         discovered.push_back(v); // adicionando aos descobertos
                         unexplored[v] = -1; //marcando v como "não inesplorado"
@@ -223,10 +220,8 @@ struct graph {
                             level[v] = level[u]+ 1;
                         }
                     }
-
                     current = current->next;
                 }
-            
                 discovered.erase(discovered.begin());
                 explored[u] = u;
             }
@@ -234,55 +229,50 @@ struct graph {
             // seleciona o vértice no conjunto de descobertos
             while(!discovered.empty()){
                 int u = discovered[0];
-
                 for (int v = 0; v <= n; v++){
                 if (matrix[u][v]){
                     float w = weight_matrix[u][v];
-
                     // só adiciona v em discovered se estiver em unexplored
                     if (unexplored[v] == v){
                         discovered.push_back(v);
                         unexplored[v] = -1;
                     }
-
                     // só atualiza a distancia se ainda não estiver explorado pra n dar xabu
                     if (explored[v] == -1){
                         if (dist[v] > dist[u] + w){
                             dist[v] = dist[u] + w;
                             parent[v] = u;
                             level[v] = level[u]+ 1;
-
                         }
                     }
                 }
             }
-
-            // aqui o u já foi explorado
-            discovered.erase(discovered.begin());
-            explored[u] = u;
+                // aqui o u já foi explorado
+                discovered.erase(discovered.begin());
+                explored[u] = u;
             }
-
-            }
+        }
         
-    vector<vector<float>> tree(n + 1, vector<float>(3));
-    for (int i = 0; i <= n; i++){
-        tree[i][0] = parent[i];
-        tree[i][1] = dist[i];
-        tree[i][2] = level[i];
+        /*  Possivel retorno
+        vector<vector<float>> tree(n + 1, vector<float>(3));
+        for (int i = 0; i <= n; i++){
+            tree[i][0] = parent[i];
+            tree[i][1] = dist[i];
+            tree[i][2] = level[i];
+        }*/
+                
+        return {dist, parent, level};
     }
-            
-    return tree;
 
-    }
-    void printTree(const vector<vector<float>>& tree) {
-    cout << "Vértice\tPai\tDistância\tNível\n";
-    for (int i = 0; i < tree.size(); i++) {
-        cout << i << "\t" 
-             << tree[i][0] << "\t" 
-             << tree[i][1] << "\t\t" 
-             << tree[i][2] << "\n";
-    }
-}
+    /*void printTree(const vector<vector<float>>& tree) {
+        cout << "Vértice\tPai\tDistância\tNível\n";
+        for (int i = 0; i < tree.size(); i++) {
+            cout << i << "\t" 
+                << tree[i][0] << "\t" 
+                << tree[i][1] << "\t\t" 
+                << tree[i][2] << "\n";
+        }
+    }*/
 
 
 };
@@ -314,7 +304,7 @@ int main() {
     graph test(edges, n, m,0);
 
     vector<vector<float>> tree = test.Dijkstra_vector(1);
-    test.printTree(tree);
+    //test.printTree(tree);
 
 
 
