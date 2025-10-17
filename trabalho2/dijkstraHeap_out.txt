@@ -1,0 +1,1 @@
+Time: 0|   Distance: [ inf 0 3 3 6 3 3 6 inf inf inf inf inf inf ]    |   Parents: [ -1 -1 1 1 5 1 1 5 -1 -1 -1 -1 -1 -1 ]|   Level: [ -1 0 1 1 2 1 1 2 -1 -1 -1 -1 -1 -1 ]

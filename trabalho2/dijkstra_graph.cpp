@@ -95,7 +95,7 @@ struct graph {
             
             //placing all the edges
             for (auto item : graph_edges){
-                int a = item[0], b = item[1];
+                float a = item[0], b = item[1];
                 float w = item[2]; //including weight
 
                 // creating edge a -> b
@@ -118,7 +118,7 @@ struct graph {
                 G_list[a]++;
                 G_list[b]++;
             }
-
+            
             mem_graph = printMemoryUsage();
         } else {
             /*matrix estructure*/ 
@@ -172,6 +172,8 @@ struct graph {
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing Dijkstra - With vectors*/
     vector<vector<float>> Dijkstra_vector(int s){
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+
         vector<float> dist(n + 1, inf); // distancia entre s e cada vértice i
         vector<float> parent(n + 1, -1);
         vector<int> discovered;
@@ -240,6 +242,12 @@ struct graph {
                 explored[u] = u;
             }
         }
+
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        createFile_dij("dijVec", {dist, parent, level}, dt);
         
         return {dist, parent, level};
     }
@@ -302,6 +310,8 @@ struct graph {
         auto end_time = chrono::high_resolution_clock::now(); //getting ending time
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
+
+        createFile_dij("dijHeap", {dist, parent, level}, dt);
 
         return {dist, parent, level};
     }
@@ -627,10 +637,9 @@ struct graph {
                 testFile << "   |   Runtime: " << t << "ms\n";
 
                 testFile.close();
-            } else {
+            } else if (name == "DFS") {
                 ofstream testFile("dfs_output.txt", std::ios::app);
                 /*testFile << "DFS ~   ";
-
                 testFile << "Levels: [ ";
                 for (auto par : s){
                     testFile << par[1] << ' ';
@@ -643,6 +652,40 @@ struct graph {
 
                 testFile.close();
             }
+        }
+    }
+
+    void createFile_dij(string name, vector <vector <float>> s, int t){
+        if (name == "dijHeap") {
+            ofstream testFile("dijkstraHeap_out.txt", std::ios::app);
+            testFile << "Time: " << t;
+            testFile << "|   Distance: [ ";
+            for (auto d : s[0]){
+                testFile << d << ' ';
+            } testFile << "]    ";
+            testFile << "|   Parents: [ ";
+            for (auto par : s[1]){
+                testFile << par << ' ';
+            } testFile << "]";
+            testFile << "|   Level: [ ";
+            for (auto lev : s[2]){
+                testFile << lev << ' ';
+            } testFile << "]";
+        } else if (name == "dijVec") {
+            ofstream testFile("dijkstraVector_out.txt", std::ios::app);
+            testFile << "Time: " << t;
+            testFile << "|   Distance: [ ";
+            for (auto d : s[0]){
+                testFile << d << ' ';
+            } testFile << "]    ";
+            testFile << "|   Parents: [ ";
+            for (auto par : s[1]){
+                testFile << par << ' ';
+            } testFile << "]";
+            testFile << "|   Level: [ ";
+            for (auto lev : s[2]){
+                testFile << lev << ' ';
+            } testFile << "]";
         }
     }
 
@@ -916,7 +959,10 @@ int main() {
     //ofstream outD("out_data.txt", std::ios::app);
 
     graph testL(edges, n, m, weightened);
-    graph testM(edges, n, m, weightened, 0);
+    //graph testM(edges, n, m, weightened, 0);
+
+
+    testL.heap_dijkstra(1);
 
     /*
     testL.print();
