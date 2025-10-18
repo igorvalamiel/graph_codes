@@ -311,7 +311,7 @@ struct graph {
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
-        createFile_dij("dijHeap", {dist, parent, level}, dt);
+        //createFile_dij("dijHeap", {dist, parent, level}, dt);
 
         return {dist, parent, level};
     }
@@ -930,7 +930,7 @@ void print_vec(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho2/grafo_W_1.txt");
+    ifstream infile("../../../trabalho2/grafo_W_3.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
