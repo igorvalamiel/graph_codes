@@ -66,3 +66,16 @@ Distancia 10 -> 60 : 17.99
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ===== QUESTÃO 2: =====
+Grafo 1:
+Dijkstra Heap:
+Tempo total: 10046.3 |  Media Heap: 1.00463      
+Dijkstra Vector:
+Dijkstra Vec: 6203.79 |  Media Vec: 0.620379  
+
+Grafo 2
+
+Grafo 3
+
+Grafo 4
+
+Grafo 5
