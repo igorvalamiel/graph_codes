@@ -658,7 +658,7 @@ struct graph {
     void createFile_dij(string name, vector <vector <float>> s, int t){
         if (name == "dijHeap") {
             ofstream testFile("dijkstraHeap_out.txt", std::ios::app);
-            testFile << "Time: " << t;
+            testFile << "Time: " << t << "ms ";
             testFile << "|   Distance: [ ";
             for (auto d : s[0]){
                 testFile << d << ' ';
@@ -902,6 +902,31 @@ struct graph {
 //-------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------
 
+vector <float> get_pathway(vector <float> par, float ini, float end){
+    vector <float> path = {ini};
+    float s = ini;
+    while (s != end) {
+        s = par[s];
+        path.push_back(s);
+    }
+
+    reverse(path.begin(), path.end());
+
+    return path;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------
+
+void print_vec(vector <float> v){
+    for (auto i : v) {
+        cout << i << " ~> ";
+    } cout << "\n";
+}
+
+//-------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------
+
 int main() {
 
     //opening the data file
@@ -962,7 +987,19 @@ int main() {
     //graph testM(edges, n, m, weightened, 0);
 
 
-    testL.heap_dijkstra(1);
+    /*QUESTÃO 1*/
+    cout << "Questao 1\n";
+    vector <vector <float>> quest1;
+    quest1 = testL.heap_dijkstra(10);
+    for (auto i : {20, 30, 40, 50, 60}){
+        cout << "Distancia 10 -> " << i << " : " << quest1[0][i] << "\n";
+    }
+    
+    vector <float> quest1_2;
+    for (auto i : {20, 30, 40, 50, 60}){
+        quest1_2 = get_pathway(quest1[1], i, 10);
+        print_vec(quest1_2);
+    }
 
     /*
     testL.print();
