@@ -1073,7 +1073,7 @@ void print_vec(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho2/grafo_W_4.txt");
+    ifstream infile("../../../trabalho2/grafo_W_5.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
