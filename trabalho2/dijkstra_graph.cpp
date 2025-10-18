@@ -1073,7 +1073,7 @@ void print_vec(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho2/grafo_W_3.txt");
+    ifstream infile("../../../trabalho2/grafo_W_4.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1154,10 +1154,10 @@ int main() {
     
     
     for (int i = 0; i < 100; i++){
-        float a = testL.Dijkstra_vector_time(i);
+        //float a = testL.Dijkstra_vector_time(i);
         float b = testL.heap_dijkstra_time(i);
         total_time_heap += b;
-        total_time_vec += a;
+        //total_time_vec += a;
     }
 
     cout << "Dijkstra Heap\n";
