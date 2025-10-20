@@ -1050,6 +1050,7 @@ vector <float> get_pathway(vector <float> par, float ini, float end){
     float s = ini;
     while (s != end) {
         s = par[s];
+        cout << s << endl;
         path.push_back(s);
     }
 
@@ -1170,17 +1171,24 @@ int main() {
 
     /*QUESTÃO 3*/
     vector <vector <float>> rede = testL.heap_dijkstra(2722);
-    vector <float> Turing = get_pathway(rede[1], 2722, 11365);
-    vector <float> Kruskal = get_pathway(rede[1], 2722, 471365);
-    vector <float> Kleinberg = get_pathway(rede[1], 2722, 5709);
-    vector <float> Eva = get_pathway(rede[1], 2722, 11386);
-    vector <float> Ratton = get_pathway(rede[1], 2722, 343930);
+    cout << rede[1].size() << endl;
+    cout << "Dijkstra foi\n";
+    vector <float> Turing;
+    Turing = get_pathway(rede[1], 11365, 2722);
+    //vector <float> Kruskal = get_pathway(rede[1], 2722, 471365);
+    //vector <float> Kleinberg = get_pathway(rede[1], 2722, 5709);
+    //vector <float> Eva = get_pathway(rede[1], 2722, 11386);
+    //vector <float> Ratton = get_pathway(rede[1], 2722, 343930);
 
+    cout << "Ate aqui foi\n";
+    print_vec(Turing);
+
+    /*
     for (auto i : {Turing, Kruskal, Kleinberg, Eva, Ratton}){
         print_vec(i);
         cout << "=================================================\n";
     }
-    cout << "=================================================\n";
+    cout << "=================================================\n";*/
     //outD.close();
 
     return 0;
