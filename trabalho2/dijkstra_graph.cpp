@@ -1050,8 +1050,8 @@ vector <float> get_pathway(vector <float> par, float ini, float end){
     float s = ini;
     while (s != end) {
         s = par[s];
-        cout << s << endl;
         path.push_back(s);
+        if (s == -1) break;
     }
 
     reverse(path.begin(), path.end());
@@ -1062,10 +1062,37 @@ vector <float> get_pathway(vector <float> par, float ini, float end){
 //-------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------
 
-void print_vec(vector <float> v){
+void print_vec(vector <string> v){
     for (auto i : v) {
         cout << i << " ~> ";
     } cout << "\n";
+}
+
+//-------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------
+
+vector <string> get_names(vector <float> v){
+    string line;
+    map <int, string> name_list;
+
+    ifstream infile("../../../trabalho2/rede_colaboracao_vertices.txt");
+    
+    while (getline(infile, line)){
+        stringstream ss(line);
+        string idstr, name;
+        getline(ss, idstr, ',');
+        getline(ss, name);
+        int id = stoi(idstr);
+        name_list[id] = name;
+    }
+    
+
+    vector <string> name_vec;
+    for (auto item : v){
+        name_vec.push_back(name_list[item]);
+    }
+
+    return name_vec;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------
@@ -1126,8 +1153,8 @@ int main() {
 
     //opening the output_data file
     //ofstream outD("out_data.txt", std::ios::app);
-
-    graph testL(edges, n, m, weightened);
+    
+    graph testL(edges, n, m, 1);
     //graph testM(edges, n, m, weightened, 0);
 
 
@@ -1171,25 +1198,31 @@ int main() {
 
     /*QUESTÃO 3*/
     vector <vector <float>> rede = testL.heap_dijkstra(2722);
-    cout << rede[1].size() << endl;
     cout << "Dijkstra foi\n";
-    vector <float> Turing;
-    Turing = get_pathway(rede[1], 11365, 2722);
-    //vector <float> Kruskal = get_pathway(rede[1], 2722, 471365);
-    //vector <float> Kleinberg = get_pathway(rede[1], 2722, 5709);
-    //vector <float> Eva = get_pathway(rede[1], 2722, 11386);
-    //vector <float> Ratton = get_pathway(rede[1], 2722, 343930);
+    
+    
+    vector <float> Turing_num = get_pathway(rede[1], 11365, 2722);
+    vector <float> Kruskal_num = get_pathway(rede[1], 471365, 2722);
+    vector <float> Kleinberg_num = get_pathway(rede[1], 5709, 2722);
+    vector <float> Eva_num = get_pathway(rede[1], 11386, 2722);
+    vector <float> Ratton_num = get_pathway(rede[1], 343930, 2722);
 
-    cout << "Ate aqui foi\n";
-    print_vec(Turing);
+    vector <string> Turing = get_names(Turing_num);
+    vector <string> Kruskal = get_names(Kruskal_num);
+    vector <string> Kleinberg = get_names(Kleinberg_num);
+    vector <string> Eva = get_names(Eva_num);
+    vector <string> Ratton = get_names(Ratton_num);
 
-    /*
-    for (auto i : {Turing, Kruskal, Kleinberg, Eva, Ratton}){
-        print_vec(i);
-        cout << "=================================================\n";
-    }
-    cout << "=================================================\n";*/
-    //outD.close();
+    cout << "Turing: "; print_vec(Turing);
+    cout << "Distancia Dijkstra -> Turing: " << rede[0][11365] << "\n";
+    cout << "Kruskal: "; print_vec(Kruskal);
+    cout << "Distancia Dijkstra -> Kruskal: " << rede[0][471365] << "\n";
+    cout << "Kleinberg: "; print_vec(Kleinberg);
+    cout << "Distancia Dijkstra -> Kleingberg: " << rede[0][5709] << "\n";   
+    cout << "Eva: "; print_vec(Eva);
+    cout << "Distancia Dijkstra -> Eva: " << rede[0][11386] << "\n";
+    cout << "Ratton: "; print_vec(Ratton);
+    cout << "Distancia Dijkstra -> Ratton: " << rede[0][343930] << "\n";
 
     return 0;
 }

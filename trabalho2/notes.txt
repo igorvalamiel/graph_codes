@@ -1,0 +1,30 @@
+
+722385
+Start ok
+getinfo ok
+Dijkstra foi
+Turing: -1 ~> 11365 ~>
+Distancia Dijkstra -> Turing: inf
+Kruskal: 2722 ~> 9490 ~> 7200 ~> 10343 ~> 646765 ~> 490368 ~> 10746 ~> 3655 ~> 471365 ~>
+Distancia Dijkstra -> Kruskal: 3.48037
+Kleinberg: 2722 ~> 217250 ~> 11456 ~> 768 ~> 11448 ~> 101826 ~> 12242 ~> 11834 ~> 9608 ~> 5709 ~> 
+Distancia Dijkstra -> Kleingberg: 2.70699
+Eva: 2722 ~> 217250 ~> 11456 ~> 768 ~> 6479 ~> 8528 ~> 10572 ~> 357587 ~> 11649 ~> 3694 ~> 318911 ~> 11386 ~> 
+Distancia Dijkstra -> Eva: 2.75351
+Ratton: 2722 ~> 9490 ~> 7200 ~> 391667 ~> 371226 ~> 4379 ~> 68773 ~> 11466 ~> 343930 ~>
+Distancia Dijkstra -> Ratton: 2.94283
+
+722385
+Start ok
+getinfo ok
+Dijkstra foi
+Turing:  ~> Alan M. Turing ~>
+Distancia Dijkstra -> Turing: inf
+Kruskal: Edsger W. Dijkstra ~> John R. Rice ~> Dan C. Marinescu ~> Howard Jay Siegel ~> Edwin K. P. Chong ~> Ness B. Shroff ~> R. Srikant ~> Albert G. Greenberg ~> J. B. Kruskal ~> 
+Distancia Dijkstra -> Kruskal: 3.48037
+Kleinberg: Edsger W. Dijkstra ~> A. J. M. van Gasteren ~> Gerard Tel ~> Hans L. Bodlaender ~> Dimitrios M. Thilikos ~> Prabhakar Ragde ~> Avi Wigderson ~> Eli Upfal ~> Prabhakar Raghavan ~> Jon M. Kleinberg ~>
+Distancia Dijkstra -> Kleingberg: 2.70699
+Eva: Edsger W. Dijkstra ~> A. J. M. van Gasteren ~> Gerard Tel ~> Hans L. Bodlaender ~> Jan van Leeuwen ~> Mark H. Overmars ~> Micha Sharir ~> Haim Kaplan ~> Robert Endre Tarjan ~> Andrew V. Goldberg ~> Serge A. Plotkin ~> ├ëva Tardos ~>
+Distancia Dijkstra -> Eva: 2.75351
+Ratton: Edsger W. Dijkstra ~> John R. Rice ~> Dan C. Marinescu ~> Chuang Lin ~> Bo Li ~> Y. Thomas Hou ~> Zhi-Li Zhang ~> Donald F. Towsley ~> Daniel R. Figueiredo ~>
+Distancia Dijkstra -> Ratton: 2.94283
