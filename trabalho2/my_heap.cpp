@@ -10,14 +10,14 @@ using namespace std;
 template <
     typename keyType,
     typename priorityType,
-    typename comapre = greater<priorityType> // maior prioridade = menor valor
+    typename Compare = greater<priorityType> // maior prioridade = menor valor
 >
 
 //criando estrutura heap
 class my_heap {
 private:
     //criando nó
-    structure Node {
+    struct Node {
         keyType key;
         priorityType priority;
     };
@@ -25,16 +25,16 @@ private:
     //criando o heap, o mapeamento de chaves e objeto de comparação
     vector <Node> heap;
     unordered_map <keyType, size_t> position_map;
-    compare comp;
+    Compare comp;
 
     //função para obter o índice do pai
     size_t parent(size_t i) const {return (i-1)/2;}
 
     //função para obter o índice do filho esquerdo
-    size_t leftChild(size_t i) const {return 2*i+1}
+    size_t leftChild(size_t i) const {return 2*i+1;}
     
     //função para obter o índice do filho direito
-    size_t rightChild(size_t i) const {return 2*i+2}
+    size_t rightChild(size_t i) const {return 2*i+2;}
 
     //função que realiza a troca entre dois nós do heap
     void swapNodes(size_t i, size_t j) {
@@ -64,10 +64,10 @@ private:
             size_t Rchild = rightChild(i);
 
             //verifica se filho esquerdo tem maior prioridade
-            if (l < heap.size() && comp(heap[minIndex].priority, heap[Lchild].priority)) {minIndex = l}
+            if (Lchild < heap.size() && comp(heap[minIndex].priority, heap[Lchild].priority)) {minIndex = Lchild;}
 
             //verifica se filho direito tem maior prioridade
-            if (r < heap.size() && comp(heap[minIndex].priority, heap[Rchild].priority)) {minIndex = r}
+            if (Rchild < heap.size() && comp(heap[minIndex].priority, heap[Rchild].priority)) {minIndex = Rchild;}
 
             //verifica se já está no lugar certo
             if (i == minIndex) break;
@@ -107,7 +107,7 @@ public:
         //atualizando
         size_t index = position_map[key];
         priorityType priority0 = heap[index].priority;
-        heap[index].priority = priority2
+        heap[index].priority = priority2;
 
         //ajustando posição para que a prioridade esteja correta
         if (comp(priority0, priority2)) {moveUp(index);}
@@ -121,7 +121,7 @@ public:
     }
 
     //função que remove o elemento de maior prioridade em tempo logarítmo
-    const pop() {
+    void pop() {
         if (empty()) {throw std::out_of_range("A fila de prioridade está vazia.");}
 
         //fazendo a remoção

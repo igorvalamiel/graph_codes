@@ -4,7 +4,7 @@
 #include <chrono>
 #include <windows.h> 
 #include <psapi.h> //to get memory info
-#include "heap_new.cpp"
+#include "my_heap.cpp"
 
 using namespace std;
 
@@ -267,7 +267,7 @@ struct graph {
         level[s] = 0;
         int counter = 0;
 
-        priory_queue_update <int, float> S;
+        my_heap <int, float> S;
         for (int i = 1; i<=n; i++){S.push(i, dist[i]);}
 
         while (!S.empty()) {
@@ -991,7 +991,7 @@ struct graph {
         level[s] = 0;
         int counter = 0;
 
-        priory_queue_update <int, float> S;
+        my_heap <int, float> S;
         for (int i = 1; i<=n; i++){S.push(i, dist[i]);}
 
         while (!S.empty()) {
