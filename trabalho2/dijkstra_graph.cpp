@@ -1153,7 +1153,7 @@ int main() {
     //opening the output_data file
     //ofstream outD("out_data.txt", std::ios::app);
     
-    graph testL(edges, n, m, 1);
+    graph testL(edges, n, m, weightened);
     //graph testM(edges, n, m, weightened, 0);
 
 
@@ -1174,24 +1174,20 @@ int main() {
     
     /*QUESTÃO 2*/
     float total_time_heap = 0;
-    //float total_time_vec = 0;
-
-
-    //total_time_heap = testL.Dijkstra_vector_time(1);
-    //total_time_vec = testL.heap_dijkstra_time(1);
+    float total_time_vec = 0;
     
-    
-    for (int i = 1; i <= 100; i++){
-        //float a = testL.Dijkstra_vector_time(i);
+    int k = 40;
+    for (int i = 1; i <= k; i++){
+        float a = testL.Dijkstra_vector_time(i);
         float b = testL.heap_dijkstra_time(i);
         total_time_heap += b;
-        //total_time_vec += a;
+        total_time_vec += a;
     }
 
     cout << "Dijkstra Heap\n";
-    cout << "Tempo total: " << total_time_heap << " |  Media Heap: " << total_time_heap/100 << '\n';
-    //cout << "Dijkstra Vector\n";
-    //cout << "Dijkstra Vec: " << total_time_vec << " |  Media Vec: " << total_time_vec/n << '\n';
+    cout << "Tempo total: " << total_time_heap << " |  Media Heap: " << total_time_heap/k << '\n';
+    cout << "Dijkstra Vector\n";
+    cout << "Dijkstra Vec: " << total_time_vec << " |  Media Vec: " << total_time_vec/k << '\n';
     
 
 

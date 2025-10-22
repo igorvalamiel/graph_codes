@@ -68,20 +68,24 @@ Distancia 10 -> 60 : 17.99
 ===== QUESTÃO 2: =====
 Grafo 1:
 Dijkstra Heap
-Tempo total: 5191.87 |  Media Heap: 51.9187     
-
+Tempo total: 4523 |  Media Heap: 45.23     
+Dijkstra Vector
+Dijkstra Vec: 7991.08 |  Media Vec: 79.9108
 
 Grafo 2
 Dijkstra Heap
-Tempo total: 20905 |  Media Heap: 209.05
+Tempo total: 14906.4 |  Media Heap: 186.33 
+Dijkstra Vector
+Dijkstra Vec: 34978.8 |  Media Vec: 437.235
 
 Grafo 3
 Dijkstra Heap
-Tempo total: 171644 |  Media Heap: 1716.44
+Tempo total: 94954.4 |  Media Heap: 1582.57
+Dijkstra Vector
+Dijkstra Vec: 375683 |  Media Vec: 6261.38
 
 Grafo 4
-Dijkstra Heap
-Tempo total: 1.88664e+06 |  Media Heap: 18866.4
+
 
 Grafo 5
 
