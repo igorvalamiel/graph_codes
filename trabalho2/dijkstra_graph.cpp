@@ -258,7 +258,6 @@ struct graph {
         auto start_time = chrono::high_resolution_clock::now(); //getting initial time
 
         vector <float> parent(n+1, -1);
-        vector <int> weight(n+1, 0);
         vector <float> level(n+1, -1);
         vector <float> dist(n+1, inf);
         vector <int> visited(n+1, 0);
@@ -1101,7 +1100,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho2/rede_colaboracao.txt");
+    ifstream infile("../../../trabalho2/grafo_W_4.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1173,16 +1172,16 @@ int main() {
     }*/
 
     
-    /*QUESTÃO 2*//*
+    /*QUESTÃO 2*/
     float total_time_heap = 0;
-    float total_time_vec = 0;
+    //float total_time_vec = 0;
 
 
     //total_time_heap = testL.Dijkstra_vector_time(1);
     //total_time_vec = testL.heap_dijkstra_time(1);
     
     
-    for (int i = 0; i < 100; i++){
+    for (int i = 1; i <= 100; i++){
         //float a = testL.Dijkstra_vector_time(i);
         float b = testL.heap_dijkstra_time(i);
         total_time_heap += b;
@@ -1190,14 +1189,14 @@ int main() {
     }
 
     cout << "Dijkstra Heap\n";
-    cout << "Tempo total: " << total_time_heap << " |  Media Heap: " << total_time_heap/n << '\n';
-    cout << "Dijkstra Vector\n";
-    cout << "Dijkstra Vec: " << total_time_vec << " |  Media Vec: " << total_time_vec/n << '\n';
-    */
+    cout << "Tempo total: " << total_time_heap << " |  Media Heap: " << total_time_heap/100 << '\n';
+    //cout << "Dijkstra Vector\n";
+    //cout << "Dijkstra Vec: " << total_time_vec << " |  Media Vec: " << total_time_vec/n << '\n';
+    
 
 
     /*QUESTÃO 3*/
-    vector <vector <float>> rede = testL.heap_dijkstra(2722);
+    /*vector <vector <float>> rede = testL.heap_dijkstra(2722);
     cout << "Dijkstra foi\n";
     
     
@@ -1222,7 +1221,7 @@ int main() {
     cout << "Eva: "; print_vec(Eva);
     cout << "Distancia Dijkstra -> Eva: " << rede[0][11386] << "\n";
     cout << "Ratton: "; print_vec(Ratton);
-    cout << "Distancia Dijkstra -> Ratton: " << rede[0][343930] << "\n";
+    cout << "Distancia Dijkstra -> Ratton: " << rede[0][343930] << "\n";*/
 
     return 0;
 }
