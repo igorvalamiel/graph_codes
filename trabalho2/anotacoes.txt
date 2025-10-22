@@ -85,7 +85,8 @@ Dijkstra Vector
 Dijkstra Vec: 375683 |  Media Vec: 6261.38
 
 Grafo 4
-
+Dijkstra Heap
+Tempo total: 593970 |  Media Heap: 14849.3
 
 Grafo 5
 
