@@ -1178,10 +1178,10 @@ int main() {
     
     int k = 40;
     for (int i = 1; i <= k; i++){
-        float a = testL.Dijkstra_vector_time(i);
+        //float a = testL.Dijkstra_vector_time(i);
+        //total_time_vec += a;
         float b = testL.heap_dijkstra_time(i);
         total_time_heap += b;
-        total_time_vec += a;
     }
 
     cout << "Dijkstra Heap\n";

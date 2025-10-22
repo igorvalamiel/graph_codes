@@ -89,7 +89,8 @@ Dijkstra Heap
 Tempo total: 593970 |  Media Heap: 14849.3
 
 Grafo 5
-
+Dijkstra Heap
+Tempo total: 2421341 |  Media Heap: 121067.05
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ===== QUESTÃO 3: =====
