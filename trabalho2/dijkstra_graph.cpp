@@ -1100,7 +1100,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho2/grafo_W_4.txt");
+    ifstream infile("../../../trabalho2/grafo_W_5.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1173,19 +1173,19 @@ int main() {
 
     
     /*QUESTÃO 2*/
-    float total_time_heap = 0;
+    //float total_time_heap = 0;
     float total_time_vec = 0;
     
-    int k = 20;
+    int k = 10;
     for (int i = 1; i <= k; i++){
-        //float a = testL.Dijkstra_vector_time(i);
-        //total_time_vec += a;
-        float b = testL.heap_dijkstra_time(i);
-        total_time_heap += b;
+        float a = testL.Dijkstra_vector_time(i);
+        total_time_vec += a;
+        //float b = testL.heap_dijkstra_time(i);
+        //total_time_heap += b;
     }
 
-    cout << "Dijkstra Heap\n";
-    cout << "Tempo total: " << total_time_heap << " |  Media Heap: " << total_time_heap/k << '\n';
+    //cout << "Dijkstra Heap\n";
+    //cout << "Tempo total: " << total_time_heap << " |  Media Heap: " << total_time_heap/k << '\n';
     cout << "Dijkstra Vector\n";
     cout << "Dijkstra Vec: " << total_time_vec << " |  Media Vec: " << total_time_vec/k << '\n';
     

@@ -86,7 +86,7 @@ Dijkstra Vec: 375683 |  Media Vec: 6261.38
 
 Grafo 4
 Dijkstra Heap
-Tempo total: 593970 |  Media Heap: 14849.3
+Tempo total: 408522 |  Media Heap: 20426.1
 Dijkstra Vector
 Dijkstra Vec: 12007944 |  Media Vec: 600397.2
 
@@ -111,10 +111,3 @@ Distancia Dijkstra -> Eva: 2.75351
 
 Ratton: Edsger W. Dijkstra ~> John R. Rice ~> Dan C. Marinescu ~> Chuang Lin ~> Bo Li ~> Y. Thomas Hou ~> Zhi-Li Zhang ~> Donald F. Towsley ~> Daniel R. Figueiredo ~>
 Distancia Dijkstra -> Ratton: 2.94283
-
-
-
-g4vec = [676757, 542862, 499574, 486939, 485371, 487963, 479785, 480307, 479802, 478882, 481547, 478857, 479148, 1202843, 1059922, 741776, 638015, 562651, 660550, 604393]
-
-g5heap = [90167, 95129, 113266, 136154, 140198, 147598, 150231, 126256, 126094, 130144]
-
