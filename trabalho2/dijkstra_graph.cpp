@@ -1100,7 +1100,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho2/grafo_W_5.txt");
+    ifstream infile("../../../trabalho2/grafo_W_4.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1176,7 +1176,7 @@ int main() {
     float total_time_heap = 0;
     float total_time_vec = 0;
     
-    int k = 40;
+    int k = 20;
     for (int i = 1; i <= k; i++){
         //float a = testL.Dijkstra_vector_time(i);
         //total_time_vec += a;
