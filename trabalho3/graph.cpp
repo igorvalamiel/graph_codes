@@ -36,19 +36,26 @@ struct graph {
     /*graph's info*/
     int n = 0; //number of vectors
     int m = 0; //number of edges
+
+        /* The following variables are used as the out_degrees if the graph is directed*/
     int G_min = 0, G_max = 0, Medi_g = 0; //maximum, minimum, medium and median of the degrees
     double G_med = 0;
+        /* The following variables are used as the in_degrees if the graph is directed*/
+    int G_in_min = 0, G_in_max = 0, Medi_g_in = 0; //maximum, minimum, medium and median of the degrees
+    double G_in_med = 0;
+
     double dt = 0; //execution time to create the structure. Only not 0 when start() executed
     int diam = -1;
     string mem_graph;
-    bool weightened = 0;
+    bool weightened = 0, directed = 0;
 
     /*Creating the basics structures*/
     vector <vector <bool>> matrix; // matrix
     vector <vector <int>> CC; // conected components
     vector <vector <int>> sizesCC; //sizes of each CC
     int quantCC = 0; // quantity of CC
-    vector <int> G_list; //getting the degrees of each vertex
+    vector <int> G_list; //getting the degrees of each vertex (if directioned, it represents the out_degrees)
+    vector <int> G_in_list; //getting the in_degrees if the graph is directioned
     vector <node*> Linklist; //creating the linked-list
     vector <node*> TailLL; //creating a vector to keep all the last itens of the linked list
     vector<vector<float>> weight_matrix; // matriz de pesos
@@ -56,15 +63,16 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Executing the other functions to work properly*/
-    graph(const vector<vector<float>>& edges, int num_vertex, int num_edges, bool directed, bool w, bool gt = 1){
+    graph(const vector<vector<float>>& edges, int num_vertex, int num_edges, bool d, bool w, bool gt = 1){
         graph_edges = edges;
         n = num_vertex;
         m = (int)graph_edges.size();
         graph_type = gt;
         weightened = w;
+        directed = d;
 
         //As soon as the structure graph is called, all these functions are also called
-        start(directed);
+        start();
         cout << "Start ok\n";
         getinfo();
         cout << "getinfo ok\n";
@@ -78,11 +86,12 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /* Starting the graph */
-    void start(bool dir) {
+    void start() {
         if (graph_type) {
             //initiating the G_list
             for (int i=0; i<=n; i++) {
-                G_list.push_back(0); //adding a vertex in teh degree's list
+                G_list.push_back(0); //adding a vertex in the degree's list
+                G_in_list.push_back(0); //adding a vertex in the in_degree's list
 
                 node* aux = new node;
                 aux->vertex = i;
@@ -106,7 +115,7 @@ struct graph {
                 if (Linklist[a] != nullptr) Linklist[a]->back = auxA;
                 Linklist[a] = auxA;
 
-                if (!dir) {
+                if (!directed) {
                     // creating edge b -> a
                     node* auxB = new node;
                     auxB->vertex = a;
@@ -114,11 +123,15 @@ struct graph {
                     auxB->weight = w;
                     if (Linklist[b] != nullptr) Linklist[b]->back = auxB;
                     Linklist[b] = auxB;
+                    
+                    // adding a degree to a and b
+                    G_list[a]++;
+                    G_list[b]++;
+                } else {
+                    // adding in_degree and out_degree
+                    G_list[a]++;
+                    G_in_list[b]++;
                 }
-
-                // adding a degree to a and b
-                G_list[a]++;
-                G_list[b]++;
             }
             
             mem_graph = printMemoryUsage();
@@ -169,6 +182,28 @@ struct graph {
         //getting the median
         if (n % 2 == 1) {Medi_g = Copy_G_list[(n/2)+1];} //if the number of vertexes are even
         else {Medi_g = (Copy_G_list[(n/2)-1] + Copy_G_list[n/2]) / 2;} //if the number of vertexes are odd
+
+        if (directed) {
+            G_in_min = n; //seting G_min for the max value (the biggest degree a vertex can have is n-1, that's why I settle it n)
+            for (int i=1; i<=n; i++){
+                double value = G_in_list[i];
+                if (value < G_in_min) G_in_min = value; //getting lowest degree
+                if (value > G_in_max) G_in_max = value; //getting highest degree
+                G_in_med += value;
+            }
+
+            G_in_med = G_in_med / (double) n; //getting the medium degree
+
+            //creating a copy of G_list to find the median
+            vector <int> Copy_G_in_list; 
+            for (int i=0; i<n; i++) {Copy_G_in_list.push_back(G_in_list[i]);}
+
+            sort(Copy_G_in_list.begin(), Copy_G_in_list.end()); //sorting the copy list
+            
+            //getting the median
+            if (n % 2 == 1) {Medi_g = Copy_G_in_list[(n/2)+1];} //if the number of vertexes are even
+            else {Medi_g = (Copy_G_in_list[(n/2)-1] + Copy_G_in_list[n/2]) / 2;} //if the number of vertexes are odd
+        }
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -1152,7 +1187,7 @@ int main() {
     //closing the data file
     infile.close();
 
-    int directed = true;
+    int directed = false;
     
     graph testL(edges, n, m, directed, weightened);
     //graph testM(edges, n, m, weightened, 0);
