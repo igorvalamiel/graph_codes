@@ -108,6 +108,7 @@ struct graph {
                 if (weightened) {w = item[2];} //including weight
                 else {w = 0;}
 
+                cout << "{" << a << ',' << b << "}\n";
                 // creating edge a -> b
                 node* auxA = new node;
                 auxA->vertex = b;
@@ -661,7 +662,7 @@ struct graph {
         if (!get_diam) {
             if (name == "BFS"){
                 ofstream testFile("bfs_output.txt", std::ios::app);
-                testFile << "BFS ~   ";
+                /*testFile << "BFS ~   ";
 
                 testFile << "Levels: [ ";
                 for (auto par : s){
@@ -670,7 +671,7 @@ struct graph {
                 testFile << "|   Parents: [ ";
                 for (auto par : s){
                     testFile << par[0] << ' ';
-                } testFile << "]";
+                } testFile << "]";*/
                 testFile << "   |   Runtime: " << t << "ms\n";
 
                 testFile.close();
@@ -1191,9 +1192,6 @@ int main() {
     int directed = true;
     
     graph testL(edges, n, m, directed, 0, 1);
-    //graph testM(edges, n, m, weightened, 0);
-
-    testL.BFS(1);
 
     return 0;
 }
