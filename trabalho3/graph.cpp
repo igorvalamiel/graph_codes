@@ -1150,7 +1150,10 @@ int main() {
     //closing the data file
     infile.close();
 
-    //graph testL(edges, n, m, weightened);
+    //opening the output_data file
+    //ofstream outD("out_data.txt", std::ios::app);
+    
+    graph testL(edges, n, m, weightened);
     //graph testM(edges, n, m, weightened, 0);
 
     return 0;
