@@ -56,7 +56,7 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Executing the other functions to work properly*/
-    graph(const vector<vector<float>>& edges, int num_vertex, int num_edges, bool w, bool gt = 1){
+    graph(const vector<vector<float>>& edges, int num_vertex, int num_edges, bool directed, bool w, bool gt = 1){
         graph_edges = edges;
         n = num_vertex;
         m = (int)graph_edges.size();
@@ -64,7 +64,7 @@ struct graph {
         weightened = w;
 
         //As soon as the structure graph is called, all these functions are also called
-        start();
+        start(directed);
         cout << "Start ok\n";
         getinfo();
         cout << "getinfo ok\n";
@@ -78,7 +78,7 @@ struct graph {
 
     //-----------------------------------------------------------------------------------------------------------------------
     /* Starting the graph */
-    void start() {
+    void start(bool dir) {
         if (graph_type) {
             //initiating the G_list
             for (int i=0; i<=n; i++) {
@@ -106,13 +106,15 @@ struct graph {
                 if (Linklist[a] != nullptr) Linklist[a]->back = auxA;
                 Linklist[a] = auxA;
 
-                // creating edge b -> a
-                node* auxB = new node;
-                auxB->vertex = a;
-                auxB->next = Linklist[b];
-                auxB->weight = w;
-                if (Linklist[b] != nullptr) Linklist[b]->back = auxB;
-                Linklist[b] = auxB;
+                if (!dir) {
+                    // creating edge b -> a
+                    node* auxB = new node;
+                    auxB->vertex = a;
+                    auxB->next = Linklist[b];
+                    auxB->weight = w;
+                    if (Linklist[b] != nullptr) Linklist[b]->back = auxB;
+                    Linklist[b] = auxB;
+                }
 
                 // adding a degree to a and b
                 G_list[a]++;
@@ -1150,10 +1152,9 @@ int main() {
     //closing the data file
     infile.close();
 
-    //opening the output_data file
-    //ofstream outD("out_data.txt", std::ios::app);
+    int directed = true;
     
-    graph testL(edges, n, m, weightened);
+    graph testL(edges, n, m, directed, weightened);
     //graph testM(edges, n, m, weightened, 0);
 
     return 0;
