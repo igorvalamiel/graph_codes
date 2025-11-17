@@ -21,11 +21,11 @@
 === Grafo 1 ===
 
 === Grafo 2 ===
-    560, 561, 564, 564, 564, 561, 562, 555, 563, 562, 
-    Tempo medio: 561
+    64, 75, 67, 71, 68, 79, 81, 78, 71, 67, 
+    Tempo medio: 72
 === Grafo 3 ===
-    5668, 5680, 5667, 5700, 5670, 5665, 5654, 5672, 5680, 5664, 
-    Tempo medio: 5672
+    508, 474, 525, 481, 515, 498, 517, 526, 515, 547, 
+    Tempo medio: 510
 === Grafo 4 ===
     64354, 63198, 63368, 63655, 63785, 63105, 62850, 63266, 75240, 82208, 
     Tempo medio: 66502
@@ -37,17 +37,17 @@
 
 === Grafo 2 ===
     Distancia de 10 para 100: 4.65  Tempo de execucao: 151.726
-    Distancia de 10 para 100: 10.93 Tempo de execucao: 150.796
-    Distancia de 10 para 100: 6.49  Tempo de execucao: 154.019
+    Distancia de 20 para 100: 10.93 Tempo de execucao: 150.796
+    Distancia de 30 para 100: 6.49  Tempo de execucao: 154.019
 === Grafo 3 ===
     Distancia de 10 para 100: 4.14  Tempo de execucao: 1280.54
-    Distancia de 10 para 100: 4.31  Tempo de execucao: 1257
-    Distancia de 10 para 100: 6.52  Tempo de execucao: 1279.34
+    Distancia de 20 para 100: 4.31  Tempo de execucao: 1257
+    Distancia de 30 para 100: 6.52  Tempo de execucao: 1279.34
 === Grafo 4 ===
     Distancia de 10 para 100: 7.21  Tempo de execucao: 14575.3
-    Distancia de 10 para 100: 10.09 Tempo de execucao: 14329.8
-    Distancia de 10 para 100: 9.36  Tempo de execucao: 14373.4
+    Distancia de 20 para 100: 10.09 Tempo de execucao: 14329.8
+    Distancia de 30 para 100: 9.36  Tempo de execucao: 14373.4
 === Grafo 5 ===
     Distancia de 10 para 100: 41.5  Tempo de execucao: 78856.9
-    Distancia de 10 para 100: 33.06 Tempo de execucao: 79044.8
-    Distancia de 10 para 100: 46.01 Tempo de execucao: 79385.6
+    Distancia de 20 para 100: 33.06 Tempo de execucao: 79044.8
+    Distancia de 30 para 100: 46.01 Tempo de execucao: 79385.6
