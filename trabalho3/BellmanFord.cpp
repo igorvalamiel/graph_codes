@@ -1274,7 +1274,7 @@ vector <string> get_names(vector <float> v){
 
 int main() {
     // Abrindo o arquivo
-    ifstream infile("../../../trabalho3/grafo_W_4.txt");
+    ifstream infile("../../../trabalho3/grafo_W_5.txt");
     if (!infile.is_open()) {
         cerr << "Erro ao abrir o arquivo!\n";
         return 1;
