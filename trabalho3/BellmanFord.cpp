@@ -348,7 +348,7 @@ struct graph {
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
-        //createFile_dij("dijHeap", {dist, parent, level}, dt);
+        createFile_dij("dijHeap", {dist, parent, level}, dt);
 
         return {dist, parent, level};
     }
@@ -1274,7 +1274,7 @@ vector <string> get_names(vector <float> v){
 
 int main() {
     // Abrindo o arquivo
-    ifstream infile("../../../trabalho3/grafo_W_5.txt");
+    ifstream infile("../../../trabalho3/grafo_W_4.txt");
     if (!infile.is_open()) {
         cerr << "Erro ao abrir o arquivo!\n";
         return 1;
@@ -1359,7 +1359,8 @@ int main() {
     //cout << "Distancia do 20 pro 100: " << dist[20] << '\n';
     //cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
 
-    /*QUESTÇÃO 2*/
+    /*QUESTÃO 2*/
+    /*
     int soma = 0;
     for (int i=0; i<10; i++){
         int time = g.BellmanFord_time(start_vertex);
@@ -1368,6 +1369,27 @@ int main() {
     }
     soma /= 10;
     cout << "\nTempo medio: " << soma << "\n";
+    */
+
+    /*QUESTÃO 3*/
+    if (negative) {cout << "Esse grafo possui pesos negativos.\n";}
+    else {
+        vector<vector<float>> edges_2;
+        for (auto i : edges) {edges_2.push_back({i[1], i[0], i[2]});}
+        graph g_2(edges_2, n, m, directed, 1, 1);
+
+        vector<vector<float>> dist10 = g_2.heap_dijkstra(10);
+        float time10 = g_2.heap_dijkstra_time(10);
+        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+        
+        dist10 = g_2.heap_dijkstra(20);
+        time10 = g_2.heap_dijkstra_time(20);
+        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+        
+        dist10 = g_2.heap_dijkstra(30);
+        time10 = g_2.heap_dijkstra_time(30);
+        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+    }
 
     return 0;
 }

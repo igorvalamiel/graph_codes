@@ -19,6 +19,7 @@
     Distancia do 30 pro 100: 46.01
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 === Grafo 1 ===
+
 === Grafo 2 ===
     560, 561, 564, 564, 564, 561, 562, 555, 563, 562, 
     Tempo medio: 561
@@ -33,7 +34,15 @@
     Tempo medio: 113904
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 === Grafo 1 ===
+
 === Grafo 2 ===
+    Distancia de 10 para 100: 4.65  Tempo de execucao: 151.726
+    Distancia de 10 para 100: 10.93 Tempo de execucao: 150.796
+    Distancia de 10 para 100: 6.49  Tempo de execucao: 154.019
 === Grafo 3 ===
+    Distancia de 10 para 100: 4.14  Tempo de execucao: 1280.54
+    Distancia de 10 para 100: 4.31  Tempo de execucao: 1257
+    Distancia de 10 para 100: 6.52  Tempo de execucao: 1279.34
 === Grafo 4 ===
+
 === Grafo 5 ===
