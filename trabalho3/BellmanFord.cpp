@@ -1313,6 +1313,7 @@ int main() {
 
     int start_vertex = 100;
 
+    /*
     vector<vector<float>> result = g.BellmanFord(start_vertex);
     int tempo = g.BellmanFord_time(start_vertex);
     // Verificar ciclo negativo e nao retornar as distancias erradas
@@ -1325,6 +1326,7 @@ int main() {
     vector<float> dist = result[0];
     vector<float> parent = result[1];
     vector<float> level = result[2];
+    */
 
     // só é acionado quando não tem ciclo negativo
 
@@ -1353,9 +1355,19 @@ int main() {
     */
 
     /*QUESTAO 1*/
-    cout << "Distancia do 10 pro 100: " << dist[10] << '\n';
-    cout << "Distancia do 20 pro 100: " << dist[20] << '\n';
-    cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
+    //cout << "Distancia do 10 pro 100: " << dist[10] << '\n';
+    //cout << "Distancia do 20 pro 100: " << dist[20] << '\n';
+    //cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
+
+    /*QUESTÇÃO 2*/
+    int soma = 0;
+    for (int i=0; i<10; i++){
+        int time = g.BellmanFord_time(start_vertex);
+        soma += time;
+        cout << time << ", ";
+    }
+    soma /= 10;
+    cout << "\nTempo medio: " << soma << "\n";
 
     return 0;
 }
