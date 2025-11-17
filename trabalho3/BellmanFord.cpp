@@ -1274,7 +1274,7 @@ vector <string> get_names(vector <float> v){
 
 int main() {
     // Abrindo o arquivo
-    ifstream infile("../../../trabalho3/grafo_W_5.txt");
+    ifstream infile("../../../trabalho3/grafo_W_2.txt");
     if (!infile.is_open()) {
         cerr << "Erro ao abrir o arquivo!\n";
         return 1;
@@ -1372,6 +1372,7 @@ int main() {
     */
 
     /*QUESTÃO 3*/
+    /*
     if (negative) {cout << "Esse grafo possui pesos negativos.\n";}
     else {
         vector<vector<float>> edges_2;
@@ -1390,6 +1391,7 @@ int main() {
         time10 = g_2.heap_dijkstra_time(30);
         cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
     }
+    */
 
     return 0;
 }

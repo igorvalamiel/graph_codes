@@ -108,7 +108,6 @@ struct graph {
                 if (weightened) {w = item[2];} //including weight
                 else {w = 0;}
 
-                cout << "{" << a << ',' << b << "}\n";
                 // creating edge a -> b
                 node* auxA = new node;
                 auxA->vertex = b;
@@ -349,10 +348,76 @@ struct graph {
         chrono::duration<double,std::milli> duration = end_time - start_time;
         dt = duration.count(); //em ms
 
-        //createFile_dij("dijHeap", {dist, parent, level}, dt);
+        createFile_dij("dijHeap", {dist, parent, level}, dt);
 
         return {dist, parent, level};
     }
+    
+    //Belman-Ford
+    
+    vector<vector<float>> BellmanFord(int s) {
+    float inf = numeric_limits<float>::infinity();
+
+    vector<float> dist(n + 1, inf);
+    vector<float> parent(n + 1, -1);
+    vector<float> level(n + 1, -1);
+
+    dist[s] = 0;
+    level[s] = 0;
+
+    bool continuar;
+
+    // relaxamento (n - 1) vezes
+    for (int i = 0; i < n - 1; i++) {
+        continuar = false;
+
+        if (graph_type) {
+            for (int v = 0; v <= n; v++) {
+                if (dist[v] == inf) continue;
+                
+                node* current = Linklist[v];
+                while (current != nullptr) {
+                    int u = current->vertex;
+                    float w = current->weight;
+                    
+                    
+                    if (dist[v] + w < dist[u]) {
+                        dist[u] = dist[v] + w;
+                        parent[u] = v;
+                        level[u] = level[v] + 1;
+                        continuar = true;
+                    }
+                    current = current->next;
+                }
+            }
+        }
+
+        if (!continuar) {break;}
+
+    }
+    // Detecção de ciclo negativo (também com n+1)
+    bool ciclo_negativo = false;
+    if (graph_type) {
+        for (int v = 0; v <= n; v++) {
+            if (dist[v] == inf) continue;
+            node* current = Linklist[v];
+            while (current != nullptr) {
+                int u = current->vertex;
+                float w = current->weight;
+                if (dist[v] + w < dist[u]) {
+                    ciclo_negativo = true;
+                    break;
+                }
+                current = current->next;
+            }
+            if (ciclo_negativo) break;
+        }
+    }
+
+    vector<float> ciclo_vec = {ciclo_negativo ? 1.0f : 0.0f};
+
+    return {dist, parent, level, ciclo_vec};
+}
 
     //-----------------------------------------------------------------------------------------------------------------------
     /*Implementing BFS*/
@@ -1078,6 +1143,77 @@ struct graph {
         return dt;
     }
 
+    float BellmanFord_time (int s) {
+        auto start_time = chrono::high_resolution_clock::now(); //getting initial time
+        float inf = numeric_limits<float>::infinity();
+
+        vector<float> dist(n + 1, inf);
+        vector<float> parent(n + 1, -1);
+        vector<float> level(n + 1, -1);
+
+        dist[s] = 0;
+        level[s] = 0;
+
+        bool continuar;
+
+        // relaxamento (n - 1) vezes
+        for (int i = 0; i < n - 1; i++) {
+            continuar = false;
+
+            if (graph_type) {
+                for (int v = 0; v <= n; v++) {
+                    if (dist[v] == inf) continue;
+                    
+                    node* current = Linklist[v];
+                    while (current != nullptr) {
+                        int u = current->vertex;
+                        float w = current->weight;
+                        
+                        
+                        if (dist[v] + w < dist[u]) {
+                            dist[u] = dist[v] + w;
+                            parent[u] = v;
+                            level[u] = level[v] + 1;
+                            continuar = true;
+                        }
+                        current = current->next;
+                    }
+                }
+            }
+
+            if (!continuar) {break;}
+
+        }
+        // Detecção de ciclo negativo (também com n+1)
+        bool ciclo_negativo = false;
+        if (graph_type) {
+            for (int v = 0; v <= n; v++) {
+                if (dist[v] == inf) continue;
+                node* current = Linklist[v];
+                while (current != nullptr) {
+                    int u = current->vertex;
+                    float w = current->weight;
+                    if (dist[v] + w < dist[u]) {
+                        ciclo_negativo = true;
+                        break;
+                    }
+                    current = current->next;
+                }
+                if (ciclo_negativo) break;
+            }
+        }
+
+        vector<float> ciclo_vec = {ciclo_negativo ? 1.0f : 0.0f};
+
+        auto end_time = chrono::high_resolution_clock::now(); //getting ending time
+        chrono::duration<double,std::milli> duration = end_time - start_time;
+        dt = duration.count(); //em ms
+
+        createFile_dij("Belman", {dist, parent, level}, dt);
+        
+        return dt;
+    }
+
 };
 
 //-------------------------------------------------------------------------------------------------------------------------
@@ -1139,7 +1275,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("data.txt");
+    ifstream infile("../../../trabalho3/grafo_W_2.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1162,6 +1298,9 @@ int main() {
     //stopping point
     int last1, last2;
 
+    //veriying if there is negative weight
+    bool negative = false;
+
     //getting all the edges of the graph
     while (getline(infile, line)){
 
@@ -1171,7 +1310,7 @@ int main() {
         float w = 0;
         if (ss >> w) {
             weightened = 1;
-            if (w < 0) {cout << error_str; throw;}
+            if (w < 0) {negative = true;}
         }
 
         if (a == last1 && b == last2){break;}
@@ -1191,7 +1330,61 @@ int main() {
 
     int directed = true;
     
-    graph testL(edges, n, m, directed, 0, 1);
+    graph Mygraph(edges, n, m, directed, 1, 1);
+
+    
+    vector<vector<float>> result = Mygraph.BellmanFord(100);
+    int tempo = Mygraph.BellmanFord_time(100);
+    // Verificar ciclo negativo e nao retornar as distancias erradas
+    if (result[3][0] == 1.0f) {
+        cout << "O grafo possui ciclo negativo!\n";
+        cout << tempo;
+        return 0;
+    }
+
+    vector<float> dist = result[0];
+    vector<float> parent = result[1];
+    vector<float> level = result[2];
+    
+
+    /*QUESTAO 1*/
+    cout << "Distancia do 10 pro 100: " << dist[10] << '\n';
+    cout << "Distancia do 20 pro 100: " << dist[20] << '\n';
+    cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
+
+    /*QUESTÃO 2*/
+    /*
+    int soma = 0;
+    for (int i=0; i<10; i++){
+        int time = g.BellmanFord_time(start_vertex);
+        soma += time;
+        cout << time << ", ";
+    }
+    soma /= 10;
+    cout << "\nTempo medio: " << soma << "\n";
+    */
+
+    /*QUESTÃO 3*/
+    /*
+    if (negative) {cout << "Esse grafo possui pesos negativos.\n";}
+    else {
+        vector<vector<float>> edges_2;
+        for (auto i : edges) {edges_2.push_back({i[1], i[0], i[2]});}
+        graph g_2(edges_2, n, m, directed, 1, 1);
+
+        vector<vector<float>> dist10 = g_2.heap_dijkstra(10);
+        float time10 = g_2.heap_dijkstra_time(10);
+        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+        
+        dist10 = g_2.heap_dijkstra(20);
+        time10 = g_2.heap_dijkstra_time(20);
+        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+        
+        dist10 = g_2.heap_dijkstra(30);
+        time10 = g_2.heap_dijkstra_time(30);
+        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+    }
+    */
 
     return 0;
 }
