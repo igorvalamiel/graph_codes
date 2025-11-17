@@ -48,3 +48,6 @@
     Distancia de 10 para 100: 10.09 Tempo de execucao: 14329.8
     Distancia de 10 para 100: 9.36  Tempo de execucao: 14373.4
 === Grafo 5 ===
+    Distancia de 10 para 100: 41.5  Tempo de execucao: 78856.9
+    Distancia de 10 para 100: 33.06 Tempo de execucao: 79044.8
+    Distancia de 10 para 100: 46.01 Tempo de execucao: 79385.6
