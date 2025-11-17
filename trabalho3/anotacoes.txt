@@ -1,2 +1,31 @@
-C:\Users\igorv\OneDrive\Área de Trabalho\Universidade\grafos\graph_codes\graph_codes\trabalho3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Grafo 1 ===
 
+=== Grafo 2 ===
+    Distancia do 10 pro 100: 4.65 
+    Distancia do 20 pro 100: 10.93
+    Distancia do 30 pro 100: 6.49 
+=== Grafo 3 ===
+    Distancia do 10 pro 100: 4.14
+    Distancia do 20 pro 100: 4.31
+    Distancia do 30 pro 100: 6.52
+=== Grafo 4 ===
+    Distancia do 10 pro 100: 7.21
+    Distancia do 20 pro 100: 10.09
+    Distancia do 30 pro 100: 9.36
+=== Grafo 5 ===
+    Distancia do 10 pro 100: 41.5
+    Distancia do 20 pro 100: 33.06
+    Distancia do 30 pro 100: 46.01
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Grafo 1 ===
+=== Grafo 2 ===
+=== Grafo 3 ===
+=== Grafo 4 ===
+=== Grafo 5 ===
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Grafo 1 ===
+=== Grafo 2 ===
+=== Grafo 3 ===
+=== Grafo 4 ===
+=== Grafo 5 ===

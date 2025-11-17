@@ -1274,7 +1274,7 @@ vector <string> get_names(vector <float> v){
 
 int main() {
     // Abrindo o arquivo
-    ifstream infile("C:/Users/Julia/Desktop/teste_grafo.txt");
+    ifstream infile("../../../trabalho3/grafo_W_5.txt");
     if (!infile.is_open()) {
         cerr << "Erro ao abrir o arquivo!\n";
         return 1;
@@ -1311,7 +1311,7 @@ int main() {
         }
     }
 
-    int start_vertex = 4;
+    int start_vertex = 100;
 
     vector<vector<float>> result = g.BellmanFord(start_vertex);
     int tempo = g.BellmanFord_time(start_vertex);
@@ -1328,6 +1328,7 @@ int main() {
 
     // só é acionado quando não tem ciclo negativo
 
+    /*
     cout << "Distancias:\n";
     for (int i = 0; i < n; i++) {
         cout << "Vertice " << i << ": ";
@@ -1349,6 +1350,12 @@ int main() {
     }
     
     cout << "Tempo" << tempo << "ms";
+    */
+
+    /*QUESTAO 1*/
+    cout << "Distancia do 10 pro 100: " << dist[10] << '\n';
+    cout << "Distancia do 20 pro 100: " << dist[20] << '\n';
+    cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
 
     return 0;
 }
