@@ -1253,7 +1253,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho3/grafo_W_2.txt");
+    ifstream infile("../../../trabalho3/grafo_W_5.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1308,8 +1308,8 @@ int main() {
 
     int directed = true;
     
+    /*
     graph Mygraph(edges, n, m, directed, 1, 1);
-
     
     vector<vector<float>> result = Mygraph.BellmanFord(100);
     //int tempo = Mygraph.BellmanFord_time(100);
@@ -1323,7 +1323,7 @@ int main() {
     vector<float> dist = result[0];
     vector<float> parent = result[1];
     vector<float> level = result[2];
-    
+    */
 
     /*QUESTAO 1*/
     //cout << "Distancia do 10 pro 100: " << dist[10] << '\n';
@@ -1332,6 +1332,7 @@ int main() {
 
     /*QUESTÃO 2*/
     
+    /*
     int soma = 0;
     for (int i=0; i<10; i++){
         int time = Mygraph.BellmanFord_time(100);
@@ -1340,7 +1341,7 @@ int main() {
     }
     soma /= 10;
     cout << "\nTempo medio: " << soma << "\n";
-    
+    */
 
     /*QUESTÃO 3*/
     
@@ -1348,6 +1349,8 @@ int main() {
     else {
         vector<vector<float>> edges_2;
         for (auto i : edges) {edges_2.push_back({i[1], i[0], i[2]});}
+        sort(edges_2.begin(), edges_2.end());      
+
         graph g_2(edges_2, n, m, directed, 1, 1);
 
         vector<vector<float>> dist10 = g_2.heap_dijkstra(10);

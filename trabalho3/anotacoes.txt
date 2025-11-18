@@ -36,18 +36,18 @@
 === Grafo 1 ===
     O grafo possui ciclo negativo!
 === Grafo 2 ===
-    Distancia de 10 para 100: 4.65  Tempo de execucao: 151.726
-    Distancia de 20 para 100: 10.93 Tempo de execucao: 150.796
-    Distancia de 30 para 100: 6.49  Tempo de execucao: 154.019
+    Distancia de 10 para 100: 4.65  Tempo de execucao: 70.3968
+    Distancia de 10 para 100: 10.93 Tempo de execucao: 75.1385
+    Distancia de 10 para 100: 6.49  Tempo de execucao: 68.6494      
 === Grafo 3 ===
-    Distancia de 10 para 100: 4.14  Tempo de execucao: 1280.54
-    Distancia de 20 para 100: 4.31  Tempo de execucao: 1257
-    Distancia de 30 para 100: 6.52  Tempo de execucao: 1279.34
+    Distancia de 10 para 100: 4.14  Tempo de execucao: 480.007
+    Distancia de 10 para 100: 4.31  Tempo de execucao: 421.18
+    Distancia de 10 para 100: 6.52  Tempo de execucao: 454.147
 === Grafo 4 ===
-    Distancia de 10 para 100: 7.21  Tempo de execucao: 14575.3
-    Distancia de 20 para 100: 10.09 Tempo de execucao: 14329.8
-    Distancia de 30 para 100: 9.36  Tempo de execucao: 14373.4
+    Distancia de 10 para 100: 7.21  Tempo de execucao: 7471
+    Distancia de 10 para 100: 10.09 Tempo de execucao: 7065.99
+    Distancia de 10 para 100: 9.36  Tempo de execucao: 7007.58
 === Grafo 5 ===
-    Distancia de 10 para 100: 41.5  Tempo de execucao: 78856.9
-    Distancia de 20 para 100: 33.06 Tempo de execucao: 79044.8
-    Distancia de 30 para 100: 46.01 Tempo de execucao: 79385.6
+    Distancia de 10 para 100: 41.5  Tempo de execucao: 78628.7
+    Distancia de 10 para 100: 33.06 Tempo de execucao: 78365.2
+    Distancia de 10 para 100: 46.01 Tempo de execucao: 81297.7
