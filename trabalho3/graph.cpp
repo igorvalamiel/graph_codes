@@ -1253,7 +1253,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho3/grafo_W_4.txt");
+    ifstream infile("../../../trabalho3/grafo_W_5.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
