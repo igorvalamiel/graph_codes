@@ -1331,7 +1331,7 @@ int main() {
     //cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
 
     /*QUESTÃO 2*/
-    /*
+    
     int soma = 0;
     for (int i=0; i<10; i++){
         int time = Mygraph.BellmanFord_time(100);
@@ -1340,7 +1340,7 @@ int main() {
     }
     soma /= 10;
     cout << "\nTempo medio: " << soma << "\n";
-    */
+    
 
     /*QUESTÃO 3*/
     
