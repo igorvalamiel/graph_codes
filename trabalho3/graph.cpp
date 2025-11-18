@@ -1253,7 +1253,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho3/grafo_W_5.txt");
+    ifstream infile("../../../trabalho3/grafo_W_2.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1331,6 +1331,7 @@ int main() {
     //cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
 
     /*QUESTÃO 2*/
+    /*
     int soma = 0;
     for (int i=0; i<10; i++){
         int time = Mygraph.BellmanFord_time(100);
@@ -1339,9 +1340,10 @@ int main() {
     }
     soma /= 10;
     cout << "\nTempo medio: " << soma << "\n";
+    */
 
     /*QUESTÃO 3*/
-    /*
+    
     if (negative) {cout << "Esse grafo possui pesos negativos.\n";}
     else {
         vector<vector<float>> edges_2;
@@ -1360,7 +1362,7 @@ int main() {
         time10 = g_2.heap_dijkstra_time(30);
         cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
     }
-    */
+    
 
     return 0;
 }
