@@ -1253,7 +1253,7 @@ vector <string> get_names(vector <float> v){
 int main() {
 
     //opening the data file
-    ifstream infile("../../../trabalho3/grafo_W_5.txt");
+    ifstream infile("../../../trabalho3/grafo_W_1.txt");
 
     //getting the number of lines
     int nlines; infile >> nlines;
@@ -1307,11 +1307,9 @@ int main() {
     infile.close();
 
     int directed = true;
-    
 
 
     //graph Mygraph(edges, n, m, directed, 1, 1);
-
 
 
     /*
@@ -1348,7 +1346,7 @@ int main() {
     */
 
     /*QUESTÃO 3*/
-    /*
+    
     if (negative) {cout << "Esse grafo possui pesos negativos.\n";}
     else {
         vector<vector<float>> edges_2;
@@ -1357,27 +1355,32 @@ int main() {
 
         graph g_2(edges_2, n, m, directed, 1, 1);
 
-        vector<vector<float>> dist10 = g_2.heap_dijkstra(10);
-        float time10 = g_2.heap_dijkstra_time(10);
+        vector<vector<float>> dist10;
+        float time10;
+        
+        dist10 = g_2.heap_dijkstra(10);
+        time10 = g_2.heap_dijkstra_time(10);
         cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
         
         dist10 = g_2.heap_dijkstra(20);
         time10 = g_2.heap_dijkstra_time(20);
-        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+        cout << "\nDistancia de 20 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
         
         dist10 = g_2.heap_dijkstra(30);
         time10 = g_2.heap_dijkstra_time(30);
-        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+        cout << "\nDistancia de 30 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
     }
-    */
+
 
     /*EXTRA*/
+    /*
     cout << "n: " << n << '\n';
     cout << "m: " << m << '\n';
     double Odij = max(m,n) * log2(n);
     cout << "Dijkstra ~> O[(m+n)*log(n)] = " << Odij << '\n';
     long int Obelfor = n * m;
     cout << "Bellman-Ford ~> O[m*n] = " << Obelfor << '\n';
+    */
 
     return 0;
 }
