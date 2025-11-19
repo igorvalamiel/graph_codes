@@ -388,8 +388,8 @@ struct graph {
                                 break;
                             };
                         }
-                        if (dist[v] + w < dist[u]) {
-                            dist[u] = dist[v] + w;
+                        if (dist[u] + w < dist[v]) {
+                            dist[v] = dist[u] + w;
                             parent[u] = v;
                             level[u] = level[v] + 1;
                             continuar = true;
@@ -1309,31 +1309,39 @@ int main() {
     int directed = true;
 
 
-    //graph Mygraph(edges, n, m, directed, 1, 1);
 
-
-    /*
-    vector<vector<float>> result = Mygraph.BellmanFord(100);
+    graph Mygraph(edges, n, m, directed, 1, 1);
+    
+    
+    //vector<vector<float>> result = Mygraph.BellmanFord(100);
     //int tempo = Mygraph.BellmanFord_time(100);
     // Verificar ciclo negativo e nao retornar as distancias erradas
-    if (result[3][0] == 1.0f) {
+    
+
+    /*QUESTAO 1*/
+    
+    vector<vector<float>> res = Mygraph.BellmanFord(100);
+    cout << res[0][10] << " " << res[0][20] << " " << res[0][30] << "\n\n"; 
+    
+
+    if (res[3][0] == 1.0f) {
         cout << "O grafo possui ciclo negativo!\n";
         //cout << tempo;
         return 0;
     }
-
-    vector<float> dist = result[0];
-    vector<float> parent = result[1];
-    vector<float> level = result[2];
+    /*
+    vector<vector<float>> res10 = Mygraph.BellmanFord(10);
+    int time10 = Mygraph.BellmanFord_time(10);
+    cout << "Distancia do 10 pro 100: " << res10[0][100] << "\tTempo de execucao: " << time10 << '\n';
+    vector<vector<float>> res20 = Mygraph.BellmanFord(20);
+    int time20 = Mygraph.BellmanFord_time(20);
+    cout << "Distancia do 20 pro 100: " << res20[0][100] << "\tTempo de execucao: " << time20 << '\n';
+    vector<vector<float>> res30 = Mygraph.BellmanFord(30);
+    int time30 = Mygraph.BellmanFord_time(30);
+    cout << "Distancia do 30 pro 100: " << res30[0][100] << "\tTempo de execucao: " << time30 << '\n';
     */
 
-    /*QUESTAO 1*/
-    //cout << "Distancia do 10 pro 100: " << dist[10] << '\n';
-    //cout << "Distancia do 20 pro 100: " << dist[20] << '\n';
-    //cout << "Distancia do 30 pro 100: " << dist[30] << '\n';
-
     /*QUESTÃO 2*/
-    
     /*
     int soma = 0;
     for (int i=0; i<10; i++){
@@ -1346,7 +1354,6 @@ int main() {
     */
 
     /*QUESTÃO 3*/
-    
     if (negative) {cout << "Esse grafo possui pesos negativos.\n";}
     else {
         vector<vector<float>> edges_2;
@@ -1358,17 +1365,11 @@ int main() {
         vector<vector<float>> dist10;
         float time10;
         
-        dist10 = g_2.heap_dijkstra(10);
-        time10 = g_2.heap_dijkstra_time(10);
-        cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
-        
-        dist10 = g_2.heap_dijkstra(20);
-        time10 = g_2.heap_dijkstra_time(20);
-        cout << "\nDistancia de 20 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
-        
-        dist10 = g_2.heap_dijkstra(30);
-        time10 = g_2.heap_dijkstra_time(30);
-        cout << "\nDistancia de 30 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
+        dist10 = g_2.heap_dijkstra(100);
+        time10 = g_2.heap_dijkstra_time(100);
+        cout << "\nDistancia de 10 para 100: " << dist10[0][10] << "\tTempo de execucao: " << time10;
+        cout << "\nDistancia de 20 para 100: " << dist10[0][20] << "\tTempo de execucao: " << time10;
+        cout << "\nDistancia de 30 para 100: " << dist10[0][30] << "\tTempo de execucao: " << time10;
     }
 
 
