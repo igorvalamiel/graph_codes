@@ -51,3 +51,26 @@
     Distancia de 10 para 100: 41.5  Tempo de execucao: 78628.7
     Distancia de 10 para 100: 33.06 Tempo de execucao: 78365.2
     Distancia de 10 para 100: 46.01 Tempo de execucao: 81297.7
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Grafo 1 ===
+    O grafo possui ciclo negativo!
+=== Grafo 2 ===
+    n: 25000
+    m: 824965
+    Dijkstra ~> O[(m+n)*log(n)] = 1.20524e+07 => (12052442.05399)
+    Bellman-Ford ~> O[m*n] = 20624125000
+=== Grafo 3 ===
+    n: 100000
+    m: 6099942
+    Dijkstra ~> O[(m+n)*log(n)] = 1.01318e+08 => (101317843.53491)
+    Bellman-Ford ~> O[m*n] = 609994200000
+=== Grafo 4 ===
+    n: 1000000
+    m: 30999979
+    Dijkstra ~> O[(m+n)*log(n)] = 6.17878e+08 => (617878207.08610)
+    Bellman-Ford ~> O[m*n] = 30999979 * 10^6
+=== Grafo 5 ===
+    n: 10000000
+    m: 39999996
+    Dijkstra ~> O[(m+n)*log(n)] = 9.3014e+08 => (930139773.55447)
+    Bellman-Ford ~> O[m*n] = 39999996 * 10^7

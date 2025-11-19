@@ -1308,9 +1308,13 @@ int main() {
 
     int directed = true;
     
+
+
+    //graph Mygraph(edges, n, m, directed, 1, 1);
+
+
+
     /*
-    graph Mygraph(edges, n, m, directed, 1, 1);
-    
     vector<vector<float>> result = Mygraph.BellmanFord(100);
     //int tempo = Mygraph.BellmanFord_time(100);
     // Verificar ciclo negativo e nao retornar as distancias erradas
@@ -1344,7 +1348,7 @@ int main() {
     */
 
     /*QUESTÃO 3*/
-    
+    /*
     if (negative) {cout << "Esse grafo possui pesos negativos.\n";}
     else {
         vector<vector<float>> edges_2;
@@ -1365,7 +1369,15 @@ int main() {
         time10 = g_2.heap_dijkstra_time(30);
         cout << "\nDistancia de 10 para 100: " << dist10[0][100] << "\tTempo de execucao: " << time10;
     }
-    
+    */
+
+    /*EXTRA*/
+    cout << "n: " << n << '\n';
+    cout << "m: " << m << '\n';
+    double Odij = max(m,n) * log2(n);
+    cout << "Dijkstra ~> O[(m+n)*log(n)] = " << Odij << '\n';
+    long int Obelfor = n * m;
+    cout << "Bellman-Ford ~> O[m*n] = " << Obelfor << '\n';
 
     return 0;
 }
