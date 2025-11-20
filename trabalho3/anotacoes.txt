@@ -2,36 +2,36 @@
 === Grafo 1 ===
     O grafo possui ciclo negativo!
 === Grafo 2 ===
-    Distancia do 10 pro 100: 10.47  Tempo de execucao: 56
-    Distancia do 20 pro 100: 8.48   Tempo de execucao: 52
-    Distancia do 30 pro 100: 8.71   Tempo de execucao: 52
+    Distancia do 10 pro 100: 10.47  Tempo de execucao: 117.375
+    Distancia do 20 pro 100: 8.48   Tempo de execucao: 117.375
+    Distancia do 30 pro 100: 8.71   Tempo de execucao: 117.375
 === Grafo 3 ===
-    Distancia do 10 pro 100: 4.63   Tempo de execucao: 470
-    Distancia do 20 pro 100: 5.42   Tempo de execucao: 457
-    Distancia do 30 pro 100: 4.67   Tempo de execucao: 467
+    Distancia do 10 pro 100: 4.63   Tempo de execucao: 1298.31
+    Distancia do 20 pro 100: 5.42   Tempo de execucao: 1298.31
+    Distancia do 30 pro 100: 4.67   Tempo de execucao: 1298.31
 === Grafo 4 ===
-    Distancia do 10 pro 100: 9.04   Tempo de execucao: 4005
-    Distancia do 20 pro 100: 8.83   Tempo de execucao: 3742
-    Distancia do 30 pro 100: 9.23   Tempo de execucao: 3826
+    Distancia do 10 pro 100: 9.04   Tempo de execucao: 13009.6
+    Distancia do 20 pro 100: 8.83   Tempo de execucao: 13009.6
+    Distancia do 30 pro 100: 9.23   Tempo de execucao: 13009.6
 === Grafo 5 ===
-    Distancia do 10 pro 100: 37.85  Tempo de execucao: 30235
-    Distancia do 20 pro 100: 42.63  Tempo de execucao: 51638
-    Distancia do 30 pro 100: 37.86  Tempo de execucao: 48937
+    Distancia do 10 pro 100: 37.85  Tempo de execucao: 82118.8
+    Distancia do 20 pro 100: 42.63  Tempo de execucao: 82118.8
+    Distancia do 30 pro 100: 37.86  Tempo de execucao: 82118.8
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 === Grafo 1 ===
     O grafo possui ciclo negativo!
 === Grafo 2 ===
-    64, 75, 67, 71, 68, 79, 81, 78, 71, 67, 
-    Tempo medio: 72
+    126, 118, 125, 122, 129, 129, 128, 135, 136, 121, 
+    Tempo medio: 126
 === Grafo 3 ===
-    508, 474, 525, 481, 515, 498, 517, 526, 515, 547, 
-    Tempo medio: 510
+    1335, 1324, 1359, 1342, 1331, 1331, 1354, 1501, 1376, 1341, 
+    Tempo medio: 1359
 === Grafo 4 ===
-    4283, 4250, 4108, 4228, 4132, 4609, 4162, 4265, 4135, 4401, 
-    Tempo medio: 4257
+    11704, 11879, 11876, 11715, 11952, 11753, 11750, 11730, 11767, 11814,
+    Tempo medio: 11794
 === Grafo 5 ===
-    24115, 24528, 26265, 24152, 24139, 24689, 24199, 24127, 24245, 24236, 
-    Tempo medio: 24469
+    92204, 88284, 99361, 102086, 126984, 84840, 74451, 76191, 92203, 95779, 
+    Tempo medio: 93238
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ QUESTÃO 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 === Grafo 1 ===
     O grafo possui ciclo negativo!
